@@ -1,0 +1,30 @@
+$break_xl: 1355px;
+$break_lg: 1279px;
+$break_md: 1023px;
+$break_sm: 767px;
+$break_xs: 413px;
+$break_xxs: 374px;
+
+.mdHide {
+  @include md {
+    display: none !important;
+  }
+}
+
+.mdShow {
+  @include mdm {
+    display: none !important;
+  }
+}
+
+.smHide {
+  @include sm {
+    display: none !important;
+  }
+}
+
+.smShow {
+  @include smm {
+    display: none !important;
+  }
+}

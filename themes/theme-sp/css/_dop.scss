@@ -1,0 +1,108 @@
+@import "config/config";
+.text-nomore{
+  font-weight: 500;
+}
+[data-main]{
+  position: relative;
+  &._loading {
+    * {
+      pointer-events: none !important;
+    }
+    &:before {
+      visibility: visible;
+      opacity: 1;
+    }
+    &:after {
+      visibility: visible;
+      opacity: 1;
+      background: url("../img/loading.gif")no-repeat center center;
+    }
+  }
+  &:before {
+    transition: all 0.4s ease-in-out;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(#f7f7fa, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 2;
+  }
+  &:after {
+    transition: all 0.4s ease-in-out;
+    content: "";
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -30px;
+    width: 60px;
+    height: 64px;
+    background-size: cover;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 9999;
+  }
+}
+
+.pc-map{
+  height: 475px;
+  background: url("../img/photos/map.png")no-repeat center center;
+  background-size: cover;
+  position: relative;
+  //overflow: hidden;
+  &__bl{
+    height: 100%;
+    width: 100%;
+  }
+}
+
+#markerLayer{
+  > div{
+    overflow: visible !important;
+  }
+  img {
+    @include tr;
+    cursor: pointer;
+    &.active {
+      //transform: scale(1.5);
+    }
+  }
+}
+
+.map-info{
+  @include tr;
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 10px;
+  transform: scale(0) translate(-50%, -100%);
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: top center;
+  z-index: 9;
+  width: 245px;
+  min-height: 118px;
+  background: #FFFFFF;
+  box-shadow: 0 99px 100px rgba(0, 0, 0, 0.23);
+  padding: 16px;
+  &:before{
+    @include tr;
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    @include tX;
+    bottom: -6px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 6px solid #fff;
+  }
+  &.active{
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translate(-50%, -100%);
+  }
+}

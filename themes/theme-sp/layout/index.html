@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preload" href="./fonts/Gilroy-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/Gilroy-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="icon" href="./img/favicon/16x16.png" type="image/x-icon" sizes="16x16">
+    <link rel="icon" href="./img/favicon/32x32.png" type="image/x-icon" sizes="32x32">
+    <link rel="icon" href="./img/favicon/512x512.png" type="image/x-icon" sizes="512x512">
+
+    <!-- preloader -->
+    <style>
+        .bg-color-fade {
+            background-color: rgba(247, 243, 231, 0);
+            opacity: 0;
+            pointer-events: none;
+            
+            position: absolute;
+            z-index: 1;
+        }
+        .body-hidden {
+            overflow: hidden;     
+        }
+        .preloader {
+            background-color: #000000;
+
+            width: 100%;
+            height: 100vh;
+            z-index: 100;
+
+            position: fixed;
+            top: 0; 
+            left: 0;
+            overflow: hidden;
+
+            /* opacity: 1; */
+            transition: opacity 1s ease, background-color 1s ease;
+        }
+        .preloader__wrapper {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+        }
+        .preloader__icon-box {
+            width: 320px;
+            height: 96px;
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .preloader__icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* transform: translate(-50%, -50%); */
+
+            opacity: 0;
+        }
+        .preloader__icon svg {
+            display: block;
+        }
+        .preloader__logo {
+            width: 100px;
+            height: 96px;
+            margin-right: 24px;
+
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            animation: preloaderMoveLogo 0.5s cubic-bezier(0.05, 0.85, 0.5, 1) 1.75s forwards;
+        }
+        .preloader__f {
+            width: 42px;
+            height: 53px;
+            margin-right: -16px;
+            
+            /* transform: translate(calc(-50% - (160px - 21px - (100px + 24px))), -50%); */
+            transform: translate(calc(-50% - 15px), -50%);
+            animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+        }
+        .preloader__a {
+            width: 61px;
+            height: 53px;
+            
+            /* transform: translate(calc(-50% - (160px - (30.5px - 16px) - (100px + 24px + 42px))), -50%); */
+            transform: translate(calc(-50% + 20.5px), -50%);
+            animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+        }
+        .preloader__d {
+            width: 52px;
+            height: 53px;
+            
+            /* transform: translate(calc(-50% - (160px - 26px - (100px + 24px + 42px + (61px - 16px)))), -50%); */
+            transform: translate(calc(-50% + 77px), -50%);
+            animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+        }
+        .preloader__o {
+            width: 57px;
+            height: 53px;
+            
+            /* transform: translate(calc(-50% - (160px - 28.5px - (100px + 24px + 42px + (61px - 16px) + 52px))), -50%); */
+            transform: translate(calc(-50% + 131.5px), -50%);
+            animation: preloaderFillO 0.7s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+        }
+        @media screen and (max-width: 1023.5px) {
+            .preloader__logo {
+                animation: preloaderMoveLogo 0.75s cubic-bezier(0.05, 0.85, 0.5, 1) 3s forwards;
+            }
+            .preloader__f {
+                animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+            }
+            .preloader__a {
+                animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+            }
+            .preloader__d {
+                animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+            }
+            .preloader__o {
+                animation: preloaderFillO 0.75s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+            }
+        }
+        @keyframes preloaderMoveLogo {
+            0% {
+                transform: translate(-50%, -50%);
+            }
+            100% {
+                transform: translate(calc(-50% - (160px - 50px)), -50%);
+            }
+        }
+        @keyframes preloaderFillF {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.5;
+            }
+            40% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes preloaderFillA {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 0;
+            }
+            40% {
+                opacity: 0.5;
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes preloaderFillD {
+            0% {
+                opacity: 0;
+            }
+            40% {
+                opacity: 0;
+            }
+            60% {
+                opacity: 0.5;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes preloaderFillO {
+            0% {
+                opacity: 0;
+            }
+            60% {
+                opacity: 0;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        [data-reveal-after-preloader="txt"] {
+            opacity: 0;
+            transform: translateY(50px) scaleY(1.05);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        [data-reveal-after-preloader="txt"].reveal-active {
+                opacity: 1;
+                transform: translateY(0) scaleY(1);
+        }
+        [data-reveal-after-preloader="elem"] {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        [data-reveal-after-preloader="elem"].reveal-active {
+                opacity: 1;
+        }
+        [data-reveal-after-preloader="img"] {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        [data-reveal-after-preloader="img"].reveal-active {
+                opacity: 1;
+                transform: translateY(0);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPreloader();
+        })
+
+        function loadPreloader() {
+            let preloaderWrapper = document.querySelector('.preloader');
+            let preloaderLastIcon = document.querySelector('.preloader__icon_last');
+
+            document.body.style.paddingRight = getScrollWidth() + 'px';
+            preloaderWrapper.style.paddingRight = getScrollWidth() + 'px';
+
+            preloaderLastIcon.addEventListener("animationend", () => {
+                setTimeout( () => { //
+                    preloaderWrapper.classList.add('bg-color-fade');
+                    document.body.classList.remove('body-hidden');
+                    document.body.style.paddingRight = '0';
+                    preloaderWrapper.style.paddingRight = '0';
+                }, 1000); //
+
+                setTimeout( () => {
+                    return revealOnScroll('[data-reveal-after-preloader]');
+                }, 1200);
+            })
+        }
+        
+        function getScrollWidth() {
+            let _divCreate = document.createElement('div');
+            let scrollWidth = 0;
+
+            _divCreate.style.overflowY = 'scroll';
+            _divCreate.style.width = '50px';
+            _divCreate.style.height = '50px';
+            _divCreate.style.visibility = 'hidden';
+            document.body.appendChild(_divCreate);
+
+            scrollWidth = _divCreate.offsetWidth - _divCreate.clientWidth;
+            document.body.removeChild(_divCreate);
+            return scrollWidth;
+        }
+    </script>
+
+    <title>Main</title>
+</head>
+<body class="body-hidden">
+    <div class="preloader">
+        <div class="preloader__wrapper">
+            <div class="preloader__icon-box">
+                <div class="preloader__icon preloader__logo">
+                    <svg width="100" height="97" viewBox="0 0 100 97" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M64.6112 68.2002H48.821V42.366H60.3414V58.366H65.0141C71.8619 58.366 76.454 54.6977 76.454 48.0636C76.454 41.6636 71.8619 37.7612 65.0141 37.7612H60.8248H60.3414H19.4961V28.0051H48.821H64.8529C79.6765 28.0051 88.2161 36.2782 88.2161 47.9856C88.2161 59.6148 79.5153 68.2002 64.6112 68.2002ZM41.4092 51.1075H31.0166V68.2002H19.4961V42.366H45.2762L41.4092 51.1075ZM85.3964 0.687988H13.7762C6.20333 0.687988 0 6.69774 0 14.0343V83.4197C0 90.8343 6.20333 96.766 13.7762 96.766H85.3964C92.9693 96.766 99.1726 90.7563 99.1726 83.4197V14.0343C99.1726 6.69774 92.9693 0.687988 85.3964 0.687988Z" fill="#e27138"/>
+                    </svg>
+                </div>
+                <div class="preloader__icon preloader__f">
+                    <svg width="42" height="53" viewBox="0 0 42 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.9781 0.683105H0.810547V13.327H36.4192L41.9781 0.683105Z" fill="#e27138"/>
+                        <path d="M34.0024 18.9463H0.810547V52.6634H15.6341V30.8097H28.8463L34.0024 18.9463Z" fill="#e27138"/>
+                    </svg>
+                </div>
+                <div class="preloader__icon preloader__a">
+                    <svg width="61" height="53" viewBox="0 0 61 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M38.134 0.29248H23.7938L0.914062 52.6632H16.5432L30.8028 17.3852L36.7644 32.2144H30.9639L26.533 43.3754H41.1148L44.9818 52.6632H60.9332L38.134 0.29248Z" fill="#e27138"/>
+                    </svg>
+                </div>
+                <div class="preloader__icon preloader__d">
+                    <svg width="52" height="53" viewBox="0 0 52 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.6368 0.683105H0.932155V13.327H20.1866H21.7978C30.6597 13.327 36.6214 18.3221 36.6214 26.5953C36.6214 35.1026 30.7403 39.8636 21.7978 39.8636H15.7557V18.8685H0.851562V52.5855H21.234C40.569 52.5855 51.8478 41.4246 51.8478 26.4392C51.9283 11.3758 40.8107 0.683105 21.6368 0.683105Z" fill="#e27138"/>
+                    </svg>
+                </div>
+                <div class="preloader__icon preloader__icon_last preloader__o">
+                    <svg width="57" height="53" viewBox="0 0 57 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M39.5998 19.0246C41.1304 21.2881 41.9361 23.9417 41.9361 26.7515C41.9361 34.0881 36.6995 40.2539 28.8043 40.2539C20.9898 40.2539 15.5921 33.932 15.5921 26.7515C15.5921 19.4149 20.8287 13.249 28.6433 13.249H52.7315C47.9783 5.6783 39.2775 0.76123 28.8043 0.76123C12.8529 0.76123 0.929688 12.3905 0.929688 26.8295C0.929688 41.3466 12.7724 52.8978 28.7238 52.8978C44.6752 52.8978 56.5984 41.2685 56.5984 26.8295C56.5984 24.0978 56.1956 21.5222 55.39 19.1027H39.5998V19.0246Z" fill="#e27138"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-wrapper">
+        <a id="top" class="top-main"></a>
+
+        <header class="header lock-padding">
+            <div class="sub-header" data-reveal-after-preloader="elem">
+                <div class="sub-header__wrapper block-wrapper">
+                    <div class="sub-header__tel">
+                        <a href="tel:0800303029">0 800 30 30 29</a>
+                    </div>
+                    <div class="sub-header__socials-list">
+                        <ul class="socials-list">
+                            <li class="socials-list__item">
+                                <a href="https://www.instagram.com/fado_ukraine/" target="_blank">
+                                    <img src="./img/svg/icon-social-instagram.svg" inline-svg alt="">
+                                </a>
+                            </li>
+                            <li class="socials-list__item">
+                                <a href="https://facebook.com/fadocompany/" target="_blank">
+                                    <img src="./img/svg/icon-social-facebook.svg" inline-svg alt="">
+                                </a>
+                            </li>
+                            <li class="socials-list__item">
+                                <a href="https://youtube.com/channel/UCI_cG2GD_T8dq4ODLxHVMrg/" target="_blank">
+                                    <img src="./img/svg/icon-social-youtube.svg" inline-svg alt="">
+                                </a>
+                            </li>
+                            <li class="socials-list__item">
+                                <a href="https://www.linkedin.com/company/fadocompany/" target="_blank">
+                                    <img src="./img/svg/icon-social-linkedin.svg" inline-svg alt="">
+                                </a>
+                            </li>
+                            <li class="socials-list__item">
+                                <a href="https://t.me/TMFADO/" target="_blank">
+                                    <img src="./img/svg/icon-social-telegram.svg" inline-svg alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sub-header__lang">
+                        <div class="lang-select">
+                            <div class="lang-select__select-box">
+                                <div class="lang-select__options-container">
+                                    <div class="lang-select__options-wrapper">
+
+                                        <a class="lang-select__option" href="#">
+                                            <div class="lang-select__item">
+                                                <span class="lang-select__item-name">UK</span>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="lang-select__option" href="#">
+                                            <div class="lang-select__item">
+                                                <span class="lang-select__item-name">EN</span>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="lang-select__option" href="#">
+                                            <div class="lang-select__item">
+                                                <span class="lang-select__item-name">IT</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="lang-select__selected">
+                                    <div class="lang-select__item">
+                                        <span class="lang-select__item-name">RU</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar" data-reveal-after-preloader="elem">
+                <div class="navbar__wrapper block-wrapper">
+                    <div class="navbar__logo">
+                        <a href="./index.html">
+                            <img src="./img/svg/logo.svg" alt="">
+                        </a>
+                    </div>
+                    <ul class="navbar__navlist">
+                        <li class="navbar__navitem" data-flyout-button="catalog">Каталог</li>
+                        <li class="navbar__navitem" data-flyout-button="support">Техподдержка</li>
+                        <li class="navbar__navitem" data-flyout-button="partners">Партнерам</li>
+                        <li class="navbar__navitem" data-flyout-button="clients">Клиентам</li>
+                    </ul>
+                    <div class="navbar__button">
+                        <a href="./partner-installers.html" class="button button--header">
+                            <span class="button__name">Инсталляторам</span>
+                        </a>
+                    </div>
+                    <div class="navbar__burger">
+                        <svg class="burger" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="12" width="31" height="2" fill="#202020"/>
+                            <rect x="13" y="19" width="23" height="2" fill="#787878"/>
+                            <rect x="5" y="26" width="31" height="2" fill="#787878"/>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+            <div class="flyout-box">
+                <div class="flyout-box__item flyout" data-flyout-target="catalog">
+                    <div class="flyout__wrapper block-wrapper">
+                        <ul class="flyout__list">
+                            <li class="flyout__list-item">
+                                <a href="./catalog.html">Все категории</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./category.html">Запорная арматура</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./category.html">Трубные системы</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./category.html">Шланги</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./category.html">Система “теплый пол”</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./category.html">Инструменты и уплотнительные материалы</a>
+                            </li>
+                        </ul>
+                        <div class="flyout__button">
+                            <a href="./files/_Fado_.pdf" class="button" download>
+                                <span class="button__name">Скачать каталог</span>
+                                <span class="button__icon">
+                                    <img src="./img/svg/icon-button-download.svg" inline-svg alt="">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flyout-box__item flyout" data-flyout-target="support">
+                    <div class="flyout__wrapper block-wrapper">
+                        <ul class="flyout__list">
+                            <li class="flyout__list-item">
+                                <a href="./tech-catalog-prices.html">Каталоги, прайсы</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-product-passports.html">Паспорта продукции</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-literature.html">Техническая литература</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-solutions.html">Готовые решения</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-figures.html">Чертежи, схемы</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-certificates.html">Сертификаты</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-video-instructions.html">Видеоинструкции</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./tech-training.html">Обучение</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flyout-box__item flyout" data-flyout-target="partners">
+                    <div class="flyout__wrapper block-wrapper">
+                        <ul class="flyout__list">
+                            <li class="flyout__list-item">
+                                <a href="./partnership.html">Сотрудничество</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./partner-dealers.html">Диллерам</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./partner-installers.html">Инсталляторам</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./partner-designers.html">Проектантам</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./marketing.html">Маркетинговая поддержка</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flyout-box__item flyout" data-flyout-target="clients">
+                    <div class="flyout__wrapper block-wrapper">
+                        <ul class="flyout__list">
+                            <li class="flyout__list-item">
+                                <a href="./map.html">Где купить</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./clients-guarantee.html">Гарантия</a>
+                            </li>
+                            <li class="flyout__list-item">
+                                <a href="./clients-faq.html">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="menu__wrapper block-wrapper">
+                    <div class="menu__search">
+                        <form action="#" class="b-search">
+                            <input class="b-search__input" type="search" placeholder="Поиск по сайту...">
+                            <button class="b-search__button" type="submit">
+                                <img src="./img/svg/icon-search.svg" inline-svg alt="">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="menu__list-container">
+                        <div class="menu__block">
+                            <h3 class="menu__title">Каталог</h3>
+                            <ul class="menu__list">
+                                <li class="menu__list-item">
+                                    <a href="./catalog.html">Все категории</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./category.html">Запорная арматура</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./category.html">Трубные системы</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./category.html">Шланги</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./category.html">Система “теплый пол”</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./category.html">Инструменты и уплотнительные материалы</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu__block">
+                            <h3 class="menu__title">Техподдержка</h3>
+                            <ul class="menu__list">
+                                <li class="menu__list-item">
+                                    <a href="./tech-catalog-prices.html">Каталоги, прайсы</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-product-passports.html">Паспорта продукции</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-literature.html">Техническая литература</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-solutions.html">Готовые решения</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-figures.html">Чертежи, схемы</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-certificates.html">Сертификаты</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-video-instructions.html">Видеоинструкции</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./tech-training.html">Обучение</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu__block">
+                            <h3 class="menu__title">Клиентам</h3>
+                            <ul class="menu__list">
+                                <li class="menu__list-item">
+                                    <a href="./map.html">Где купить</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./clients-guarantee.html">Гарантия</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./clients-faq.html">FAQ</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu__block">
+                            <h3 class="menu__title">Партнерам</h3>
+                            <ul class="menu__list">
+                                <li class="menu__list-item">
+                                    <a href="./partnership.html">Сотрудничество</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./partner-dealers.html">Диллерам</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./partner-installers.html">Инсталляторам</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./partner-designers.html">Проектантам</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./marketing.html">Маркетинговая поддержка</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu__block">
+                            <h3 class="menu__title">О компании</h3>
+                            <ul class="menu__list">
+                                <li class="menu__list-item">
+                                    <a href="./about.html">Бренд FADO</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./about-blog.html">Новости</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./about-portfolio.html">Проекты</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./about-career.html">Карьера</a>
+                                </li>
+                                <li class="menu__list-item">
+                                    <a href="./about-contact.html">Контакты</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu__block">
+                            <h3 class="menu__title">Контакты</h3>
+                            <div class="menu__contact">
+                                <a href="tel:0800303029">0 800 30 30 29</a>
+                                <div class="menu__contact-info">Мы на связи 24/7</div>
+                            </div>
+                            <div class="menu__contact">
+                                <a href="mailto:welcome@fado.ua">welcome@fado.ua</a>
+                            </div>
+                            <div class="menu__socials-list">
+                                <ul class="socials-list">
+                                    <li class="socials-list__item">
+                                        <a href="https://www.instagram.com/fado_ukraine/" target="_blank">
+                                            <img src="./img/svg/icon-social-instagram.svg" inline-svg alt="">
+                                        </a>
+                                    </li>
+                                    <li class="socials-list__item">
+                                        <a href="https://facebook.com/fadocompany/" target="_blank">
+                                            <img src="./img/svg/icon-social-facebook.svg" inline-svg alt="">
+                                        </a>
+                                    </li>
+                                    <li class="socials-list__item">
+                                        <a href="https://youtube.com/channel/UCI_cG2GD_T8dq4ODLxHVMrg/" target="_blank">
+                                            <img src="./img/svg/icon-social-youtube.svg" inline-svg alt="">
+                                        </a>
+                                    </li>
+                                    <li class="socials-list__item">
+                                        <a href="https://www.linkedin.com/company/fadocompany/" target="_blank">
+                                            <img src="./img/svg/icon-social-linkedin.svg" inline-svg alt="">
+                                        </a>
+                                    </li>
+                                    <li class="socials-list__item">
+                                        <a href="https://t.me/TMFADO/" target="_blank">
+                                            <img src="./img/svg/icon-social-telegram.svg" inline-svg alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu__dropdown-container">
+                        <div class="menu__lang">
+                            <div class="lang-select">
+                                <div class="lang-select__select-box">
+                                    <div class="lang-select__options-container">
+                                        <div class="lang-select__options-wrapper">
+
+                                            <a class="lang-select__option" href="#">
+                                                <div class="lang-select__item">
+                                                    <span class="lang-select__item-name">UK</span>
+                                                </div>
+                                            </a>
+                                            
+                                            <a class="lang-select__option" href="#">
+                                                <div class="lang-select__item">
+                                                    <span class="lang-select__item-name">EN</span>
+                                                </div>
+                                            </a>
+                                            
+                                            <a class="lang-select__option" href="#">
+                                                <div class="lang-select__item">
+                                                    <span class="lang-select__item-name">IT</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="lang-select__selected">
+                                        <div class="lang-select__item">
+                                            <span class="lang-select__item-name">RU</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="menu__dropdown">
+                            <div class="dropdown dropdown--menu">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">Каталог</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <ul class="dropdown__list">
+                                            <li class="dropdown__list-item">
+                                                <a href="./catalog.html">Все категории</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./category.html">Запорная арматура</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./category.html">Трубные системы</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./category.html">Шланги</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./category.html">Система “теплый пол”</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./category.html">Инструменты и уплотнительные материалы</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu__dropdown">
+                            <div class="dropdown dropdown--menu">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">Техподдержка</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <ul class="dropdown__list">
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-catalog-prices.html">Каталоги, прайсы</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-product-passports.html">Паспорта продукции</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-literature.html">Техническая литература</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-solutions.html">Готовые решения</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-figures.html">Чертежи, схемы</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-certificates.html">Сертификаты</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-video-instructions.html">Видеоинструкции</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./tech-training.html">Обучение</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu__dropdown">
+                            <div class="dropdown dropdown--menu">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">Клиентам</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <ul class="dropdown__list">
+                                            <li class="dropdown__list-item">
+                                                <a href="./map.html">Где купить</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./clients-guarantee.html">Гарантия</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./clients-faq.html">FAQ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu__dropdown">
+                            <div class="dropdown dropdown--menu">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">Партнерам</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <ul class="dropdown__list">
+                                            <li class="dropdown__list-item">
+                                                <a href="./partnership.html">Сотрудничество</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./partner-dealers.html">Диллерам</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./partner-installers.html">Инсталляторам</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./partner-designers.html">Проектантам</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./marketing.html">Маркетинговая поддержка</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu__dropdown">
+                            <div class="dropdown dropdown--menu">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">О компании</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <ul class="dropdown__list">
+                                            <li class="dropdown__list-item">
+                                                <a href="./about.html">Бренд FADO</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./about-blog.html">Новости</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./about-portfolio.html">Проекты</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./about-career.html">Карьера</a>
+                                            </li>
+                                            <li class="dropdown__list-item">
+                                                <a href="./about-contact.html">Контакты</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu__dropdown">
+                            <div class="dropdown">
+                                <div class="dropdown__header">
+                                    <h3 class="dropdown__title">Контакты</h3>
+                                    <div class="dropdown__icon">
+                                        <img src="./img/svg/icon-mob-sorting.svg" alt="">                                      
+                                    </div>
+                                </div>
+                                <div class="dropdown__content">
+                                    <div class="dropdown__wrapper">
+                                        <div class="dropdown__contact-box">
+                                            <div class="dropdown__contact">
+                                                <a href="tel:0800303029">0 800 30 30 29</a>
+                                                <div class="dropdown__contact-info">Мы на связи 24/7</div>
+                                            </div>
+                                            <div class="dropdown__contact">
+                                                <a href="mailto:welcome@fado.ua">welcome@fado.ua</a>
+                                            </div>
+                                            <div class="dropdown__socials-list">
+                                                <ul class="socials-list">
+                                                    <li class="socials-list__item">
+                                                        <a href="https://www.instagram.com/fado_ukraine/" target="_blank">
+                                                            <img src="./img/svg/icon-social-instagram.svg" inline-svg alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials-list__item">
+                                                        <a href="https://facebook.com/fadocompany/" target="_blank">
+                                                            <img src="./img/svg/icon-social-facebook.svg" inline-svg alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials-list__item">
+                                                        <a href="https://youtube.com/channel/UCI_cG2GD_T8dq4ODLxHVMrg/" target="_blank">
+                                                            <img src="./img/svg/icon-social-youtube.svg" inline-svg alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials-list__item">
+                                                        <a href="https://www.linkedin.com/company/fadocompany/" target="_blank">
+                                                            <img src="./img/svg/icon-social-linkedin.svg" inline-svg alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="socials-list__item">
+                                                        <a href="https://t.me/TMFADO/" target="_blank">
+                                                            <img src="./img/svg/icon-social-telegram.svg" inline-svg alt="">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu__mob-button">
+                        <a href="./partner-installers.html" class="button button--header">
+                            <span class="button__name">Инсталляторам</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <div class="hero__color-slider">
+                <div class="hero-color-slider swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="hero-bg-slide hero-bg-slide--orange"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="hero-bg-slide hero-bg-slide--black"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="hero-bg-slide hero-bg-slide--gray"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__wrapper block-wrapper">
+                <div class="hero__bg hero__bg_title block-wrapper">
+                    <div class="hero__title-slider" data-reveal-after-preloader="txt">
+                        <div class="hero-title-slider swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <h1 class="hero-title-slide h2-title h2-title--white">
+                                        <span>Система «теплый пол»</span>
+                                        <span>Fado Floor</span>
+                                    </h1>
+                                </div>
+                                <div class="swiper-slide">
+                                    <h1 class="hero-title-slide h2-title h2-title--white">
+                                        <!-- <span>Запорная</span>
+                                        <span>арматура</span> -->
+                                        <span>Запорная арматура</span>
+                                    </h1>
+                                </div>
+                                <div class="swiper-slide">
+                                    <h1 class="hero-title-slide h2-title h2-title--white">
+                                        <!-- <span>Трубные</span>
+                                        <span>системы</span> -->
+                                        <span>Трубные системы</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__bg block-wrapper">
+                    <div class="hero__list" data-reveal-after-preloader="txt">
+                        <li class="hero__list-item active" data-hero-button="0">
+                            <span>01</span>
+                            <span>Система Fado Floor</span>
+                        </li>
+                        <li class="hero__list-item" data-hero-button="1">
+                            <span>02</span>
+                            <span>Трубные системы</span>
+                        </li>
+                        <li class="hero__list-item" data-hero-button="2">
+                            <span>03</span>
+                            <span>Программа лояльности</span>
+                        </li>
+                    </div>
+                </div>
+                <div class="hero__slider">
+                    <div class="hero-slider swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="hero-slide" data-hero-slide="0">
+                                    <div class="hero-slide__info" data-reveal-after-preloader="txt">
+                                        <div class="hero-slide__description description--o400">
+                                            <p>Комплект для подключения системы теплый пол FADO FLOOR 4 выхода с возможностью купить от бренда Fado в нашем магазине отопительного оборудования по реально оправданной цене.</p>
+                                        </div>
+                                        <div class="hero-slide__button">
+                                            <a href="./catalog.html" class="button button--white">
+                                                <span class="button__name">Каталог</span>
+                                                <span class="button__icon">
+                                                    <img src="./img/svg/icon-button-orange.svg" inline-svg alt="">
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="hero-slide__model" id="model-1" data-reveal-after-preloader="img"></div>
+                                    <div class="hero-slide__product-btn" data-reveal-after-preloader="img">
+                                        <a href="./product.html" class="product-btn">
+                                            <span class="product-btn__icon">
+                                                <img src="./img/svg/icon-product-btn.svg" inline-svg alt="">
+                                            </span>
+                                            <span class="product-btn__name">Смотреть продукт</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slide" data-hero-slide="1">
+                                    <div class="hero-slide__info">
+                                        <div class="hero-slide__description description--b600">
+                                            <p>Комплект для подключения системы теплый пол FADO FLOOR 4 выхода с возможностью купить от бренда Fado в нашем магазине отопительного оборудования по реально оправданной цене.</p>
+                                        </div>
+                                        <div class="hero-slide__button">
+                                            <a href="./catalog.html" class="button button--hover-w">
+                                                <span class="button__name">Каталог</span>
+                                                <span class="button__icon">
+                                                    <img src="./img/svg/icon-button-white.svg" inline-svg alt="">
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="hero-slide__model" id="model-2"></div>
+                                    <div class="hero-slide__product-btn">
+                                        <a href="./product.html" class="product-btn">
+                                            <span class="product-btn__icon">
+                                                <img src="./img/svg/icon-product-btn.svg" inline-svg alt="">
+                                            </span>
+                                            <span class="product-btn__name">Смотреть продукт</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slide" data-hero-slide="2">
+                                    <div class="hero-slide__info">
+                                        <div class="hero-slide__description description--o400">
+                                            <p>Комплект для подключения системы теплый пол FADO FLOOR 4 выхода с возможностью купить от бренда Fado в нашем магазине отопительного оборудования по реально оправданной цене.</p>
+                                        </div>
+                                        <div class="hero-slide__button">
+                                            <a href="./catalog.html" class="button button--white">
+                                                <span class="button__name">Каталог</span>
+                                                <span class="button__icon">
+                                                    <img src="./img/svg/icon-button-orange.svg" inline-svg alt="">
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="hero-slide__model" id="model-3"></div>
+                                    <div class="hero-slide__product-btn">
+                                        <a href="./product.html" class="product-btn">
+                                            <span class="product-btn__icon">
+                                                <img src="./img/svg/icon-product-btn.svg" inline-svg alt="">
+                                            </span>
+                                            <span class="product-btn__name">Смотреть продукт</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="main">
+            <section class="numbers-container">
+                <div class="numbers-container__wrapper block-wrapper">
+                    <h2 class="numbers-container__title main-title main-title--cut h1-title">
+                        <span>Fado в цифрах</span>
+                    </h2>
+                    <div class="numbers-container__description description" data-reveal="txt">
+                        <p>Компания FADO — официальный импортер итальянской инженерной сантехники ТМ FADO. За 7 лет существования, компания вошла в 3-ку лидеров рынка в своем ценовом сегменте и завоевала доверие у профессионалов.</p>
+                    </div>
+                    <ul class="numbers-container__number-box" data-number-box data-reveal="txt">
+                        <li class="numbers-container__number-item" data-number-hover-button="1">
+                            <div class="number-item">
+                                <div class="number-item__number" data-number-item="48">0</div>
+                                <div class="number-item__caption">диллеров и партнеров</div>
+                            </div>
+                        </li>
+                        <li class="numbers-container__number-item" data-number-hover-button="2">
+                            <div class="number-item">
+                                <div class="number-item__number" data-number-item="486">0</div>
+                                <div class="number-item__caption">тренингов проведено</div>
+                            </div>
+                        </li>
+                        <li class="numbers-container__number-item" data-number-hover-button="3">
+                            <div class="number-item">
+                                <div class="number-item__number" data-number-item="580">0</div>
+                                <div class="number-item__caption">сотрудников компании</div>
+                            </div>
+                        </li>
+                        <li class="numbers-container__number-item" data-number-hover-button="4">
+                            <div class="number-item">
+                                <div class="number-item__number" data-number-item="1456">0</div>
+                                <div class="number-item__caption">торговых точек</div>
+                            </div>
+                        </li>
+                        <li class="numbers-container__number-item" data-number-hover-button="5">
+                            <div class="number-item">
+                                <div class="number-item__number" data-number-item="1032">0</div>
+                                <div class="number-item__caption">товарных позиций</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="numbers-container__image-box" data-reveal="img">
+                        <div class="numbers-container__image active" data-number-hover-target="1">
+                            <div class="image image--h100">
+                                <img data-src="./img/photos/numbers-container-image-1.jpeg" class="lazy-img" alt="">
+                            </div>
+                        </div>
+                        <div class="numbers-container__image" data-number-hover-target="2">
+                            <div class="image image--h100">
+                                <img data-src="./img/photos/news-item-image-1.jpeg" class="lazy-img" alt="">
+                            </div>
+                        </div>
+                        <div class="numbers-container__image" data-number-hover-target="3">
+                            <div class="image image--h100">
+                                <img data-src="./img/photos/news-item-image-2.jpeg" class="lazy-img" alt="">
+                            </div>
+                        </div>
+                        <div class="numbers-container__image" data-number-hover-target="4">
+                            <div class="image image--h100">
+                                <img data-src="./img/photos/news-item-image-3.jpeg" class="lazy-img" alt="">
+                            </div>
+                        </div>
+                        <div class="numbers-container__image" data-number-hover-target="5">
+                            <div class="image image--h100">
+                                <img data-src="./img/photos/numbers-container-image-1.jpeg" class="lazy-img" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="category-container bg">
+                <div class="category-container__wrapper block-wrapper">
+                    <h2 class="category-container__title main-title h2-title h2-title--orange">
+                        <span>Каталог</span>
+                    </h2>
+                    <div class="category-container__set" data-reveal-container>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="c-item">
+                                <div class="c-item__bg">
+                                    <div class="ar-image">
+                                        <img data-src="./img/photos/category-item-image-1.jpeg" class="lazy-img" alt="">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="c-item__info">
+                                    <h3 class="c-item__title h4-title h4-title--bold h4-title--white">Запорная арматура</h3>
+                                    <div class="c-item__icon">
+                                        <img src="./img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="c-item">
+                                <div class="c-item__bg">
+                                    <div class="ar-image">
+                                        <img data-src="./img/photos/category-item-image-2.jpeg" class="lazy-img" alt="">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="c-item__info">
+                                    <h3 class="c-item__title h4-title h4-title--bold h4-title--white">Трубные системы</h3>
+                                    <div class="c-item__icon">
+                                        <img src="./img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="c-item">
+                                <div class="c-item__bg">
+                                    <div class="ar-image">
+                                        <img data-src="./img/photos/category-item-image-3.jpeg" class="lazy-img" alt="">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="c-item__info">
+                                    <h3 class="c-item__title h4-title h4-title--bold h4-title--white">Предохранительная арматура</h3>
+                                    <div class="c-item__icon">
+                                        <img src="./img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="c-item">
+                                <div class="c-item__bg">
+                                    <div class="ar-image">
+                                        <img data-src="./img/photos/category-item-image-4.jpeg" class="lazy-img" alt="">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="c-item__info">
+                                    <h3 class="c-item__title h4-title h4-title--bold h4-title--white">Шланги</h3>
+                                    <div class="c-item__icon">
+                                        <img src="./img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="c-item">
+                                <div class="c-item__bg">
+                                    <div class="ar-image">
+                                        <img data-src="./img/photos/category-item-image-5.jpeg" class="lazy-img" alt="">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="c-item__info">
+                                    <h3 class="c-item__title h4-title h4-title--bold h4-title--white">Система теплый пол</h3>
+                                    <div class="c-item__icon">
+                                        <img src="./img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-container__item" data-reveal="img">
+                            <a href="./category.html" class="all-item">
+                                <div class="all-item__info">
+                                    <h3 class="all-item__title h4-title h4-title--bold h4-title--white">Все категории</h3>
+                                    <div class="all-item__icon">
+                                        <img src="./img/svg/icon-c-item-all.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="news-container">
+                <div class="news-container__wrapper block-wrapper">
+                    <h2 class="news-container__title main-title h2-title">
+                        <span>Новости</span>
+                    </h2>
+                    <div class="news-container__set" data-reveal-container>
+                        <div class="news-container__item" data-reveal="img">
+                            <a href="./about-blog-item.html" class="news-item">
+                                <div class="news-item__bg">
+                                    <div class="news-item__image">
+                                        <img data-src="./img/photos/news-item-image-1.jpeg" class="lazy-img" alt="">
+                                    </div>
+                                    <div class="news-item__overlay"></div>
+                                </div>
+                                <div class="news-item__content">
+                                    <div class="news-item__tagline">
+                                        <span class="news-item__tag news-item__tag_date">20.10.2021</span>
+                                        <span class="news-item__tag news-item__tag_div">•</span>
+                                        <span class="news-item__tag news-item__tag_type">Новинки</span>
+                                    </div>
+                                    <h3 class="news-item__title">Программа лояльности FADO BONUS 2021</h3>
+                                    <div class="news-item__button">
+                                        <button class="inline-btn">
+                                            <span class="inline-btn__name">читать полностью</span>
+                                            <span class="inline-btn__icon">
+                                                <img src="./img/svg/icon-inline-btn--full.svg" inline-svg alt="">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="news-container__item" data-reveal="img">
+                            <a href="./about-blog-item.html" class="news-item">
+                                <div class="news-item__bg">
+                                    <div class="news-item__image">
+                                        <img data-src="./img/photos/news-item-image-2.jpeg" class="lazy-img" alt="">
+                                    </div>
+                                    <div class="news-item__overlay"></div>
+                                </div>
+                                <div class="news-item__content">
+                                    <div class="news-item__tagline">
+                                        <span class="news-item__tag news-item__tag_date">20.10.2021</span>
+                                        <span class="news-item__tag news-item__tag_div">•</span>
+                                        <span class="news-item__tag news-item__tag_type">Новинки</span>
+                                    </div>
+                                    <h3 class="news-item__title">Программа лояльности FADO BONUS 2021</h3>
+                                    <div class="news-item__button">
+                                        <button class="inline-btn">
+                                            <span class="inline-btn__name">читать полностью</span>
+                                            <span class="inline-btn__icon">
+                                                <img src="./img/svg/icon-inline-btn.svg" inline-svg alt="">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="news-container__item" data-reveal="img">
+                            <a href="./about-blog-item.html" class="news-item">
+                                <div class="news-item__bg">
+                                    <div class="news-item__image">
+                                        <img data-src="./img/photos/news-item-image-3.jpeg" class="lazy-img" alt="">
+                                    </div>
+                                    <div class="news-item__overlay"></div>
+                                </div>
+                                <div class="news-item__content">
+                                    <div class="news-item__tagline">
+                                        <span class="news-item__tag news-item__tag_date">20.10.2021</span>
+                                        <span class="news-item__tag news-item__tag_div">•</span>
+                                        <span class="news-item__tag news-item__tag_type">Новинки</span>
+                                    </div>
+                                    <h3 class="news-item__title">Программа лояльности FADO BONUS 2021</h3>
+                                    <div class="news-item__button">
+                                        <button class="inline-btn">
+                                            <span class="inline-btn__name">читать полностью</span>
+                                            <span class="inline-btn__icon">
+                                                <img src="./img/svg/icon-inline-btn.svg" inline-svg alt="">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="news-container__item news-container__item_all" data-reveal="img">
+                            <a href="./about-blog.html" class="all-item">
+                                <div class="all-item__info">
+                                    <h3 class="all-item__title h4-title h4-title--bold h4-title--white">Все новости</h3>
+                                    <div class="all-item__icon">
+                                        <img src="./img/svg/icon-c-item-all.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="news-container__button" data-reveal="img">
+                        <a href="./about-blog.html" class="button">
+                            <span class="button__name">Все новости</span>
+                            <span class="button__icon">
+                                <img src="./img/svg/icon-button-white.svg" inline-svg alt="">
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="r-container bg">
+                <div class="r-container__wrapper block-wrapper">
+                    <h2 class="r-container__title main-title main-title--cut h2-title h2-title--orange">
+                        <span>Программа лояльности</span>
+                    </h2>
+                    <div class="r-container__info">
+                        <div class="r-container__description description description--white" data-reveal="txt">
+                            <p>Программа лояльности для инсталляторов. Компания FADO — официальный импортер итальянской инженерной сантехники ТМ FADO. За 7 лет существования, компания вошла в 3-ку лидеров рынка в своем ценовом сегменте и завоевала доверие у профессионалов.</p>
+                        </div>
+                        <div class="r-container__button" data-reveal="img">
+                            <a href="./marketing-loyalty-program.html" class="button button--hover-w">
+                                <span class="button__name">Узнать больше</span>
+                                <span class="button__icon">
+                                    <img src="./img/svg/icon-button-white.svg" inline-svg alt="">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="r-container__image" data-reveal="img">
+                        <div class="ar-image ar-image--hd">
+                            <img data-src="./img/photos/random-image-1.jpeg" class="lazy-img" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="subscribe-block">
+                <div class="subscribe-block__wrapper block-wrapper" data-reveal="elem">
+                    <form class="subscribe-block__form" action="#" novalidate>
+                        <div class="subscribe-block__icon">
+                            <img src="./img/svg/icon-subscribe-block.svg" inline-svg alt="">
+                        </div>
+                        <h2 class="subscribe-block__title h4-title h4-title--white">Подписуйся на наши новости и будь вкурсе специальных предложений</h2>
+                        <div class="subscribe-block__input subscribe-input">
+                            <input class="subscribe-input__input _required" placeholder="Введите ваш Email" type="mail">
+                            <button class="subscribe-input__button" type="submit">
+                                <img src="./img/svg/icon-button-subscribe.svg" inline-svg alt="">
+                            </button>
+                            <div class="failure">
+                                <span class="failure__text">*Required</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer__wrapper block-wrapper" data-reveal="elem">
+                <div class="footer__content">
+                    <div class="footer__block">
+                        <div class="footer__logo">
+                            <a href="./index.html">
+                                <img src="./img/svg/logo.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="footer__description">
+                            <p>FADO – итальянская инженерная сантехника.</p>
+                        </div>
+                        <div class="footer__button">
+                            <a href="./files/_Fado_.pdf" class="inline-btn" download>
+                                <span class="inline-btn__name">Скачать прайс</span>
+                                <span class="inline-btn__icon">
+                                    <img src="./img/svg/icon-button-download.svg" inline-svg alt="">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer__block">
+                        <h3 class="footer__title">Каталог</h3>
+                        <ul class="footer__list">
+                            <li class="footer__list-item">
+                                <a href="./catalog.html">Все категории</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./category.html">Запорная арматура</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./category.html">Трубные системы</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./category.html">Шланги</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./category.html">Система “теплый пол”</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./category.html">Инструменты и уплотнительные материалы</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__block">
+                        <h3 class="footer__title">О компании</h3>
+                        <ul class="footer__list">
+                            <li class="footer__list-item">
+                                <a href="./about.html">Бренд FADO</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./about-blog.html">Новости</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./about-portfolio.html">Проекты</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./about-career.html">Карьера</a>
+                            </li>
+                            <li class="footer__list-item">
+                                <a href="./about-contact.html">Контакты</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__block">
+                        <h3 class="footer__title">Контакты</h3>
+                        <div class="footer__contact">
+                            <a href="tel:0800303029">0 800 30 30 29</a>
+                            <div class="footer__contact-info">Мы на связи 24/7</div>
+                        </div>
+                        <div class="footer__contact">
+                            <a href="mailto:welcome@fado.ua">welcome@fado.ua</a>
+                        </div>
+                        <div class="footer__socials-list">
+                            <ul class="socials-list">
+                                <li class="socials-list__item">
+                                    <a href="https://www.instagram.com/fado_ukraine/" target="_blank">
+                                        <img src="./img/svg/icon-social-instagram.svg" inline-svg alt="">
+                                    </a>
+                                </li>
+                                <li class="socials-list__item">
+                                    <a href="https://facebook.com/fadocompany/" target="_blank">
+                                        <img src="./img/svg/icon-social-facebook.svg" inline-svg alt="">
+                                    </a>
+                                </li>
+                                <li class="socials-list__item">
+                                    <a href="https://youtube.com/channel/UCI_cG2GD_T8dq4ODLxHVMrg/" target="_blank">
+                                        <img src="./img/svg/icon-social-youtube.svg" inline-svg alt="">
+                                    </a>
+                                </li>
+                                <li class="socials-list__item">
+                                    <a href="https://www.linkedin.com/company/fadocompany/" target="_blank">
+                                        <img src="./img/svg/icon-social-linkedin.svg" inline-svg alt="">
+                                    </a>
+                                </li>
+                                <li class="socials-list__item">
+                                    <a href="https://t.me/TMFADO/" target="_blank">
+                                        <img src="./img/svg/icon-social-telegram.svg" inline-svg alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer__block">
+                        <div class="footer__scroll-to-top">
+                            <a href="#top" class="scroll-to-top">
+                                <img class="scroll-to-top__circle" src="./img/svg/scroll-to-top-circle.svg" inline-svg alt="">
+                                <img class="scroll-to-top__arrow" src="./img/svg/scroll-to-top-arrow.svg" inline-svg alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__copyright copyright">
+                    <div class="copyright__description">© 2021 FADO</div>
+                    <div class="copyright__link">
+                        <a href="./privacy-policy.html">Политика конфиденциальности</a>
+                    </div>
+                    <div class="copyright__increate">
+                        <span>by:</span>
+                        <a href="https://in-create.com/" target="_blank">
+                            <img src="./img/svg/increate.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    
+    <!-- scripts -->
+    <script defer type="module" src="./js/3.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script>
+        let messageEmpty = "Обязательное поле",
+            messageIncorrect = "Некорректные данные",
+            messageIncorrectFile = "Неверный формат файла",
+            messageChooseFile = "Добавить CV";
+    </script>
+
+    <script defer src="./js/libs/inline_svg.js"></script>
+    <script defer src="./js/libs/inputmask.min.js"></script>
+    <script defer src="./js/libs/swiper-bundle.min.js"></script>
+    <script defer src="./js/libs/gsap.min.js"></script>
+    <script defer src="./js/libs/ScrollTrigger.min.js"></script>
+
+    <script defer src="./js/main.js"></script>
+</body>
+</html>

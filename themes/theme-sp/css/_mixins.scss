@@ -1,0 +1,272 @@
+// <================================================== MIXINS ==================================================> //
+@mixin maxWidth {
+    max-width: $maxWidth;
+    @media screen and (min-width: $maxWidth) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@mixin paddingSide {
+    padding-left: $paddingSide;
+    padding-right: $paddingSide;
+
+    @include xxxlm {
+      padding-left: $paddingSide1920;
+      padding-right: $paddingSide1920;
+    }
+
+    // @include md {
+    @include lg {
+        padding-left: $paddingSide1023;
+        padding-right: $paddingSide1023;
+    }
+
+    @include sm {
+        padding-left: $paddingSide767;
+        padding-right: $paddingSide767;
+    }
+}
+
+@mixin h1TitleFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 65px;
+    line-height: 120%;
+    font-weight: 700;
+}
+// @mixin h1TitleMobileFont {
+//     font-family: 'Gilroy', sans-serif;
+//     font-size: 32px;
+//     line-height: 120%;
+//     font-weight: 700;
+// }
+@mixin h2TitleFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 56px;
+    line-height: 120%;
+    font-weight: 700;
+}
+// @mixin h2TitleMobileFont {
+//     font-family: 'Gilroy', sans-serif;
+//     font-size: 16px;
+//     line-height: 156%;
+//     font-weight: 700;
+// }
+
+@mixin h3TitleFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 32px;
+    line-height: 120%;
+    font-weight: 700;
+}
+
+@mixin h4TitleFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 22px;
+    line-height: 120%;
+    font-weight: 500;
+}
+
+@mixin h4TitleBoldFont {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 22px;
+  line-height: 120%;
+  font-weight: 700;
+}
+
+@mixin descriptionFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    line-height: 156%;
+    font-weight: 500;
+}
+@mixin descriptionBoldFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    line-height: 156%;
+    font-weight: 700;
+}
+
+@mixin averageFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    line-height: 156%;
+    font-weight: 500;
+}
+@mixin averageBoldFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    line-height: 156%;
+    font-weight: 700;
+}
+
+@mixin smallFont {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 12px;
+    line-height: 156%;
+    font-weight: 500;
+}
+
+// <=========================================== ADAPTIVE BREAKPOINTS ===========================================> //
+$break_xxxl: 1919px;
+$break_xxl: 1599px;
+$break_xl: 1439px;
+$break_lg: 1279px;
+$break_md: 1023px;
+$break_sm: 767px;
+$break_xs: 413px;
+$break_xxs: 374px;
+
+@mixin xxxl {
+    @media (max-width: $break_xxxl + 0.5) {
+      @content;
+    }
+  }
+  
+@mixin xxxlm {
+    @media (min-width: $break_xxxl + 1) {
+      @content;
+    }
+}
+
+@mixin xxl {
+    @media (max-width: $break_xxl + 0.5) {
+      @content;
+    }
+  }
+  
+@mixin xxlm {
+    @media (min-width: $break_xxl + 1) {
+      @content;
+    }
+}
+
+@mixin xl {
+  @media (max-width: $break_xl + 0.5) {
+    @content;
+  }
+}
+
+@mixin xlm {
+  @media (min-width: $break_xl + 1) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: $break_lg + 0.5) {
+    @content;
+  }
+}
+
+@mixin lgm {
+  @media (min-width: $break_lg + 1) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: $break_md + 0.5) {
+    @content;
+  }
+}
+
+@mixin mdm {
+  @media (min-width: $break_md + 1) {
+    @content;
+  }
+}
+
+@mixin sm {
+  // @media (max-width: $break_sm + 0.5) {
+  @media (max-width: $break_sm + 0.5) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin smm {
+  @media (min-width: $break_sm + 1) {
+    @content;
+  }
+}
+
+@mixin xs {
+  // @media (max-width: $break_xs + 0.5) {
+  @media (max-width: $break_xs + 0.5) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin xsm {
+  // @media (min-width: $break_xs + 1) {
+  @media (min-width: $break_xs + 1) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin xxs {
+  // @media (max-width: $break_xxs + 0.5) {
+  @media (max-width: $break_xxs + 0.5) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin xxsm {
+  // @media (min-width: $break_xxs + 1) {
+  @media (min-width: $break_xxs + 1) and (orientation: portrait) {
+    @content;
+  }
+}
+
+// + horizontal [landscape] orientation
+@mixin sm_ls {
+  @media screen and (max-device-width: 960px) and (orientation: landscape) {
+    @content;
+  }
+}
+//
+
+// <================================================= FLEX-GAP =================================================> //
+// due to weak support of gaps in flexbox in Safari and other shitty browsers
+// these are mixins which replace gap/column-gap/row-gap properties
+@mixin gap($right, $bottom) {
+    & > * {
+        margin: 0 $right $bottom 0;
+    }
+
+    // & > *:not(:last-child) {
+    //     margin: 0 $right $bottom 0;
+    // }
+}
+@mixin column-gap($right) {
+    & > *:not(:last-child) {
+        margin: 0 $right 0 0;
+    }
+}
+@mixin row-gap($bottom) {
+    & > *:not(:last-child) {
+        margin: 0 0 $bottom 0;
+    }
+}
+
+@mixin column-margin($right) {
+    & > * {
+        margin: 0 $right 0 0;
+    }
+}
+@mixin row-margin($bottom) {
+    & > * {
+        margin: 0 0 $bottom 0;
+    }
+}
+
+@mixin remove-gap {
+    & > *:not(:last-child) {
+        margin: 0;
+    }
+}
+@mixin remove-margin {
+    & > * {
+        margin: 0;
+    }
+}

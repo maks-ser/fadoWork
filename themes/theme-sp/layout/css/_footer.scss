@@ -1,0 +1,314 @@
+.footer {
+    background-color: $black;
+    overflow: hidden;
+
+    &__wrapper {
+        padding-top: 56px;
+        @include row-gap(48px);
+
+        @include md {
+            padding-top: 48px;
+            @include row-gap(24px);
+        }
+        @include sm_ls {
+            padding-top: 48px;
+            @include row-gap(24px);
+        }
+        @include sm {
+            padding-top: 24px;
+        }
+    }
+    &__content {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 1fr);
+        column-gap: 32px;
+        row-gap: 24px;
+
+        @include md {
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr) minmax(0, 1fr); // repeat(4, minmax(0, 1fr));
+        }
+        @include sm_ls {
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr) minmax(0, 1fr); // repeat(4, minmax(0, 1fr));
+        }
+        @include sm {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+    &__block {
+        @include row-gap(16px);
+
+        @include md {
+            @include smm {
+                &:nth-child(4) {
+                    display: none;
+                }
+            }
+        }
+        //
+        @include sm_ls {
+            &:nth-child(4) {
+                display: none;
+            }
+        }
+        //
+        @include sm {
+            &:nth-child(1) {
+                padding-bottom: 16px;
+                position: relative;
+
+                // orange underline
+                &:after {
+                    content: "";
+
+                    border-bottom: 1px solid $orange500;
+                    width: calc(100% * 2 + 32px);
+                    height: 1px;
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+            }
+            // &:nth-child(4) {
+            //     grid-column: 1 / -1;
+            // }
+            // &:nth-child(5) {
+            //     grid-column: 2 / 3;
+            //     grid-row: 1 / 2;
+            // }
+            //
+            &:nth-child(1) {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+            &:nth-child(2) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            &:nth-child(3) {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+            &:nth-child(4) {
+                grid-column: 1 / -1;
+                grid-row: 3 / 4;
+            }
+            &:nth-child(5) {
+                grid-column: 1 / -1;
+                grid-row: 3 / 4;
+            }
+            //
+        }
+    }
+    &__logo {
+        img {
+            display: block;
+            max-width: 100%;
+            object-fit: contain;
+            object-position: left center;
+        }
+    }
+    &__description {
+        @include smallFont();
+        color: $black700;
+    }
+    &__button {
+        .inline-btn {
+            @include column-gap(12px);
+
+            &__name {
+                color: $white;
+
+                @include sm {
+                    @include smallFont();
+                }
+            }
+            &__icon {
+                svg {
+                    path {
+                        fill: $white;
+                    }
+                }
+            }
+        }
+    }
+    &__title {
+        @include averageBoldFont();
+        text-transform: uppercase;
+        color: $orange900;
+    }
+    &__list {
+        @include row-gap(12px);
+
+        @include sm {
+            @include row-gap(16px);
+        }
+    }
+    &__list-item {
+        a {
+            @include smallFont();
+            color: $white;
+            transition: color 0.4s $easeIn-1;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    color: $orange500;
+                    transition: color 0.4s $easeOut-1;
+                }
+            }
+
+            @include md {
+                @include averageFont();
+            }
+        }
+    }
+    &__contact {
+        @include h4TitleFont();
+        color: $white;
+        transition: color 0.4s $easeIn-1;
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                color: $orange500;
+                transition: color 0.4s $easeOut-1;
+            }
+        }
+
+        @include sm {
+            font-weight: 700;
+        }
+    }
+    &__contact-info {
+        @include smallFont();
+        color: $white;
+    }
+
+    &__scroll-to-top {
+        @include sm {
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 40px;
+        }
+    }
+}
+
+.copyright {
+    border-top: 1px solid $black700;
+    padding: 24px 0;
+
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 1fr); // exactly the same as .footer__content
+    column-gap: 32px;
+
+    @include md {
+        padding: 16px 0 24px;
+
+        display: flex;
+        align-items: center;
+        @include column-gap(24px);
+    }
+
+    &__description {
+        grid-column: 1 / 2;
+
+        @include smallFont();
+        color: $black700;
+    }
+    &__link {
+        grid-column: 2 / 3;
+        
+        a {
+            @include smallFont();
+            color: $white;
+            transition: color 0.5s $easeIn-1;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    color: $orange500;
+                    transition: color 0.5s $easeOut-1;
+                }
+            }
+        }
+
+        @include sm {
+            display: none;
+        }
+    }
+    &__increate {
+        grid-column: 4 / 6;
+        
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        @include column-gap(8px);
+
+        span {
+            @include smallFont();
+            color: $black700;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        @include md {
+            margin-left: auto;
+        }
+    }
+}
+
+.scroll-to-top {
+    display: block;
+    width: 115px;
+    height: 115px;
+    position: relative;
+
+    @include md {
+        width: 96px;
+        height: 96px;
+    }
+    @include sm {
+        width: 72px;
+        height: 72px;
+    }
+
+    &__arrow {
+        display: block;
+        width: 24px;
+        height: 24px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        @include md {
+            width: 20px;
+            height: 20px;
+        }
+        @include sm {
+            width: 16px;
+            height: 16px;
+        }
+    }
+    &__circle {
+        display: block;
+        width: 100%; // 115px;
+        height: 100%; // 115px;
+        transform-origin: center;
+
+        animation: scrollToTopRotation 15s linear infinite;
+    }
+}
+
+@keyframes scrollToTopRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

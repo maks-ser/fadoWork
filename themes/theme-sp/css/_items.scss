@@ -1,0 +1,1067 @@
+// [index.html : numbers-container] 
+.number-item {
+    border-bottom: 1px solid $border900;
+    padding: 24px 0 16px;
+
+    //display: flex;
+    //justify-content: space-between;
+    //align-items: center;
+    display: block;
+
+    @include sm {
+        padding: 16px 0 12px;
+    }
+
+    &__number {
+        font-family: 'Gilroy', sans-serif;
+        font-size: 64px;
+        line-height: 80%;
+        font-weight: 500;
+        color: $orange900;
+
+        @include md {
+            font-size: 56px;
+            line-height: 80%;
+        }
+        @include md {
+            font-size: 36px;
+            line-height: 120%;
+            font-weight: 700;
+        }
+    }
+    &__caption {
+        @include averageFont();
+        color: $black800;
+
+        @include md {
+            width: 50%;
+        }
+        @include sm_ls {
+            width: 50%;
+        }
+        @include sm {
+            @include smallFont();
+        }
+    }
+}
+
+// [index.html : catalog-container] = catalog-item
+.c-item {
+    display: block;
+    position: relative;
+
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .ar-image {
+            padding-top: 72%;
+
+            img {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                filter: grayscale(100%);
+                transition: all 0.5s $easeIn-1;
+            }
+            &__overlay {
+                background-color: $overlay;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__info {
+        width: 100%;
+        padding: 24px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(24px);
+
+        @include md {
+            padding: 16px;
+        }
+    }
+    &__title {
+        color: $white;
+        transition: all 0.5s $easeIn-1;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            overflow: visible;
+
+            circle {
+                transform-origin: center;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:not(.c-item--all):hover {
+            .c-item__bg {
+                .ar-image {
+                    img {
+                        -webkit-filter: grayscale(0%);
+                        -moz-filter: grayscale(0%);
+                        filter: grayscale(0%);
+                        transition: all 0.5s $easeOut-1;
+                    }
+                    &__overlay {
+                        background-color: $overlayHover;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+            .c-item__title {
+                color: $orange500;
+                transition: all 0.5s $easeOut-1;
+            }
+        }
+        &:hover {
+            .c-item__icon {
+                svg {
+                    circle {
+                        animation: inlineBtnRotation 10s linear infinite;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// [catalog-container / news-container]
+.all-item {
+    display: block;
+    position: relative;
+    background-color: $orange500;
+    // height: 100%;
+    padding-top: 72%;
+
+    transition: all 0.5s $easeIn-1;
+
+    @include sm {
+        padding-top: 0;
+    }
+
+    &__info {
+        width: 100%;
+        height: 100%;
+        padding: 24px;
+        // position: relative;
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(24px);
+
+        @include md {
+            padding: 16px;
+        }
+        @include sm {
+            position: relative;
+            align-items: center;
+        }
+    }
+    &__title {
+        color: $white;
+        transition: all 0.5s $easeIn-1;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            overflow: visible;
+
+            circle {
+                transform-origin: center;
+            }
+            path {
+                fill: $white;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $black900;
+            transition: all 0.5s $easeOut-1;
+
+            .all-item__icon {
+                svg {
+                    circle {
+                        animation: inlineBtnRotation 10s linear infinite;
+                    }
+                    path {
+                        fill: $orange500;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// [tech-*.html : tech-container] = tech-item
+.t-item {
+    display: block;
+    position: relative;
+
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .ar-image {
+            padding-top: 72%;
+        }
+    }
+    &__info {
+        width: 100%;
+        padding: 24px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(24px);
+
+        @include md {
+            padding: 16px;
+        }
+    }
+    &__title {
+        color: $white;
+        transition: all 0.5s $easeIn-1;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            overflow: visible;
+
+            circle {
+                transform-origin: center;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            .t-item__title {
+                color: $orange500;
+                transition: all 0.5s $easeOut-1;
+            }
+            .t-item__icon {
+                svg {
+                    circle {
+                        animation: inlineBtnRotation 10s linear infinite;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// [tech-video-instructions.html : tech-container] = video-item
+.video-item {
+    cursor: pointer;
+    display: block;
+    position: relative;
+
+    &__video {
+        display: none;//
+    }
+    &__thumb {
+        position: relative;
+        margin-bottom: 16px;
+
+        @include sm {
+            margin-bottom: 8px;
+        }
+        
+        .ar-image {
+            padding-top: 56.25%;
+
+            &__overlay {
+                background-color: $overlay; // rgba(0, 0, 0, 0.25);
+                transition: all 0.4s $easeIn-1;
+            }
+        }
+    }
+    &__play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        img,
+        svg {
+            display: block;
+            width: 56px;
+            height: 56px;
+
+            //
+            path.video-play-bg {
+                fill: $border900;
+                transition: fill 0.4s $easeIn-1;
+            }
+            //
+        }
+    }
+    &__title {
+        color: $black;
+        transition: color 0.4s $easeIn-1;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            .video-item__thumb {
+                .ar-image {
+                    &__overlay {
+                        background-color: $overlayHover;
+                        transition: all 0.4s $easeOut-1;
+                    }
+                }
+            }
+            .video-item__title {
+                color: $orange500;
+                transition: color 0.4s $easeOut-1;
+            }
+            .video-item__play-btn {
+                svg {
+                    path.video-play-bg {
+                        fill: $redError;
+                        transition: fill 0.4s $easeOut-1;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//
+.news-item {
+    height: 100%; // ?
+    display: flex;
+    flex-direction: column;
+
+    &__bg {
+        position: relative;
+        margin-bottom: 16px;
+    }
+    &__image {
+        position: relative;
+        overflow: hidden;
+    
+        width: 100%;
+        padding-top: 72%;
+    
+        img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            
+            transition: transform 0.5s $easeIn-1;
+        }
+    }
+    &__overlay {
+        background-color: $overlayHover; // $overlayTransparent;
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        transition: background-color 0.5s $easeIn-1;
+
+        @include md {
+            background-color: $overlay;
+        }
+    }
+    &__content {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+    //
+    &__tagline {
+        display: flex;
+        align-items: center;
+        @include column-gap(16px);
+
+        margin-bottom: 8px;
+    }
+    &__tag {
+        @include smallFont();
+        color: $black700;
+    }
+    &__title {
+        @include h4TitleFont();
+        color: $black;
+
+        margin-bottom: 40px;
+
+        @include sm {
+            margin-bottom: 32px;
+        }
+    }
+    &__button {
+        margin-top: auto;
+
+        .inline-btn {
+            &__name {
+                color: $black;
+                transition: color 0.5s $easeIn-1;
+            }
+            &__icon {
+                svg {
+                    path {
+                        fill: $black;
+                        transition: fill 0.5s $easeIn-1;
+                    }
+                    circle {
+                        stroke: $border900;
+                        transition: stroke 0.5s $easeIn-1;
+                    }
+                }
+            }
+        }
+    }
+    //
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            .news-item__image {
+                img {
+                    transform: scale(1.1);
+                    transition: transform 0.5s $easeOut-1;
+                }
+            }
+            .news-item__overlay {
+                background-color: $overlay;
+                transition: background-color 0.5s $easeOut-1;
+            }
+            .news-item__button {
+                .inline-btn {
+                    &__name {
+                        color: $orange500;
+                        transition: color 0.5s $easeOut-1;
+                    }
+                    &__icon {
+                        svg {
+                            path {
+                                fill: $orange500;
+                                transition: fill 0.5s $easeOut-1;
+                            }
+                            circle {
+                                stroke: $orange500;
+                                transition: stroke 0.5s $easeOut-1;
+                                animation: inlineBtnRotation 10s linear infinite;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//
+@keyframes inlineBtnRotation {
+    0% {
+        transform: rotate(0) scale(1);
+    }
+    // 5% {
+    //     transform: rotate(36deg) scale(1.2);
+    //     stroke: $orange500;
+    // }
+    // 10% {
+    //     transform: rotate(72deg) scale(1);
+    //     stroke: $white;
+    // }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
+// [index.html : category-container] = product-item
+.p-item {
+    display: block;
+    position: relative;
+    @include row-gap(8px);
+
+    &__content {
+        position: relative;
+    }
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .ar-image {
+            padding-top: 118%;
+
+            img {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                filter: grayscale(100%);
+                transition: all 0.5s $easeIn-1;
+            }
+            &__overlay {
+                background-color: $overlay;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__info {
+        width: 100%;
+        padding: 16px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(24px);
+    }
+    &__article {
+        border: 1px solid $white;
+        padding: 6px 16px;
+
+        @include smallFont();
+        color: $white;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            overflow: visible;
+
+            path {
+                fill: $white;
+                transition: fill 0.5s $easeIn-1;
+            }
+            circle {
+                transform-origin: center;
+                stroke: $white;
+                transition: stroke 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__title {
+        @include averageFont();
+        color: $black;
+        transition: all 0.5s $easeIn-1;
+
+        @include md {
+            @include smm {
+                @include h4TitleFont();
+            }
+        }
+        //
+        @include sm_ls {
+            @include h4TitleFont();
+        }
+        //
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            .p-item__bg {
+                .ar-image {
+                    img {
+                        -webkit-filter: grayscale(0%);
+                        -moz-filter: grayscale(0%);
+                        filter: grayscale(0%);
+                        transition: all 0.5s $easeOut-1;
+                    }
+                    &__overlay {
+                        background-color: $overlayHover;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+            .p-item__icon {
+                svg {
+                    path {
+                        fill: $orange500;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                    circle {
+                        animation: inlineBtnRotation 10s linear infinite;
+                    }
+                }
+            }
+            .p-item__title {
+                color: $orange500;
+                transition: all 0.5s $easeOut-1;
+            }
+        }
+    }
+}
+
+// [partnership.html : p-other-container] = partner-item
+.partner-item {
+    display: block;
+    position: relative;
+
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .ar-image {
+            padding-top: 100%;
+
+            img {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                filter: grayscale(100%);
+                transition: all 0.5s $easeIn-1;
+            }
+            &__overlay {
+                background-color: $overlay;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__info {
+        width: 100%;
+        padding: 32px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(24px);
+
+        @include md {
+            padding: 24px 16px;
+            @include column-gap(16px);
+        }
+    }
+    &__title {
+        color: $white;
+        transition: all 0.5s $easeIn-1;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            
+            path {
+                fill: $white;
+                transition: all 0.5s $easeIn-1;
+            }
+
+            @include md {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            .partner-item__bg {
+                .ar-image {
+                    img {
+                        -webkit-filter: grayscale(0%);
+                        -moz-filter: grayscale(0%);
+                        filter: grayscale(0%);
+                        transition: all 0.5s $easeOut-1;
+                    }
+                    &__overlay {
+                        background-color: $overlayHover;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+            .partner-item__icon {
+                svg {
+                    path {
+                        fill: $orange500;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+            .partner-item__title {
+                color: $orange500;
+                transition: all 0.5s $easeOut-1;
+            }
+        }
+    }
+}
+
+// [marketing.html] = marketing-item
+.m-item {
+    display: block;
+    position: relative;
+
+    &__bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .ar-image {
+            padding-top: 100%;
+
+            // img {
+            //     -webkit-filter: grayscale(100%);
+            //     -moz-filter: grayscale(100%);
+            //     filter: grayscale(100%);
+            //     transition: all 0.5s $easeIn-1;
+            // }
+            &__overlay {
+                background-color: rgba(255, 255, 255, 0.25); // $overlay;
+                // transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__info {
+        width: 100%;
+        padding: 32px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: space-between;
+        @include column-gap(8px);
+
+        @include md {
+            padding: 16px;
+        }
+    }
+    &__title {
+        color: $black;
+        transition: all 0.5s $easeIn-1;
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            
+            path {
+                fill: $orange500;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            // .m-item__bg {
+            //     .ar-image {
+            //         img {
+            //             -webkit-filter: grayscale(0%);
+            //             -moz-filter: grayscale(0%);
+            //             filter: grayscale(0%);
+            //             transition: all 0.5s $easeOut-1;
+            //         }
+            //         &__overlay {
+            //             background-color: $overlayHover;
+            //             transition: all 0.5s $easeOut-1;
+            //         }
+            //     }
+            // }
+            // .m-item__icon {
+            //     svg {
+            //         path {
+            //             fill: $orange500;
+            //             transition: all 0.5s $easeOut-1;
+            //         }
+            //     }
+            // }
+            .m-item__title {
+                color: $orange500;
+                transition: all 0.5s $easeOut-1;
+            }
+        }
+    }
+}
+
+// [tech-catalog-prices.html / about.html] = price-item / award-item
+.price-item {
+    display: block;
+    position: relative;
+
+    border: 1px solid $black;
+    background-color: $white;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @include row-gap(64px);
+
+    transition: all 0.5s $easeIn-1;
+
+    @include md {
+        padding: 16px;
+    }
+
+    &__date {
+        @include smallFont();
+        color: $black700;
+        
+        transition: all 0.5s $easeIn-1;
+    }
+    &__caption {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        @include column-gap(24px);
+    }
+    &__icon {
+        img,
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+
+            path {
+                transition: fill 0.5s $easeIn-1;
+            }
+            circle {
+                stroke: $black700;
+                transform-origin: center;
+                
+                transition: stroke 0.5s $easeIn-1;
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            border: 1px solid $orange500;
+            background-color: $orange500;
+            transition: all 0.5s $easeOut-1;
+
+            .price-item__date {
+                color: $white;
+                transition: all 0.5s $easeOut-1;
+            }
+            .price-item__icon {
+                svg {
+                    path {
+                        fill: $black;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                    circle {
+                        stroke: $white;
+                        transition: all 0.5s $easeOut-1;
+
+                        animation: inlineBtnRotation 10s linear infinite;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// [about-career.html] = vacancy-item
+.v-item {
+    display: block;
+    position: relative;
+
+    border: 1px solid $black;
+    background-color: $white;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: all 0.5s $easeIn-1;
+
+    @include md {
+        padding: 16px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        @include column-gap(32px);
+
+        margin-bottom: 24px;
+
+        @include sm {
+            margin-bottom: 8px;
+        }
+    }
+    &__location,
+    &__time {
+        display: flex;
+        align-items: center;
+        @include column-gap(6px);
+
+        span {
+            @include smallFont();
+            color: $black700;
+            transition: all 0.5s $easeIn-1;
+        }
+
+        img,
+        svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+
+            path {
+                fill: $black700;
+                transition: all 0.5s $easeIn-1;
+            }
+        }
+    }
+    &__title {
+        @include h4TitleFont();
+        color: $black;
+
+        margin-bottom: 84px;
+
+        @include md {
+            margin-bottom: 64px;
+        }
+        @include sm_ls {
+            margin-bottom: 64px;
+        }
+        @include sm {
+            margin-bottom: 48px;
+        }
+    }
+    &__button {
+        margin-top: auto;
+
+        .inline-btn {
+            &__name {
+                color: $orange500;
+                transition: all 0.5s $easeIn-1;
+            }
+            &__icon {
+                img,
+                svg {
+                    circle {
+                        stroke: $black700;
+                        transition: all 0.5s $easeIn-1;
+                    }
+                    path {
+                        fill: $orange500;
+                        transition: all 0.5s $easeIn-1;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $orange500;
+            transition: all 0.5s $easeOut-1;
+
+            .v-item__location,
+            .v-item__time {
+                span {
+                    color: $white;
+                    transition: all 0.5s $easeOut-1;
+                }
+                svg {
+                    path {
+                        fill: $white;
+                        transition: all 0.5s $easeOut-1;
+                    }
+                }
+            }
+            .v-item__button {
+                .inline-btn {
+                    &__name {
+                        color: $white;
+                        transition: color 0.5s $easeOut-1;
+                    }
+                    &__icon {
+                        svg {
+                            circle {
+                                stroke: $white;
+                                transition: all 0.5s $easeOut-1;
+                                
+                                animation: inlineBtnRotation 10s linear infinite;
+                            }
+                            path {
+                                fill: $white;
+                                transition: all 0.5s $easeOut-1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// [marketing-brandbook.html]
+.logo-item {
+    .ar-image {
+        padding-top: 60%;
+    }
+}
+.color-item {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    padding-top: 60%;
+
+    &__color {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+
+        &_orange {
+            background-color: $orange500;
+        }
+        &_black {
+            background-color: $black;
+        }
+        &_gray {
+            background-color: $black700;
+        }
+    }
+}
