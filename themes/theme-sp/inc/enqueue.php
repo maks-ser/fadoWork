@@ -21,6 +21,7 @@ function add_footer_styles()
 {
   //style
   wp_enqueue_style('style', get_template_directory_uri() . '/css/style.css');
+  wp_enqueue_style('style-main', get_stylesheet_uri());
 }
 
 function theme_sp_scripts()

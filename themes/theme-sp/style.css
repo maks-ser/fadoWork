@@ -8,3 +8,75 @@ Version: 3.1.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+.hero {
+    background:#343434;
+}
+.hero .hero__bg.block-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+.h3-title--white {
+    color: #fff;
+}
+.hero-bg-slide--dark {
+    background-color: #343434;
+}
+.hero__slider {
+    width: 100%;
+}
+.hero-slide {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr);
+    grid-template-rows: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 20px;
+}
+.mx-slider .block-wrapper, .hero .block-wrapper{
+    max-width: 100%;
+}
+.mx-slider .hero__bg{
+    grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr);
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.mx-slider .hero__title-slider{
+    grid-row: 2;
+}
+.mx-slider .hero__list{
+    grid-row: 2;
+    margin-top: -10px;
+    display: flex;
+    flex-direction: column;
+}
+.mx-slider .hero__list-item{
+    margin-left: auto;
+    margin-right: 30px;
+    color: #D8D8D8;
+    text-align: right;
+    font-family: Gilroy;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
+    text-transform: uppercase;
+}
+.mx-slider .hero__list-item.active, .hero__list.black .hero__list-item.active {
+    color:#EC6A2D;
+    font-size: 32px;
+    font-weight: 800;
+}
+.mx-slider .hero-slide__model {
+    max-height: none;
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+}
+.mx-slider .hero-slide {
+    display: flex;
+    width: 100%;
+}
+.hero-slide__model img {
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+.hero {
+    max-height: 900px;
+}

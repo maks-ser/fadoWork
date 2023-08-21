@@ -81,7 +81,8 @@ get_header(); ?>
 
       opacity: 1;
       transform: translate(-50%, -50%);
-      animation: preloaderMoveLogo 0.5s cubic-bezier(0.05, 0.85, 0.5, 1) 1.75s forwards;
+      /*animation: preloaderMoveLogo 0.5s cubic-bezier(0.05, 0.85, 0.5, 1) 1.75s forwards;*/
+      animation: preloaderMoveLogo 0.1s cubic-bezier(0.05, 0.85, 0.5, 1) .5s forwards;
     }
 
     .preloader__f {
@@ -89,36 +90,40 @@ get_header(); ?>
       height: 53px;
       margin-right: -16px;
 
-      /* transform: translate(calc(-50% - (160px - 21px - (100px + 24px))), -50%); */
+      /* transform: translate(calc(-50% - (160px - 21px - (100px + 24px))), -50%); not mx */
       transform: translate(calc(-50% - 15px), -50%);
-      animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+      /*animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;*/
+      animation: preloaderFillF .1s cubic-bezier(0.2, 0.1, 0.8, 1) .3s forwards;
     }
 
     .preloader__a {
       width: 61px;
       height: 53px;
 
-      /* transform: translate(calc(-50% - (160px - (30.5px - 16px) - (100px + 24px + 42px))), -50%); */
+      /* transform: translate(calc(-50% - (160px - (30.5px - 16px) - (100px + 24px + 42px))), -50%); not mx */
       transform: translate(calc(-50% + 20.5px), -50%);
-      animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+      /*animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;*/
+      animation: preloaderFillA 0.1s cubic-bezier(0.2, 0.1, 0.8, 1) .3s forwards;
     }
 
     .preloader__d {
       width: 52px;
       height: 53px;
 
-      /* transform: translate(calc(-50% - (160px - 26px - (100px + 24px + 42px + (61px - 16px)))), -50%); */
+      /* transform: translate(calc(-50% - (160px - 26px - (100px + 24px + 42px + (61px - 16px)))), -50%); not mx*/
       transform: translate(calc(-50% + 77px), -50%);
-      animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+      /*animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;*/
+      animation: preloaderFillD 0.1s cubic-bezier(0.2, 0.1, 0.8, 1) .3s forwards;
     }
 
     .preloader__o {
       width: 57px;
       height: 53px;
 
-      /* transform: translate(calc(-50% - (160px - 28.5px - (100px + 24px + 42px + (61px - 16px) + 52px))), -50%); */
+      /* transform: translate(calc(-50% - (160px - 28.5px - (100px + 24px + 42px + (61px - 16px) + 52px))), -50%); not mx*/
       transform: translate(calc(-50% + 131.5px), -50%);
-      animation: preloaderFillO 0.7s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;
+      /*animation: preloaderFillO 0.7s cubic-bezier(0.2, 0.1, 0.8, 1) 3s forwards;*/
+      animation: preloaderFillO 0.1s cubic-bezier(0.2, 0.1, 0.8, 1) .3s forwards;
     }
 
     @media screen and (max-width: 1023.5px) {
@@ -267,11 +272,11 @@ get_header(); ?>
           document.body.classList.remove('body-hidden');
           document.body.style.paddingRight = '0';
           preloaderWrapper.style.paddingRight = '0';
-        }, 1000); //
+        }, 100); //убрал по ноль
 
         setTimeout(() => {
           return revealOnScroll('[data-reveal-after-preloader]');
-        }, 1200);
+        }, 200);//убрал по ноль
       })
     }
 
@@ -342,7 +347,7 @@ if ($el) { ?>
               </div>
             <?php else: ?>
               <div class="swiper-slide">
-                <div class="hero-bg-slide hero-bg-slide--orange"></div>
+                <div class="hero-bg-slide hero-bg-slide--dark"></div>
               </div>
             <?php endif; ?>
           <?php } ?>
@@ -350,7 +355,7 @@ if ($el) { ?>
       </div>
     </div>
 
-    <div class="hero__wrapper block-wrapper">
+    <div class="hero__wrapper block-wrapper mx-slider">
 
       <div class="hero__bg hero__bg_title block-wrapper">
         <div class="hero__title-slider" data-reveal-after-preloader="txt">
@@ -359,6 +364,7 @@ if ($el) { ?>
               <?php foreach ($el as $it) { ?>
                 <div class="swiper-slide">
                   <h1 class="hero-title-slide h2-title h2-title--white"><?= $it['t'] ?></h1>
+                  <h2 class="hero-subtitle-slide h3-title h3-title--white"><?= $it['sub_title'] ?></h2>
                 </div>
               <?php } ?>
             </div>
@@ -369,10 +375,10 @@ if ($el) { ?>
       <div class="hero__bg block-wrapper">
         <div class="hero__list" data-reveal-after-preloader="txt">
           <?php foreach ($el as $n => $it) { ?>
-            <li class="hero__list-item active" data-hero-button="<?= $n++ ?>">
+            <li class="hero__list-item <?php if ($n === 0) echo"active" ?>" data-hero-button="<?= $n++ ?>">
               <?php $num = $n < 10 ? '0' . $n : $n; ?>
               <span><?= $num ?></span>
-              <span><?= $it['tab'] ?></span>
+<!--              <span>--><?php //= $it['tab'] ?><!--</span>-->
             </li>
           <?php } ?>
         </div>
@@ -386,21 +392,25 @@ if ($el) { ?>
               $n++ ?>
               <div class="swiper-slide">
                 <div class="hero-slide" data-hero-slide="0">
-                  <div class="hero-slide__info" data-reveal-after-preloader="txt">
-                    <div class="hero-slide__description description--o400"><?= $it['d'] ?></div>
-                    <div class="hero-slide__button">
-                      <a href="<?= get_permalink($allCat) ?>" class="button button--white">
-                        <span class="button__name"><?php _e('Каталог', 'theme-sp') ?></span>
-                        <span class="button__icon">
-                          <img src="<?= $dir ?>img/svg/icon-button-orange.svg" inline-svg alt="">
-                        </span>
-                      </a>
-                    </div>
-                  </div>
+<!--                  <div class="hero-slide__info" data-reveal-after-preloader="txt">-->
+<!--                    <div class="hero-slide__description description--o400">--><?php //= $it['d'] ?><!--</div>-->
+<!--                    <div class="hero-slide__button">-->
+<!--                      <a href="--><?php //= get_permalink($allCat) ?><!--" class="button button--white">-->
+<!--                        <span class="button__name">--><?php //_e('Каталог', 'theme-sp') ?><!--</span>-->
+<!--                        <span class="button__icon">-->
+<!--                          <img src="--><?php //= $dir ?><!--img/svg/icon-button-orange.svg" inline-svg alt="">-->
+<!--                        </span>-->
+<!--                      </a>-->
+<!--                    </div>-->
+<!--                  </div>-->
                   <?php
-                  $file = is_array($it['file']) ? $it['file']['url'] : $it['file'];
-                  ?>
-                  <div class="hero-slide__model" data-reveal-after-preloader="img" data-model-file="<?= $file ?: $dir . 'assets/3-v4.gltf' ?>" data-zoom="<?= $it['zoom'] ?: 1 ?>"></div>
+//                  $file = is_array($it['file']) ? $it['file']['url'] : $it['file'];
+//                  ?>
+<!--                  <div class="hero-slide__model" data-reveal-after-preloader="img" data-model-file="--><?php //= $file ?: $dir . 'assets/3-v4.gltf' ?><!--"-->
+<!--                       data-zoom="--><?php //= $it['zoom'] ?: 1 ?><!--"></div>  -->
+                    <div class="hero-slide__model" >
+                        <img src="https://stage.fadocompany.com/wp-content/uploads/2023/08/1.png" alt="">
+                    </div>
                   <?php if ($it['link']): ?>
                     <div class="hero-slide__product-btn" data-reveal-after-preloader="img">
                       <a href="<?php get_sub_field('link','tab'); ?>" class="product-btn" <?= get_permalink($it['link']) ?>>
@@ -423,165 +433,165 @@ if ($el) { ?>
     </div>
   </section>
 
-  <?php if (!strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse')) { ?>
-    <script defer type="module">
-      import * as THREE from '/wp-content/themes/theme-sp/js/three/three.module.js';
-      import {OrbitControls} from '/wp-content/themes/theme-sp/js/three/OrbitControls.js';
-      import {GLTFLoader} from '/wp-content/themes/theme-sp/js/three/GLTFLoader.js';
-      import {DRACOLoader} from '/wp-content/themes/theme-sp/js/three/DRACOLoader.js';
-
-      class Model {
-        constructor(options) {
-          this.container = options.domElement
-          this.src = options.src
-          this.zoom = options.zoom
-          this.fadeElement = options.fadeElement
-
-          this.width = this.container.offsetWidth
-          this.height = this.container.offsetHeight
-          this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 1, 5000);
-          this.scene = new THREE.Scene()
-
-          this.renderer = new THREE.WebGLRenderer({
-            antialias : true,
-            alpha     : true
-          })
-          this.renderer.physicallyCorrectLights = true
-          this.renderer.outputEncoding = THREE.sRGBEncoding
-          this.renderer.toneMapping = THREE.ReinhardToneMapping
-          this.renderer.toneMappingExposure = 3
-          this.renderer.shadowMap.enabled = true
-          this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-          this.container.appendChild(this.renderer.domElement)
-
-          this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-          this.controls.enableZoom = false;
-          this.controls.enablePan = false;
-          this.controls.enableDamping = true;
-
-          this.time = 0
-
-          this.addLoaders()
-          this.resize()
-          this.addModel()
-          this.addLights()
-          this.addEnvironmentMaps()
-          this.setupResize()
-          this.render()
-        }
-
-        addLoaders() {
-          this.loadingManager = new THREE.LoadingManager();
-          this.cubeTextureLoader = new THREE.CubeTextureLoader();
-        }
-
-        addModel() {
-          const dracoLoader = new DRACOLoader(this.loadingManager)
-          dracoLoader.setDecoderPath('/wp-content/themes/theme-sp/assets/draco/')
-
-          const gltfLoader = new GLTFLoader(this.loadingManager)
-          gltfLoader.setDRACOLoader(dracoLoader)
-
-          gltfLoader.load(this.src, (gltf) => {
-            this.model = gltf.scene
-            let b = new THREE.Box3().setFromObject(gltf.scene);
-
-            function difference(a, b) {
-              return Math.abs(a - b);
-            }
-
-            function resPoint(min, max) {
-              let y = difference(min, max) / 2;
-              return max > 0 ? y - max : y - max;
-            }
-
-            this.model.position.x = resPoint(b.min.x, b.max.x);
-            this.model.position.y = resPoint(b.min.y, b.max.y);
-            this.model.position.z = resPoint(b.min.z, b.max.z);
-            this.scene.add(this.model)
-            this.updateAllMaterials()
-            this.camera.rotation.y = 45 / 180 * Math.PI;
-            let maxCur = Math.max(difference(b.max.x, b.min.x), difference(b.max.y, b.min.y), difference(b.max.z, b.min.z))
-            this.camera.position.x = maxCur * this.zoom;
-            this.camera.position.y = maxCur * this.zoom;
-            this.camera.position.z = maxCur * this.zoom;
-            this.camera.updateProjectionMatrix()
-          })
-        }
-
-        addLights() {
-          // ambient
-          this.ambientLight = new THREE.AmbientLight(0xffffff, 1)
-          this.scene.add(this.ambientLight)
-
-          // directional
-          this.directionalLight = new THREE.DirectionalLight(0xffffff, 7.5) // 10
-          this.scene.add(this.directionalLight)
-        }
-
-        resize() {
-          this.width = this.container.offsetWidth
-          this.height = this.container.offsetHeight
-          this.renderer.setSize(this.width, this.height)
-          this.camera.aspect = this.width / this.height
-          this.camera.updateProjectionMatrix()
-        }
-
-        setupResize() {
-          window.addEventListener('resize', this.resize.bind(this))
-        }
-
-        updateAllMaterials() {
-          this.scene.traverse((child) => {
-            if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
-              child.material.envMapIntensity = 0.3
-              child.material.needsUpdate = true
-              child.castShadow = true
-              child.receiveShadow = true
-            }
-          })
-        }
-
-        addEnvironmentMaps() {
-          this.environmentMap = this.cubeTextureLoader.load([
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/nx.png',
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/ny.png',
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/nz.png',
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/px.png',
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/py.png',
-            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/pz.png'
-          ])
-          this.environmentMap.encoding = THREE.sRGBEncoding
-          this.scene.environment = this.environmentMap
-        }
-
-        render() {
-          this.time += 0.05
-          this.renderer.render(this.scene, this.camera)
-          this.controls.update();
-
-          window.requestAnimationFrame(this.render.bind(this))
-        }
-      }
-
-      document.addEventListener('DOMContentLoaded', function () {
-        $('[data-model-file]').each(function () {
-          let _this = $(this);
-          let _src = _this.data('model-file');
-          let _zoom = _this.data('zoom');
-          if (_src) {
-            new Model({
-              domElement : _this[0],
-              src        : _src,
-              zoom       : _zoom
-            })
-          }
-        });
-      });
-    </script>
-  <?php } ?>
+<!--  --><?php //if (!strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse')) { ?>
+<!--    <script defer type="module">-->
+<!--      import * as THREE from '/wp-content/themes/theme-sp/js/three/three.module.js';-->
+<!--      import {OrbitControls} from '/wp-content/themes/theme-sp/js/three/OrbitControls.js';-->
+<!--      import {GLTFLoader} from '/wp-content/themes/theme-sp/js/three/GLTFLoader.js';-->
+<!--      import {DRACOLoader} from '/wp-content/themes/theme-sp/js/three/DRACOLoader.js';-->
+<!---->
+<!--      class Model {-->
+<!--        constructor(options) {-->
+<!--          this.container = options.domElement-->
+<!--          this.src = options.src-->
+<!--          this.zoom = options.zoom-->
+<!--          this.fadeElement = options.fadeElement-->
+<!---->
+<!--          this.width = this.container.offsetWidth-->
+<!--          this.height = this.container.offsetHeight-->
+<!--          this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 1, 5000);-->
+<!--          this.scene = new THREE.Scene()-->
+<!---->
+<!--          this.renderer = new THREE.WebGLRenderer({-->
+<!--            antialias : true,-->
+<!--            alpha     : true-->
+<!--          })-->
+<!--          this.renderer.physicallyCorrectLights = true-->
+<!--          this.renderer.outputEncoding = THREE.sRGBEncoding-->
+<!--          this.renderer.toneMapping = THREE.ReinhardToneMapping-->
+<!--          this.renderer.toneMappingExposure = 3-->
+<!--          this.renderer.shadowMap.enabled = true-->
+<!--          this.renderer.shadowMap.type = THREE.PCFSoftShadowMap-->
+<!--          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))-->
+<!---->
+<!--          this.container.appendChild(this.renderer.domElement)-->
+<!---->
+<!--          this.controls = new OrbitControls(this.camera, this.renderer.domElement);-->
+<!--          this.controls.enableZoom = false;-->
+<!--          this.controls.enablePan = false;-->
+<!--          this.controls.enableDamping = true;-->
+<!---->
+<!--          this.time = 0-->
+<!---->
+<!--          this.addLoaders()-->
+<!--          this.resize()-->
+<!--          this.addModel()-->
+<!--          this.addLights()-->
+<!--          this.addEnvironmentMaps()-->
+<!--          this.setupResize()-->
+<!--          this.render()-->
+<!--        }-->
+<!---->
+<!--        addLoaders() {-->
+<!--          this.loadingManager = new THREE.LoadingManager();-->
+<!--          this.cubeTextureLoader = new THREE.CubeTextureLoader();-->
+<!--        }-->
+<!---->
+<!--        addModel() {-->
+<!--          const dracoLoader = new DRACOLoader(this.loadingManager)-->
+<!--          dracoLoader.setDecoderPath('/wp-content/themes/theme-sp/assets/draco/')-->
+<!---->
+<!--          const gltfLoader = new GLTFLoader(this.loadingManager)-->
+<!--          gltfLoader.setDRACOLoader(dracoLoader)-->
+<!---->
+<!--          gltfLoader.load(this.src, (gltf) => {-->
+<!--            this.model = gltf.scene-->
+<!--            let b = new THREE.Box3().setFromObject(gltf.scene);-->
+<!---->
+<!--            function difference(a, b) {-->
+<!--              return Math.abs(a - b);-->
+<!--            }-->
+<!---->
+<!--            function resPoint(min, max) {-->
+<!--              let y = difference(min, max) / 2;-->
+<!--              return max > 0 ? y - max : y - max;-->
+<!--            }-->
+<!---->
+<!--            this.model.position.x = resPoint(b.min.x, b.max.x);-->
+<!--            this.model.position.y = resPoint(b.min.y, b.max.y);-->
+<!--            this.model.position.z = resPoint(b.min.z, b.max.z);-->
+<!--            this.scene.add(this.model)-->
+<!--            this.updateAllMaterials()-->
+<!--            this.camera.rotation.y = 45 / 180 * Math.PI;-->
+<!--            let maxCur = Math.max(difference(b.max.x, b.min.x), difference(b.max.y, b.min.y), difference(b.max.z, b.min.z))-->
+<!--            this.camera.position.x = maxCur * this.zoom;-->
+<!--            this.camera.position.y = maxCur * this.zoom;-->
+<!--            this.camera.position.z = maxCur * this.zoom;-->
+<!--            this.camera.updateProjectionMatrix()-->
+<!--          })-->
+<!--        }-->
+<!---->
+<!--        addLights() {-->
+<!--          // ambient-->
+<!--          this.ambientLight = new THREE.AmbientLight(0xffffff, 1)-->
+<!--          this.scene.add(this.ambientLight)-->
+<!---->
+<!--          // directional-->
+<!--          this.directionalLight = new THREE.DirectionalLight(0xffffff, 7.5) // 10-->
+<!--          this.scene.add(this.directionalLight)-->
+<!--        }-->
+<!---->
+<!--        resize() {-->
+<!--          this.width = this.container.offsetWidth-->
+<!--          this.height = this.container.offsetHeight-->
+<!--          this.renderer.setSize(this.width, this.height)-->
+<!--          this.camera.aspect = this.width / this.height-->
+<!--          this.camera.updateProjectionMatrix()-->
+<!--        }-->
+<!---->
+<!--        setupResize() {-->
+<!--          window.addEventListener('resize', this.resize.bind(this))-->
+<!--        }-->
+<!---->
+<!--        updateAllMaterials() {-->
+<!--          this.scene.traverse((child) => {-->
+<!--            if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {-->
+<!--              child.material.envMapIntensity = 0.3-->
+<!--              child.material.needsUpdate = true-->
+<!--              child.castShadow = true-->
+<!--              child.receiveShadow = true-->
+<!--            }-->
+<!--          })-->
+<!--        }-->
+<!---->
+<!--        addEnvironmentMaps() {-->
+<!--          this.environmentMap = this.cubeTextureLoader.load([-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/nx.png',-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/ny.png',-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/nz.png',-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/px.png',-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/py.png',-->
+<!--            '/wp-content/themes/theme-sp/assets/textures/environmentMaps/pz.png'-->
+<!--          ])-->
+<!--          this.environmentMap.encoding = THREE.sRGBEncoding-->
+<!--          this.scene.environment = this.environmentMap-->
+<!--        }-->
+<!---->
+<!--        render() {-->
+<!--          this.time += 0.05-->
+<!--          this.renderer.render(this.scene, this.camera)-->
+<!--          this.controls.update();-->
+<!---->
+<!--          window.requestAnimationFrame(this.render.bind(this))-->
+<!--        }-->
+<!--      }-->
+<!---->
+<!--      document.addEventListener('DOMContentLoaded', function () {-->
+<!--        $('[data-model-file]').each(function () {-->
+<!--          let _this = $(this);-->
+<!--          let _src = _this.data('model-file');-->
+<!--          let _zoom = _this.data('zoom');-->
+<!--          if (_src) {-->
+<!--            new Model({-->
+<!--              domElement : _this[0],-->
+<!--              src        : _src,-->
+<!--              zoom       : _zoom-->
+<!--            })-->
+<!--          }-->
+<!--        });-->
+<!--      });-->
+<!--    </script>-->
+<!--  --><?php //} ?>
 
 <?php } ?>
 
