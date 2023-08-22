@@ -82,7 +82,7 @@ get_header(); ?>
       opacity: 1;
       transform: translate(-50%, -50%);
       /*animation: preloaderMoveLogo 0.5s cubic-bezier(0.05, 0.85, 0.5, 1) 1.75s forwards;*/
-      animation: preloaderMoveLogo 0.1s cubic-bezier(0.05, 0.85, 0.5, 1) .5s forwards;
+      animation: preloaderMoveLogo 0.1s cubic-bezier(0.05, 0.85, 0.5, 1) .15s forwards;
     }
 
     .preloader__f {
@@ -128,23 +128,28 @@ get_header(); ?>
 
     @media screen and (max-width: 1023.5px) {
       .preloader__logo {
-        animation: preloaderMoveLogo 0.75s cubic-bezier(0.05, 0.85, 0.5, 1) 3s forwards;
+        /*animation: preloaderMoveLogo 0.75s cubic-bezier(0.05, 0.85, 0.5, 1) 3s forwards;*/
+        animation: preloaderMoveLogo 0.1s cubic-bezier(0.05, 0.85, 0.5, 1) .3s forwards;
       }
 
       .preloader__f {
-        animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+        /*animation: preloaderFillF 1s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;*/
+        animation: preloaderFillF .1s cubic-bezier(0.2, 0.1, 0.8, 1)  .25s forwards;
       }
 
       .preloader__a {
-        animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+        /*animation: preloaderFillA 0.9s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;*/
+        animation: preloaderFillA 0.1s cubic-bezier(0.2, 0.1, 0.8, 1) .25s forwards;
       }
 
       .preloader__d {
-        animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+        /*animation: preloaderFillD 0.8s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;*/
+        animation: preloaderFillD 0.1s cubic-bezier(0.2, 0.1, 0.8, 1) .25s forwards;
       }
 
       .preloader__o {
-        animation: preloaderFillO 0.75s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;
+        /*animation: preloaderFillO 0.75s cubic-bezier(0.2, 0.1, 0.8, 1) 4.25s forwards;*/
+        animation: preloaderFillO 0.15s cubic-bezier(0.2, 0.1, 0.8, 1) 0.25s forwards;
       }
     }
 

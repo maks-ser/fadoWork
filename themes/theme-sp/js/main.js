@@ -1005,16 +1005,16 @@ let heroSlider = new Swiper('.hero-slider', {
     transformEl : '.hero-slide',
   },
 
-  mousewheel : {
-    eventsTarget  : '.hero',
-    // releaseOnEdges: true,
-    sensitivity   : 1, // 1000,
-    thresholdTime : 1500, // 500,
-  },
+  // mousewheel : {
+  //   eventsTarget  : '.hero',
+  //   // releaseOnEdges: true,
+  //   sensitivity   : 1, // 1000,
+  //   thresholdTime : 1500, // 500,
+  // },
 
   breakpoints : {
     320  : {
-      direction      : 'vertical',
+      // direction      : 'vertical',
       allowTouchMove : true,
       simulateTouch  : true,
       touchRatio     : 1,
@@ -1269,6 +1269,7 @@ let aboutInfoSlider = new Swiper('.about-info-slider', {
   on : {
     slideChange : function () {
       aboutYearSlider.slideToLoop(aboutInfoSlider.realIndex);
+      stopBtn.parentElement.classList.add('fixed')
       //
       // release on edge
       // if( this.activeIndex === 0 || this.activeIndex == this.slides.length - 1 ) {
@@ -1370,6 +1371,7 @@ function sliderFix() {
             setTimeout(() => {
               aboutInfoSlider.params.mousewheel.releaseOnEdges = true;
               aboutInfoSlider.disable();
+              stopBtn.parentElement.classList.remove('fixed')
 
               window.scrollTo(0, sliderBottom);
             }, 1000);
@@ -1384,7 +1386,7 @@ function sliderFix() {
             setTimeout(() => {
               aboutInfoSlider.params.mousewheel.releaseOnEdges = true;
               aboutInfoSlider.disable();
-
+              stopBtn.parentElement.classList.remove('fixed')
               window.scrollTo(0, sliderTop);
             }, 1000);
           }
@@ -1392,12 +1394,14 @@ function sliderFix() {
           else if (aboutInfoSlider.activeIndex == aboutInfoSlider.slides.length - 1) {
             aboutInfoSlider.params.mousewheel.releaseOnEdges = false;
             aboutInfoSlider.enable();
+            stopBtn.parentElement.classList.remove('fixed')
           }
         })
       }
     }
     else {
       aboutInfoSlider.disable();
+
     }
   })
 }
@@ -1902,3 +1906,29 @@ document.addEventListener('DOMContentLoaded', function () {
     },1000);
   });
 });
+
+//mx js
+const mxSearch = document.querySelector('.mx__seach-btn')
+const stopBtn = document.querySelector('.page-template-page-brend-fado .stop__btn-item')
+mxSearch.addEventListener("click", function(e) {
+  e.preventDefault()
+  const searchBlock = document.querySelector('.menu__search')
+  if(searchBlock.classList.contains('show')) {
+    searchBlock.classList.remove('show')
+  }else {
+    searchBlock.classList.add('show')
+  }
+})
+if(stopBtn) {
+  stopBtn.addEventListener('click', function(e) {
+    e.preventDefault()
+    aboutInfoSlider.destroy(true, true)
+    aboutYearSlider.destroy(true, true)
+    const mxCont = document.querySelector('.mx-relative')
+    mxCont.style.maxHeight = 90 + 'vh'
+    mxCont.style.overflow = 'hidden'
+    stopBtn.parentElement.classList.remove('fixed')
+  })
+}
+
+

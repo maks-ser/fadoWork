@@ -41,3 +41,11 @@
    * seo
    */
   require get_template_directory() . '/inc/seo.php';
+
+  //mx
+if ( is_user_logged_in() ) {
+    $current_user = wp_get_current_user();
+    if($current_user->ID === 4) {
+        show_admin_bar( false );
+    }
+}

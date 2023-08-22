@@ -185,7 +185,22 @@ $dir = get_bloginfo("template_directory") . "/";
           </div>
           <?php
         } ?>
-
+          <div class="mx-search">
+              <a href="#" class="mx__seach-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0749 12.1127C15.4917 12.1127 11.7763 15.8282 11.7763 20.4114C11.7763 24.9945 15.4917 28.71 20.0749 28.71C24.6581 28.71 28.3735 24.9945 28.3735 20.4114C28.3735 15.8282 24.6581 12.1127 20.0749 12.1127ZM9.27954 20.4114C9.27954 14.4492 14.1128 9.616 20.0749 9.616C26.037 9.616 30.8702 14.4492 30.8702 20.4114C30.8702 26.3735 26.037 31.2067 20.0749 31.2067C14.1128 31.2067 9.27954 26.3735 9.27954 20.4114Z" fill="#787878"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M31.5886 33.4361L26.0691 27.9166L27.8346 26.1511L33.3541 31.6706L31.5886 33.4361Z" fill="#787878"/>
+                  </svg>
+              </a>
+              <div class="menu__search">
+                  <form class="b-search" role="search" method="get" action="<?= pll_home_url() ?>" novalidate>
+                      <input name="s" type="text" class="b-search__input" required placeholder="<?php _e('Поиск по сайту...', 'theme-sp') ?>" value="">
+                      <button type="submit" class="b-search__button">
+                          <img src="<?= $dir ?>img/svg/icon-search.svg" inline-svg alt="">
+                      </button>
+                  </form>
+              </div>
+          </div>
         <div class="navbar__burger">
           <svg class="burger" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="5" y="12" width="31" height="2" fill="#202020"/>

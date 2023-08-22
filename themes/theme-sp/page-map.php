@@ -75,6 +75,36 @@ get_header();
                 </div>
               <?php } ?>
             </div>
+            <div class="map-container__select">
+                  <div class="map-container__select-name" data-reveal="img"><?= get_field('t3') ?: 'Оберіть партнера' ?></div>
+                  <?php
+                  if ($areas) { ?>
+                      <div class="select city-select" data-reveal="img">
+                          <div class="select__select-box">
+                              <div class="select__options-container">
+                                  <div class="select__options-wrapper">
+                                      <?php foreach ($areas as $nArea => $area) { ?>
+
+                                          <?php $cities = $area['cities'];
+                                          if ($cities) { ?>
+
+                                              <?php foreach ($cities as $nCity => $city) { ?>
+                                                  <div class="select__option" data-city="area<?= $nArea ?>city<?= $nCity ?>" data-toggle-city="area<?= $nArea ?>">
+                                                      <span class="select__name"><?= $city['city'] ?></span>
+                                                  </div>
+                                              <?php } ?>
+
+                                          <?php } ?>
+                                      <?php } ?>
+                                  </div>
+                              </div>
+                              <div class="select__selected">
+                                  <span class="select__name"><?= get_field('t3') ?: 'Оберіть партнера' ?></span>
+                              </div>
+                          </div>
+                      </div>
+                  <?php } ?>
+              </div>
 
           </div>
 
@@ -142,6 +172,18 @@ get_header();
           </div>
 
         </div>
+          <?php foreach ($areas as $nArea => $area) { ?>
+                  <h2>Start</h2>
+              <hr>
+              <pre>
+                  <?php print_r($area); ?>
+              </pre>
+              <hr>
+              <br>
+
+
+          <?php } ?>
+
 
         <div class="map-container__city-box">
           <h2 class="map-container__city-title" data-reveal="txt"><?= get_field('t1') ?: 'Торговые точки' ?></h2>
