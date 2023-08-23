@@ -159,6 +159,36 @@ hr {
     height: 5px;
     background-color: #3C3C3C;
 }
+/*==============
+Contacts page
+===============*/
+.mx__contact-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.mx__contact-block p{
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.36px;
+}
+.title_d {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 700;
+}
+.mx__contact-block .contact__bold {
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.36px;
+}
+.mx__contact-block .red_t {
+    color: #EC6A2D !important;
+}
+
 @media (max-width: 1300px) {
     .stop__btn {
         top: 2%;
