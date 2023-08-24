@@ -15,8 +15,12 @@ $id        = $term_id;
 $outCountPost =  get_option('ps_per_page_product') ?: get_option('posts_per_page');
 $postType = 't-product';
 $description = category_description( $id );
+//mx
+$term_childs = get_term_children( $term_id, $taxonomy );
+$search = get_query_var('search');
 get_header();
 ?>
+
   <section class="sub-head">
     <div class="sub-head__wrapper">
       <div class="sub-head__bg">
@@ -38,11 +42,37 @@ get_header();
           <?php endif?>
         </div>
       </div>
+        <div class="block-wrapper" data-reveal-container>
+            <div class="tabs-box__item mx__tab">
+                <div class="tabs-box">
+                    <?php if ($term_childs): ?>
+                        <?php foreach ($term_childs as $n => $it) {
+                            $term_item = get_term_by( 'id', $it, $taxonomy ); ?>
+                            <a href="<?php echo get_term_link($term_item->term_id, 'cat-product'); ?>"
+                               class="tabs-box__item tab"
+                               data-reveal="txt">
+                                <span class="tab__name"><?= $term_item->name ?></span>
+                            </a>
+                        <?php } ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
+
   </section>
 
   <main class="main main--sub">
     <section class="item-container">
+
+        <?php
+//        foreach($term_childs as $child){
+//            $term = get_term_by( 'id', $child, $taxonomy );
+        ?>
+
+<!--       --><?php //}  ?>
+
+
       <div class="item-container__wrapper block-wrapper">
         <?php
         $current_page = 1;

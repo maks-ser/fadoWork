@@ -12,139 +12,125 @@ get_header();
   <main class="main main--etc">
     <?php breadcrumb($h1, $ancestors); ?>
 
-    <section class="contact-container">
+      <section class="contact-container">
 
-        <div class="contact-container__wrapper block-wrapper" data-reveal-container>
-            <h1 class="contact-container__title h2-title" data-reveal="txt"><?= $h1 ?></h1>
-            <div class="contact-container__box">
-                <?php if ($el = get_field('tel')): ?>
-                    <?php
-                    $tel = $el;
-                    $telLink = preg_replace("/[^+\d]/", "", $tel);
-                    ?>
-                    <div class="contact-container__contact" data-reveal="txt">
-                        <a href="tel:<?= $telLink ?>"><?= $tel ?></a>
-                        <div class="contact-container__contact-info"><?php the_field('telT') ?></div>
-                    </div>
-                <?php endif; ?>
-                <?php if ($el = get_field('email')): ?>
-                    <div class="contact-container__contact" data-reveal="txt">
-                        <a href="mailto:<?= $el ?>"><?= $el ?></a>
-                    </div>
-                <?php endif; ?>
-                <div class="contact-container__socials-list" data-reveal="txt">
-                    <ul class="socials-list">
-                        <?php $link = get_field('instagram');
-                        if ($link) { ?>
-                            <li class="socials-list__item">
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= $dir ?>img/svg/icon-social-instagram.svg" inline-svg alt="">
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php $link = get_field('facebook');
-                        if ($link) { ?>
-                            <li class="socials-list__item">
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= $dir ?>img/svg/icon-social-facebook.svg" inline-svg alt="">
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php $link = get_field('youtube');
-                        if ($link) { ?>
-                            <li class="socials-list__item">
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= $dir ?>img/svg/icon-social-youtube.svg" inline-svg alt="">
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php $link = get_field('linkedin');
-                        if ($link) { ?>
-                            <li class="socials-list__item">
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= $dir ?>img/svg/icon-social-linkedin.svg" inline-svg alt="">
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php $link = get_field('telegram');
-                        if ($link) { ?>
-                            <li class="socials-list__item">
-                                <a href="<?= $link ?>" target="_blank">
-                                    <img src="<?= $dir ?>img/svg/icon-social-telegram.svg" inline-svg alt="">
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-            <?php
-                foreach($department as $item => $dep) { ?>
-
-                    <div class="contact-container__box mx__contact" data-reveal-container>
-                        <div class="mx__contact-block left" data-reveal="txt">
-                            <h2 class="title_d"><?php echo $dep['d_name'] ?></h2>
-                            <p class="contact__bold">
-                                <?php echo $dep['job'] ?>
-                            </p>
-                            <?php if(!empty($dep['name'])) { ?>
-                                <p >
-                                    <?php  echo $dep['name'] ?>
-                                </p>
-                           <?php }?>
-                            <?php if ($tels = $dep['phones'] ): ?>
-                                <?php
-                                foreach($tels as $ph) {
-                                    $telLink = preg_replace("/[^+\d]/", "", $ph['phone']); ?>
-                                    <p>
-                                        <?php echo $ph['phone'] ?>
-                                    </p>
-                                <?php }  ?>
-                            <?php endif; ?>
-                            <?php if ($email = $dep['email'] ): ?>
-                                <p class="red_t"><a href="mailto:<?= $email ?>"><?= $email ?></a></p>
-                            <?php endif; ?>
-                        </div>
-                        <div class="mx__contact-block center" data-reveal="txt">
-
-                            <p class="contact__bold">
-                                Час роботи
-                            </p>
-                            <?php if($wday = $dep['wday']) { ?>
-                                <p >
-                                    <?php  echo esc_html($wday) ?>
-                                </p>
-                            <?php }?>
-                            <?php if ($weekend1 = $dep['weekend1'] ): ?>
-                                <p >
-                                    <?php  echo esc_html($weekend1) ?>
-                                </p>
-                            <?php endif; ?>
-                            <?php if ($weekend2 = $dep['weekend2'] ): ?>
-                                <p >
-                                    <?php  echo esc_html($weekend2) ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
-                        <div class="mx__contact-block right" data-reveal="txt">
-
-                            <p class="contact__bold">
-                                Адреса
-                            </p>
-                            <?php if($address = $dep['address']) { ?>
-                                <p >
-                                    <?php  echo esc_html($address) ?>
-                                </p>
-                            <?php }?>
-
-                        </div>
-
-                    </div>
-
-
-               <? }  ?>
-
-        </div>
-    </section>
+          <div class="contact-container__wrapper block-wrapper" data-reveal-container>
+              <h1 class="contact-container__title h2-title" data-reveal="txt"><?= $h1 ?></h1>
+              <div class="contact-container__box">
+                  <?php if ($el = get_field('tel')):
+                      $tel = $el;
+                      $telLink = preg_replace("/[^+\d]/", "", $tel);
+                      ?>
+                      <div class="contact-container__contact" data-reveal="txt">
+                          <a href="tel:<?= $telLink ?>"><?= $tel ?></a>
+                          <div class="contact-container__contact-info"><?php the_field('telT') ?></div>
+                      </div>
+                  <?php endif; ?>
+                  <?php if ($el = get_field('email')): ?>
+                      <div class="contact-container__contact" data-reveal="txt">
+                          <a href="mailto:<?= $el ?>"><?= $el ?></a>
+                      </div>
+                  <?php endif; ?>
+                  <div class="contact-container__socials-list" data-reveal="txt">
+                      <ul class="socials-list">
+                          <?php $link = get_field('instagram');
+                          if ($link) { ?>
+                              <li class="socials-list__item">
+                                  <a href="<?= $link ?>" target="_blank">
+                                      <img src="<?= $dir ?>img/svg/icon-social-instagram.svg" inline-svg alt="">
+                                  </a>
+                              </li>
+                          <?php } ?>
+                          <?php $link = get_field('facebook');
+                          if ($link) { ?>
+                              <li class="socials-list__item">
+                                  <a href="<?= $link ?>" target="_blank">
+                                      <img src="<?= $dir ?>img/svg/icon-social-facebook.svg" inline-svg alt="">
+                                  </a>
+                              </li>
+                          <?php } ?>
+                          <?php $link = get_field('youtube');
+                          if ($link) { ?>
+                              <li class="socials-list__item">
+                                  <a href="<?= $link ?>" target="_blank">
+                                      <img src="<?= $dir ?>img/svg/icon-social-youtube.svg" inline-svg alt="">
+                                  </a>
+                              </li>
+                          <?php } ?>
+                          <?php $link = get_field('linkedin');
+                          if ($link) { ?>
+                              <li class="socials-list__item">
+                                  <a href="<?= $link ?>" target="_blank">
+                                      <img src="<?= $dir ?>img/svg/icon-social-linkedin.svg" inline-svg alt="">
+                                  </a>
+                              </li>
+                          <?php } ?>
+                          <?php $link = get_field('telegram');
+                          if ($link) { ?>
+                              <li class="socials-list__item">
+                                  <a href="<?= $link ?>" target="_blank">
+                                      <img src="<?= $dir ?>img/svg/icon-social-telegram.svg" inline-svg alt="">
+                                  </a>
+                              </li>
+                          <?php } ?>
+                      </ul>
+                  </div>
+              </div>
+              <?php
+              foreach ($department as $item => $dep) { ?>
+                  <div class="contact-container__box mx__contact" data-reveal-container>
+                      <div class="mx__contact-block left" data-reveal="txt">
+                          <h2 class="title_d"><?php echo $dep['d_name'] ?></h2>
+                          <p class="contact__bold">
+                              <?php echo $dep['job'] ?>
+                          </p>
+                          <?php if (!empty($dep['name'])) { ?>
+                              <p>
+                                  <?php echo $dep['name'] ?>
+                              </p>
+                          <?php } ?>
+                          <?php if ($tels = $dep['phones']):
+                              foreach ($tels as $ph) {
+                                  $telLink = preg_replace("/[^+\d]/", "", $ph['phone']); ?>
+                                  <p>
+                                      <?php echo $ph['phone'] ?>
+                                  </p>
+                              <?php } ?>
+                          <?php endif; ?>
+                          <?php if ($email = $dep['email']): ?>
+                              <p class="red_t"><a href="mailto:<?= $email ?>"><?= $email ?></a></p>
+                          <?php endif; ?>
+                      </div>
+                      <div class="mx__contact-block center" data-reveal="txt">
+                          <p class="contact__bold">Час роботи</p>
+                          <?php if ($wday = $dep['wday']) { ?>
+                              <p>
+                                  <?php echo esc_html($wday) ?>
+                              </p>
+                          <?php } ?>
+                          <?php if ($weekend1 = $dep['weekend1']): ?>
+                              <p>
+                                  <?php echo esc_html($weekend1) ?>
+                              </p>
+                          <?php endif; ?>
+                          <?php if ($weekend2 = $dep['weekend2']): ?>
+                              <p>
+                                  <?php echo esc_html($weekend2) ?>
+                              </p>
+                          <?php endif; ?>
+                      </div>
+                      <div class="mx__contact-block right" data-reveal="txt">
+                          <p class="contact__bold">Адреса</p>
+                          <?php if ($address = $dep['address']) { ?>
+                              <p>
+                                  <?php echo esc_html($address) ?>
+                              </p>
+                          <?php } ?>
+                      </div>
+                  </div>
+              <? } ?>
+          </div>
+      </section>
 
     <section class="form-container bg" id="form-anchor">
       <div class="form-container__wrapper block-wrapper">

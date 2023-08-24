@@ -397,25 +397,25 @@ if ($el) { ?>
               $n++ ?>
               <div class="swiper-slide">
                 <div class="hero-slide" data-hero-slide="0">
-<!--                  <div class="hero-slide__info" data-reveal-after-preloader="txt">-->
-<!--                    <div class="hero-slide__description description--o400">--><?php //= $it['d'] ?><!--</div>-->
-<!--                    <div class="hero-slide__button">-->
-<!--                      <a href="--><?php //= get_permalink($allCat) ?><!--" class="button button--white">-->
-<!--                        <span class="button__name">--><?php //_e('Каталог', 'theme-sp') ?><!--</span>-->
-<!--                        <span class="button__icon">-->
-<!--                          <img src="--><?php //= $dir ?><!--img/svg/icon-button-orange.svg" inline-svg alt="">-->
-<!--                        </span>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
+                  <div class="hero-slide__info" data-reveal-after-preloader="txt">
+                    <div class="hero-slide__description description--o400"><?= $it['d'] ?></div>
+                    <div class="hero-slide__button">
+                      <a href="<?= get_permalink($allCat) ?>" class="button button--white">
+                        <span class="button__name"><?php _e('Каталог', 'theme-sp') ?></span>
+                        <span class="button__icon">
+                          <img src="<?= $dir ?>img/svg/icon-button-orange.svg" inline-svg alt="">
+                        </span>
+                      </a>
+                    </div>
+                  </div>
                   <?php
 //                  $file = is_array($it['file']) ? $it['file']['url'] : $it['file'];
 //                  ?>
 <!--                  <div class="hero-slide__model" data-reveal-after-preloader="img" data-model-file="--><?php //= $file ?: $dir . 'assets/3-v4.gltf' ?><!--"-->
 <!--                       data-zoom="--><?php //= $it['zoom'] ?: 1 ?><!--"></div>  -->
-                    <div class="hero-slide__model" >
+                    <picture class="hero-slide__image" >
                         <img src="https://stage.fadocompany.com/wp-content/uploads/2023/08/1.png" alt="">
-                    </div>
+                    </picture>
                   <?php if ($it['link']): ?>
                     <div class="hero-slide__product-btn" data-reveal-after-preloader="img">
                       <a href="<?php get_sub_field('link','tab'); ?>" class="product-btn" <?= get_permalink($it['link']) ?>>
