@@ -79,8 +79,9 @@ get_header();
               <?php
               foreach ($department as $item => $dep) { ?>
                   <div class="contact-container__box mx__contact" data-reveal-container>
+                      <h2 class="title_d"><?php echo $dep['d_name'] ?></h2>
                       <div class="mx__contact-block left" data-reveal="txt">
-                          <h2 class="title_d"><?php echo $dep['d_name'] ?></h2>
+
                           <p class="contact__bold">
                               <?php echo $dep['job'] ?>
                           </p>

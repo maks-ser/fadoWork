@@ -12,24 +12,47 @@ License URI: LICENSE
     background:#343434;
     max-height: 100vh;
 }
-/*.hero__color-slider {*/
-/*    bottom: 0;*/
-/*}*/
-.hero .hero__bg.block-wrapper {
-    padding-left: 32px;
-    padding-right: 32px;
+.hero .block-wrapper {
+    padding-left: 0;
+    padding-right: 0;
 }
-.h3-title--white {
-    color: #fff;
+.hero .hero__bg {
+    padding-left: 0;
+    padding-right: 0;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+}
+.hero-title-slider {
+    height: 160px;
+    margin-left: 0;
+}
+.hero .hero__title-slider {
+    height: 100%;
+    grid-column: 1/4;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-left: 0;
+    padding-left: 80px;
+}
+
+.hero__title-slider .h2-title{
+    margin-bottom: 8px;
+    color: #FFF;
+    font-size: 86px;
+    font-weight: 800;
+    line-height: 110%;
+}
+.hero__title-slider .h3-title--white {
+    color: #FFF;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 110%; /* 39.6px */
 }
 .hero-bg-slide--dark {
     background-color: #343434;
 }
-/*.hero__slider {*/
-/*    width: 100%;*/
-/*    display: flex;*/
-/*    height: 100%;*/
-/*}*/
 .hero__bg, .hero__wrapper {
     padding-top: 143px;
 }
@@ -42,27 +65,17 @@ License URI: LICENSE
 .hero__bg_title {
     z-index: 10;
 }
-/*.mx-slider .block-wrapper, .hero .block-wrapper{*/
-/*    max-width: 100%;*/
-/*}*/
-/*.mx-slider .hero__bg{*/
-/*    grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr);*/
-/*    grid-template-rows: 1fr 1fr 1fr;*/
-/*}*/
-/*.mx-slider .hero__title-slider{*/
-/*    grid-row: 2;*/
-/*}*/
 .mx-slider .hero__list{
     grid-row: 2;
-    margin-top: -10px;
+    margin-top: -33px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+
 }
 .mx-slider .hero__list-item{
     margin-left: auto;
-    margin-right: 37%;
+    margin-right: 17%;
     color: #D8D8D8;
     text-align: right;
     font-family: Gilroy;
@@ -76,26 +89,11 @@ License URI: LICENSE
     font-size: 32px;
     font-weight: 800;
 }
-.mx-slider .hero-slide__model {
-    max-height: none;
-    width: 100%;
-    height: 100%;
-    margin-left: auto;
-}
-/*.mx-slider .hero-slide {*/
-/*    display: flex;*/
-/*    width: 100%;*/
-/*}*/
-.hero-slide__model img {
-    height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-}
 .hero {
     height: auto;
 }
 .hero-slide__image {
-    grid-column: 2/5;
+    grid-column: 3/5;
     grid-row: 1/3;
     display: flex;
     justify-content: flex-end;
@@ -103,6 +101,11 @@ License URI: LICENSE
 .hero-slide__image img {
     width: auto;
     height: 100%;
+}
+.hero-slide__info {
+    grid-column: 1/3;
+    padding-left: 80px;
+    margin-top: -20px;
 }
 .mx__seach-btn {
     position: relative;
@@ -169,10 +172,15 @@ hr {
 /*==============
 Contacts page
 ===============*/
+/*.contact-container__box {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: space-between;*/
+/*}*/
 .mx__contact-block {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
 }
 .mx__contact-block p{
     width: 100%;
@@ -182,7 +190,9 @@ Contacts page
     letter-spacing: 0.36px;
 }
 .title_d {
-    margin-bottom: 25px;
+    grid-column: 1/4;
+    width: 100%;
+    margin-bottom: 0;
     font-size: 26px;
     font-weight: 700;
 }
@@ -215,7 +225,7 @@ Contacts page
 }
 @media (max-width: 1024px) {
     .hero__bg, .hero__wrapper {
-        padding-top: 42px;
+        padding-top: 75px;
     }
     .navbar__wrapper > .mx-search {
         margin-left: auto;
@@ -225,6 +235,81 @@ Contacts page
 @media (max-width: 997px) {
     .menu__search.show {
         left: 190px;
+    }
+    .hero-slide__info {
+        grid-column: 1/4;
+    }
+    .hero-title-slider {
+        height: 175px;
+    }
+}
+@media (max-width: 767.5px) and (orientation: portrait) {
+    .hero .hero__bg {
+        grid-template-columns: minmax(320px, 1fr);
+        grid-template-rows: minmax(80px, auto) auto 1fr;
+    }
+    .hero-slide {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(100px, 190px) minmax(140px, auto) minmax(95px, 100px);
+        row-gap: 5px;
+        column-gap: 1px;
+    }
+    .hero-title-slider {
+        height: 135px;
+        margin: 40px 0;
+    }
+    .hero-slide__info {
+        grid-row: 1/4;
+        padding-left: 20px;
+        flex-wrap: wrap;
+    }
+    .hero-slide__info> .hero-slide__description {
+        padding-top: 145px;
+    }
+    .hero-slide__image {
+        grid-column: 1;
+        grid-row: 2;
+        justify-content: center;
+        display: block;
+    }
+    .hero-slide__image img {
+        max-width: 100%;
+        height: auto;
+    }
+    .mx-slider .hero__list {
+        grid-row : 4;
+        grid-column: 1/2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .hero .hero__title-slider {
+        padding-left: 20px;
+    }
+    .hero__title-slider .h2-title {
+        font-size: 44px;
+    }
+    .hero__title-slider .h3-title--white {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+    }
+    .hero-slide__description{
+        font-size: 16px;
+        font-weight: 500;
+        align-self: flex-end;
+    }
+    .hero-slide__description p{
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow-y: hidden;
+    }
+    .hero-slide__button {
+        padding-bottom: 24px;
+        margin-left: auto;
+        margin-right: 20px;
     }
 }
 @media (max-width: 768px) {
@@ -241,14 +326,14 @@ Contacts page
     }
 }
 @media (max-width: 414px) {
-    .mx-slider .hero__list {
-        grid-row: 3;
-        grid-column: 1/5;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: -15px;
-    }
+    /*.mx-slider .hero__list {*/
+    /*    grid-row: 3;*/
+    /*    grid-column: 1/5;*/
+    /*    flex-direction: row;*/
+    /*    align-items: center;*/
+    /*    justify-content: center;*/
+    /*    margin-bottom: -15px;*/
+    /*}*/
     .mx__tab .tabs-box>* {
         margin-right: 0;
         width: 100%;
