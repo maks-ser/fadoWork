@@ -135,8 +135,8 @@ STOP BTN
 }
 .stop__btn {
     position: absolute;
-    top: 4%;
-    right: 50px;
+    top: 19%;
+    right: -20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -215,7 +215,7 @@ Contacts page
 
 @media (max-width: 1300px) {
     .stop__btn {
-        top: 2%;
+        top: 10%;
     }
 }
 @media (max-width: 1280px) {
@@ -241,6 +241,9 @@ Contacts page
     }
     .hero-title-slider {
         height: 175px;
+    }
+    .hero {
+        max-height: none;
     }
 }
 @media (max-width: 767.5px) and (orientation: portrait) {
@@ -320,7 +323,7 @@ Contacts page
         left: 70px;
     }
     .stop__btn {
-        top: 1%;
+        top: 9%;
         left: 6px;
         width: 176px;
     }

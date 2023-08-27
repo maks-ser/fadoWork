@@ -18,6 +18,11 @@ $description = category_description( $id );
 //mx
 $term_childs = get_term_children( $term_id, $taxonomy );
 $search = get_query_var('search');
+
+
+//foreach ($term_childs as $child) {
+//    $term = get_term_by('id', $child, $taxonomy);
+//}
 get_header();
 ?>
 
@@ -37,11 +42,20 @@ get_header();
         <div class="sub-head__info">
           <?php breadcrumbSub($h1, $ancestors); ?>
           <h1 class="sub-head__title h2-title h2-title--white" data-reveal="txt"><?= $h1 ?></h1>
-          <?php if($description): ?>
-          <div class="sub-head__description description description--gray" data-reveal="txt"><?= $description ?></div>
-          <?php endif?>
+            <div class="c-head__search" data-reveal="txt">
+                <form action="<?= get_pagenum_link(1) ?>" class="b-search">
+                    <input name="search" class="b-search__input" type="search"
+                           placeholder="<?php _e('Введите название', 'theme-sp') ?>..."
+                           value="<?= get_query_var('search') ?>"
+                    >
+                    <button class="b-search__button" type="submit">
+                        <img src="<?= $dir ?>img/svg/icon-search.svg" inline-svg alt="">
+                    </button>
+                </form>
+            </div>
         </div>
       </div>
+
         <div class="block-wrapper" data-reveal-container>
             <div class="tabs-box__item mx__tab">
                 <div class="tabs-box">
@@ -64,16 +78,154 @@ get_header();
 
   <main class="main main--sub">
     <section class="item-container">
+        <div class="item-container__wrapper block-wrapper">
+    <?php
+    if ($search) { ?>
+        <h3><?php _e( 'Поиск по запросу: ', 'theme-sp' ); ?> &laquo;<?php echo $search; ?>&raquo;</h3>
+        <div class="item-container__set" data-reveal-container>
 
-        <?php
-//        foreach($term_childs as $child){
-//            $term = get_term_by( 'id', $child, $taxonomy );
-        ?>
+      <?php  function cf_search_join_ajax ($join)
+        {
+            global $wpdb;
 
-<!--       --><?php //}  ?>
+            $join .= ' LEFT JOIN ' . $wpdb->postmeta . ' ON ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id ';
+
+            return $join;
+        }
+
+        add_filter('posts_join', 'cf_search_join_ajax');
+
+        function cf_search_where_ajax ($where)
+        {
+            global $pagenow, $wpdb;
+
+            $where = preg_replace(
+                    "/\(\s*" . $wpdb->posts . ".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+                    "(" . $wpdb->posts . ".post_title LIKE $1) OR (" . $wpdb->postmeta . ".meta_value LIKE $1)", $where);
+
+            return $where;
+        }
+
+        add_filter('posts_where', 'cf_search_where_ajax');
+
+        function cf_search_distinct_ajax ($where)
+        {
+            global $wpdb;
+            return "DISTINCT";
+        }
+
+        add_filter('posts_distinct', 'cf_search_distinct_ajax');
+
+        $chTerms = get_terms([
+                'taxonomy' => $taxonomy,
+                'parent' => $term_id,
+                'hide_empty' => false,
+                'pad_counts' => true,
+                'order' => 'ASC',
+                'orderby' => 'term_order',
+        ]);
+        $notResultChild = 0;
+
+        if ($chTerms) { ?>
 
 
-      <div class="item-container__wrapper block-wrapper">
+                <?php foreach ($chTerms as $nCh => $itCh) {
+                    $hasPosts = new WP_Query(array (
+                            'tax_query'      => array (
+                                    array (
+                                            'taxonomy' => $itCh->taxonomy,
+                                            'field'    => 'id',
+                                            'terms'    => $itCh->term_id // id tax
+                                    )
+                            ),
+                            'post_type'      => 't-product',
+                            'post_status'    => 'publish',
+                            'posts_per_page' => -1,
+                            'paged'          => 1,
+                            'orderby'        => 'data',
+                            'order'          => 'DESC',
+                            's'              => $search
+                    ));
+                    if ($hasPosts->have_posts()): $notResultChild++;
+                        while ($hasPosts->have_posts()): $hasPosts->the_post();?>
+                            <div class="item-container__item" data-reveal="img">
+                                <a href="<?php the_permalink() ?>" class="p-item">
+                                    <div class="p-item__content">
+                                        <div class="p-item__bg">
+                                            <div class="ar-image">
+                                                <?php $img = get_field('img'); ?>
+                                                <img data-src="<?= $img['url'] ?: $dir . "img/photos/category-item-image-16.jpeg" ?>" alt="<?= $img['alt'] ?: $img['name'] ?: get_the_title() ?>" class="lazy-img">
+                                                <div class="ar-image__overlay"></div>
+                                            </div>
+                                        </div>
+                                        <div class="p-item__info">
+                                            <?php if ($el = get_field('sku')): ?>
+                                                <div class="p-item__article"><?= $el ?></div>
+                                            <?php endif; ?>
+                                            <div class="p-item__icon">
+                                                <img src="<?= $dir ?>img/svg/icon-c-item.svg" inline-svg alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3 class="p-item__title"><?= get_field('t') ?: get_the_title() ?></h3>
+                                </a>
+                            </div>
+                        <?php endwhile;
+                        wp_reset_postdata(); ?>
+                    <?php endif; ?>
+                <?php } ?>
+
+        <?php }else {
+            $hasPosts = new WP_Query(array (
+                    'tax_query'      => array (
+                            array (
+                                    'taxonomy' => $taxonomy,
+                                    'field'    => 'id',
+                                    'terms'    => $term_id // id tax
+                            )
+                    ),
+                    'post_type'      => 't-product',
+                    'post_status'    => 'publish',
+                    'posts_per_page' => -1,
+                    'paged'          => 1,
+                    'orderby'        => 'data',
+                    'order'          => 'DESC',
+                    's'              => $search
+            ));
+            if($hasPosts->have_posts()) {
+                while ($hasPosts->have_posts()): $hasPosts->the_post();?>
+                    <div class="item-container__item" data-reveal="img">
+                        <a href="<?php the_permalink() ?>" class="p-item">
+                            <div class="p-item__content">
+                                <div class="p-item__bg">
+                                    <div class="ar-image">
+                                        <?php $img = get_field('img'); ?>
+                                        <img data-src="<?= $img['url'] ?: $dir . "img/photos/category-item-image-16.jpeg" ?>" alt="<?= $img['alt'] ?: $img['name'] ?: get_the_title() ?>" class="lazy-img">
+                                        <div class="ar-image__overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="p-item__info">
+                                    <?php if ($el = get_field('sku')): ?>
+                                        <div class="p-item__article"><?= $el ?></div>
+                                    <?php endif; ?>
+                                    <div class="p-item__icon">
+                                        <img src="<?= $dir ?>img/svg/icon-c-item.svg" inline-svg alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="p-item__title"><?= get_field('t') ?: get_the_title() ?></h3>
+                        </a>
+                    </div>
+                <?php endwhile;
+                wp_reset_postdata();
+            }else { ?>
+                <p class="text-nomore" data-reveal="img"><?php _e('за вашим запросом &laquo;'.$search. '&raquo;   в текущей категории совпадений не обнаружено...', 'theme-sp'); ?></p>
+          <?php  }
+
+        }?>
+        </div>
+   <?php }else{ ?>
+
         <?php
         $current_page = 1;
         if (get_query_var('paged')) $current_page = get_query_var('paged');
@@ -150,6 +302,7 @@ get_header();
           </div>
         </div>
       </div>
+    <?php } ?>
     </section>
 
     <?php require_once get_template_directory() . '/template/subscribe.php' ?>

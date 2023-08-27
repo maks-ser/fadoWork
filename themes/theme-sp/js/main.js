@@ -1277,7 +1277,7 @@ let aboutInfoSlider = new Swiper('.about-info-slider', {
   on : {
     slideChange : function () {
       aboutYearSlider.slideToLoop(aboutInfoSlider.realIndex);
-      stopBtn.parentElement.classList.add('fixed')
+
       //
       // release on edge
       // if( this.activeIndex === 0 || this.activeIndex == this.slides.length - 1 ) {
@@ -1379,7 +1379,6 @@ function sliderFix() {
             setTimeout(() => {
               aboutInfoSlider.params.mousewheel.releaseOnEdges = true;
               aboutInfoSlider.disable();
-              stopBtn.parentElement.classList.remove('fixed')
 
               window.scrollTo(0, sliderBottom);
             }, 1000);
@@ -1394,7 +1393,7 @@ function sliderFix() {
             setTimeout(() => {
               aboutInfoSlider.params.mousewheel.releaseOnEdges = true;
               aboutInfoSlider.disable();
-              stopBtn.parentElement.classList.remove('fixed')
+
               window.scrollTo(0, sliderTop);
             }, 1000);
           }
@@ -1402,7 +1401,7 @@ function sliderFix() {
           else if (aboutInfoSlider.activeIndex == aboutInfoSlider.slides.length - 1) {
             aboutInfoSlider.params.mousewheel.releaseOnEdges = false;
             aboutInfoSlider.enable();
-            stopBtn.parentElement.classList.remove('fixed')
+            // stopBtn.parentElement.classList.remove('fixed')
           }
         })
       }
@@ -1935,7 +1934,6 @@ if(stopBtn) {
     const mxCont = document.querySelector('.mx-relative')
     mxCont.style.maxHeight = 90 + 'vh'
     mxCont.style.overflow = 'hidden'
-    stopBtn.parentElement.classList.remove('fixed')
   })
 }
 

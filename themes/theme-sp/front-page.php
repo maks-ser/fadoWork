@@ -344,17 +344,10 @@ if ($el) { ?>
     <div class="hero__color-slider">
       <div class="hero-color-slider swiper">
         <div class="swiper-wrapper">
-
           <?php foreach ($el as $it) { ?>
-            <?php if ($it['check']): ?>
-              <div class="swiper-slide">
-                <div class="hero-bg-slide hero-bg-slide--black"></div>
-              </div>
-            <?php else: ?>
               <div class="swiper-slide">
                 <div class="hero-bg-slide hero-bg-slide--dark"></div>
               </div>
-            <?php endif; ?>
           <?php } ?>
         </div>
       </div>
