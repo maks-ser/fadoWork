@@ -84,7 +84,8 @@ get_header();
         <h3><?php _e( 'Поиск по запросу: ', 'theme-sp' ); ?> &laquo;<?php echo $search; ?>&raquo;</h3>
         <div class="item-container__set" data-reveal-container>
 
-      <?php  function cf_search_join_ajax ($join)
+      <?php
+      function cf_search_join_ajax ($join)
         {
             global $wpdb;
 

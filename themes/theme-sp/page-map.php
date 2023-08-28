@@ -45,7 +45,11 @@ get_header();
               <?php } ?>
 
             </div>
+<?php
+$company_all = [];
+$company_unique = [];
 
+?>
             <div class="map-container__select">
               <div class="map-container__select-name" data-reveal="img"><?= get_field('t3') ?: 'Выберите город' ?></div>
               <?php
@@ -55,12 +59,24 @@ get_header();
                     <div class="select__options-container">
                       <div class="select__options-wrapper">
                         <?php foreach ($areas as $nArea => $area) { ?>
+
                           <?php $cities = $area['cities'];
                           if ($cities) { ?>
 
                             <?php foreach ($cities as $nCity => $city) { ?>
                               <div class="select__option" data-city="area<?= $nArea ?>city<?= $nCity ?>" data-toggle-city="area<?= $nArea ?>">
                                 <span class="select__name"><?= $city['city'] ?></span>
+                                      <?php
+                                      $list_items = $city['list'];
+                                      if($list_items) {
+                                          foreach ($list_items as $mitem => $mvalue) {
+                                              $company_all[$mvalue['company']][] = ['city' => $city['city'], 'area' => $area['area'], 'address' => $area['address'] ];
+                                              if(!in_array($mvalue['company'], $company_unique )) {
+                                                  $company_unique[] = $mvalue['company'];
+                                              }
+                                          }
+                                      }
+                                      ?>
                               </div>
                             <?php } ?>
 
@@ -76,7 +92,34 @@ get_header();
               <?php } ?>
             </div>
 
+
+<!--              Select company-->
+              <div class="map-container__select m-company">
+                  <div class="map-container__select-name" data-reveal="img"> <?php echo _e('Выберите компанию','theme-sp' ) ?> </div>
+                  <?php
+                  if ($areas) { ?>
+                      <div class="select address-select" data-reveal="img">
+                          <div class="select__select-box">
+                              <div class="select__options-container">
+                                  <div class="select__options-wrapper">
+                                      <?php
+                                      foreach($company_unique as $company) { ?>
+                                          <div class="select__option" >
+                                              <span class="select__name"><?php echo _e($company, 'theme-sp') ?></span>
+                                          </div>
+                                    <?php  }   ?>
+                                  </div>
+                              </div>
+                              <div class="select__selected">
+                                  <span class="select__name"><?php echo _e('Выберите компанию', 'theme-sp') ?></span>
+                              </div>
+                          </div>
+                      </div>
+                  <?php } ?>
+              </div>
+
           </div>
+
 
           <div class="map-container__map" data-reveal="img">
             <div class="pc-map">
@@ -89,22 +132,16 @@ get_header();
                 $id        = 1;
                 $locations = [];
                 ?>
-                <?php foreach ($areas
-
-                as $nArea => $area) { ?>
+                <?php foreach ($areas as $nArea => $area) { ?>
                 <?php $cities = $area['cities'];
-              if ($cities) { ?>
-                <?php foreach ($cities
-
-                as $nCity => $city) { ?>
+                  if ($cities) { ?>
+                    <?php foreach ($cities  as $nCity => $city) { ?>
                 <?php $points = $city['list'];
-              if ($points) { ?>
-                <?php foreach ($points
-
-                as $point) {
-                $lat         = str_replace(',', '.', $point['map']['lat'] ?: '50.430023993154');
-                $lng         = str_replace(',', '.', $point['map']['lng'] ?: '30.661536299999998');
-                $locations[] = [$id, $lat, $lng];
+              if ($points) {
+                  foreach ($points as $point) {
+                    $lat         = str_replace(',', '.', $point['map']['lat'] ?: '50.430023993154');
+                    $lng         = str_replace(',', '.', $point['map']['lng'] ?: '30.661536299999998');
+                    $locations[] = [$id, $lat, $lng];
                 ?>
                 <div class="map-info" data-mark="<?= $id++ ?>" data-lat="<?= $lat ?>" data-lng="<?= $lng ?>">
                   <div class="map-info__cross" data-mark-close>
@@ -133,8 +170,10 @@ get_header();
               <?php } ?>
                 <script>
                   var locations = [<?php foreach ($locations as $it) { ?>
+
                     [<?= $it[0] ?>, <?= $it[1] ?>, <?= $it[2] ?>],
                     <?php } ?>];
+
                 </script>
               <?php } ?>
 
@@ -155,6 +194,7 @@ get_header();
               if ($cities) { ?>
                 <div data-cont-area="area<?= $nArea ?>" class="js-area _choose">
                   <?php foreach ($cities as $nCity => $city) { ?>
+                          <h4>data-cont-city="area<?= $nArea ?>city<?= $nCity ?></h4>
                     <div class="map-container__city _choose js-city" data-reveal-container data-cont-city="area<?= $nArea ?>city<?= $nCity ?>">
                       <div class="map-city">
                         <h3 class="map-city__title" data-reveal="txt"><?= $city['city'] ?></h3>
@@ -229,9 +269,11 @@ get_header();
       $("[data-toggle-area]").click(function (e) {
         e.preventDefault();
         let _this = $(this);
+          console.log('_this ', _this)
         let _thisArea = _this.data('area');
+        console.log('_thisArea ', _thisArea)
         let _citysToggle = $('[data-toggle-city="'+_thisArea+'"]');
-
+          console.log('_citysToggle ', _citysToggle)
         _citysToggle.show(0);
         $('[data-toggle-city]').not(_citysToggle).hide(0);
       });

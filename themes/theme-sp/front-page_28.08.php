@@ -339,18 +339,14 @@ get_header(); ?>
 
 <?php $el = get_field('top');
 if ($el) { ?>
-
-    <section class="hero">
-    <!--           style="background-color: --><?php //echo get_field('bgcol') ?><!--"-->
-
+  <section class="hero" style="background-color: <?php echo get_field('bgcol') ?>">
 
     <div class="hero__color-slider">
       <div class="hero-color-slider swiper">
         <div class="swiper-wrapper">
-
           <?php foreach ($el as $it) { ?>
               <div class="swiper-slide">
-                <div class="hero-bg-slide" style="background-color: <?= $it['bgcol'] ?> !important;"></div>
+                <div class="hero-bg-slide hero-bg-slide--dark"></div>
               </div>
           <?php } ?>
         </div>
@@ -396,8 +392,8 @@ if ($el) { ?>
                   <div class="hero-slide__info" data-reveal-after-preloader="txt">
                     <div class="hero-slide__description description--o400"><?= $it['d'] ?></div>
                     <div class="hero-slide__button">
-                      <a href="<?= $it['link'] ?>" class="button ">
-                        <span class="button__name"><?= $it['btntxt'] ?></span>   
+                      <a href="<?= get_permalink($allCat) ?>" class="button ">
+                        <span class="button__name"><?php _e('Каталог', 'theme-sp') ?></span>
                         <span class="button__icon">
                           <img src="<?= $dir ?>img/svg/icon-button-white.svg" inline-svg alt="">
                         </span>
@@ -405,7 +401,7 @@ if ($el) { ?>
                     </div>
                   </div>
                   <picture class="hero-slide__image" >
-                      <img src="<?= $it['foto_product'] ?>" alt="">
+                      <img src="https://stage.fadocompany.com/wp-content/uploads/2023/08/1.png" alt="">
                   </picture>
                 </div>
               </div>
@@ -415,7 +411,7 @@ if ($el) { ?>
         </div>
       </div>
 
-    </div> 
+    </div>
   </section>
 
 
