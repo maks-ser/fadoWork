@@ -396,7 +396,13 @@ if ($el) { ?>
                   <div class="hero-slide__info" data-reveal-after-preloader="txt">
                     <div class="hero-slide__description description--o400"><?= $it['d'] ?></div>
                     <div class="hero-slide__button">
-                      <a href="<?= $it['link'] ?>" class="button ">
+                        <?php
+                        $m_link =  get_page_link( 6951 );
+                        if($it['link']) {
+                            $m_link = $it['link'];
+                        } ?>
+                        <a href="<?php echo $m_link ?>" class="button ">
+
                         <span class="button__name"><?= $it['btntxt'] ?></span>   
                         <span class="button__icon">
                           <img src="<?= $dir ?>img/svg/icon-button-white.svg" inline-svg alt="">
@@ -430,9 +436,6 @@ if ($el) { ?>
     if ($terms):
       foreach ($terms as $it) {
         $itId = get_term($it->term_id);
-//          echo '<h3><pre>';
-//          var_dump($itId);
-//          echo '</h3></pre>';
         if (!$itId) continue;
         if (in_array($itId->term_id, $ids, true)) continue;
         else $ids[ $itId->term_id ] = get_term($itId);

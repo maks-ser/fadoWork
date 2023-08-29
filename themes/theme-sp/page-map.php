@@ -110,7 +110,7 @@ $company_unique = [];
                               <div class="select__options-container">
                                   <div class="select__options-wrapper">
                                       <?php
-                                      foreach($company_unique as $company) { ?>
+                                      foreach($company_all as $company => $list) { ?>
                                           <div class="select__option" >
                                               <span class="select__name"><?php echo _e($company, 'theme-sp') ?></span>
                                           </div>
@@ -191,11 +191,11 @@ $company_unique = [];
 
         <div class="map-container__city-box">
           <h2 class="map-container__city-title" data-reveal="txt"><?= get_field('t1') ?: 'Торговые точки' ?></h2>
-<pre>
-    <h5>
-        <?php var_dump($company_all); ?>
-    </h5>
-</pre>
+<!--<pre>-->
+<!--    <h5>-->
+<!--        --><?php //var_dump($company_all); ?>
+<!--    </h5>-->
+<!--</pre>-->
 
           <?php
           if ($areas) {

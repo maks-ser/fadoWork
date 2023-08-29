@@ -8,6 +8,51 @@ Version: 3.1.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 */
+.header__lang {
+    position: relative;
+    z-index: 100;
+}
+.trp_language_switcher_shortcode {
+    background: #1E1E1E;
+    box-shadow: 0 0 8px rgb(0 0 0 / 25%);
+    border-radius: 0 0 8px 8px;
+}
+.navbar__navlist > li::first-letter {
+    text-transform: capitalize;
+}
+.header__lang .trp-language-switcher {
+    width: auto;
+    height: auto;
+}
+.header__lang .trp-language-switcher a {
+    color: #BDBDBD;
+}
+.header__lang .trp-language-switcher > div {
+    padding: 3px;
+    background:#000;
+    background-image: none;
+    border: none;
+    height: auto;
+}
+.header__lang .trp-language-switcher:hover .trp-ls-shortcode-language,
+.header__lang .trp-ls-shortcode-current-language {
+    width: auto !important;
+    padding: 3px;
+}
+.trp-language-switcher > div > a:hover {
+    background-color: #4F4F4F;
+}
+.header__lang .trp-language-switcher > div {
+    background-image: none;
+}
+.menu-active .lang-select {
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+.lang-select > li {
+    margin: 5px 15px;
+}
 .hero {
     background:#343434;
     max-height: 100vh;
@@ -318,7 +363,13 @@ Contacts page
 @media (max-width: 768px) {
 
     .mx-slider .hero__list-item {
-        margin: 10px;
+        margin: 3px;
+        font-size: 13px;
+    }
+    .mx-slider .hero__list-item.active,
+    .hero__list.black .hero__list-item.active,
+    .hero__list.gray .hero__list-item.active {
+        font-size: 20px;
     }
     .menu__search.show {
         left: 70px;
@@ -334,9 +385,22 @@ Contacts page
         margin-left: auto;
         margin-right: auto;
     }
-}
-@media (max-width: 414px) {
 
+}
+/*@media (min-width: 768px) {*/
+/*    .header .menu__lang {*/
+/*        display: block;*/
+/*    }*/
+/*}*/
+@media (max-width: 414px) {
+    /*.mx-slider .hero__list {*/
+    /*    grid-row: 3;*/
+    /*    grid-column: 1/5;*/
+    /*    flex-direction: row;*/
+    /*    align-items: center;*/
+    /*    justify-content: center;*/
+    /*    margin-bottom: -15px;*/
+    /*}*/
     .mx__tab .tabs-box>* {
         width: 100%;
         max-width: 100%;

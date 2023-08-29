@@ -333,43 +333,46 @@ function langSelectActive() {
     const optionsList = select.querySelectorAll('.lang-select__option');
     //
     let tempOption = null;
+    if(selected) {
+      selected.addEventListener('click', () => {
+        if (optionsContainer.clientHeight) {
+          optionsContainer.style.height = 0;
+        }
+        else {
+          optionsContainer.style.height = optionsWrapper.clientHeight + 'px';
+        }
+        select.classList.toggle('active');
+      });
 
-    selected.addEventListener('click', () => {
-      if (optionsContainer.clientHeight) {
-        optionsContainer.style.height = 0;
-      }
-      else {
-        optionsContainer.style.height = optionsWrapper.clientHeight + 'px';
-      }
-      select.classList.toggle('active');
-    });
+      optionsList.forEach(option => {
+        option.addEventListener('click', () => {
+          //
+          tempOption = selected.innerHTML;
+          selected.innerHTML = option.querySelector('.lang-select__item').outerHTML;
+          option.querySelector('.lang-select__item').outerHTML = tempOption;
+          //
+          optionsContainer.style.height = 0;
+          select.classList.remove('active');
+        })
+      })
 
-    optionsList.forEach(option => {
-      option.addEventListener('click', () => {
-        //
-        tempOption = selected.innerHTML;
-        selected.innerHTML = option.querySelector('.lang-select__item').outerHTML;
-        option.querySelector('.lang-select__item').outerHTML = tempOption;
-        //
+      // close select if clicked outside of it
+      window.addEventListener('click', (e) => {
+        if (e.target.closest('.lang-select')) return;
+
         optionsContainer.style.height = 0;
         select.classList.remove('active');
       })
-    })
 
-    // close select if clicked outside of it
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('.lang-select')) return;
-
-      optionsContainer.style.height = 0;
-      select.classList.remove('active');
-    })
+    }
   })
 }
 
-// <====================================================== SELECT
+// <====================================================== SELECT for page-map
 const selectTraining = document.querySelector('.training-select');
 const selectRegion = document.querySelector('.region-select');
 const selectCity = document.querySelector('.city-select');
+const selectAddress = document.querySelector('.address-select');
 
 if (selectTraining) {
   selectActive(selectTraining);
@@ -379,6 +382,9 @@ if (selectRegion) {
 }
 if (selectCity) {
   selectActive(selectCity);
+}
+if(selectAddress) {
+  selectActive(selectAddress);
 }
 
 function selectActive(select) {
@@ -975,6 +981,9 @@ function mapInfoActive() {
 
 // <====================================================== HERO SLIDER
 let heroColorSlider = new Swiper('.hero-color-slider', {
+  autoplay: {
+    delay: 5000,
+  },
   direction     : 'horizontal',
   slidesPerView : 1,
   spaceBetween  : 0,
@@ -988,6 +997,9 @@ let heroColorSlider = new Swiper('.hero-color-slider', {
 })
 
 let heroSlider = new Swiper('.hero-slider', {
+  autoplay: {
+    delay: 5000,
+  },
   direction     : 'horizontal',
   slidesPerView : 1,
   spaceBetween  : 0,

@@ -114,44 +114,9 @@ $dir = get_bloginfo("template_directory") . "/";
           </ul>
         </div>
 
-         <?php
-//        $languages = pll_the_languages([
-//          'raw'           => 1,
-//          'hide_if_empty' => 1,
-//        ]);
-         $languages = [];
-        if ($languages):
-          ?>
-          <div class="sub-header__lang">
-            <div class="lang-select">
-              <div class="lang-select__select-box">
-
-                <div class="lang-select__options-container">
-                  <div class="lang-select__options-wrapper">
-                    <?php foreach ($languages as $lang) {
-                      if (!$lang['current_lang']):?>
-                        <a class="lang-select__option" href="<?= $lang['url'] ?>">
-                          <div class="lang-select__item">
-                            <span class="lang-select__item-name"><?= strtoupper($lang['slug']) ?></span>
-                          </div>
-                        </a>
-                      <?php endif;
-                    } ?>
-                  </div>
-                </div>
-                <?php foreach ($languages as $lang) {
-                  if ($lang['current_lang']): ?>
-                    <div class="lang-select__selected">
-                      <div class="lang-select__item">
-                        <span class="lang-select__item-name"><?= strtoupper($lang['slug']) ?></span>
-                      </div>
-                    </div>
-                  <?php endif;
-                } ?>
-              </div>
-            </div>
-          </div>
-        <?php endif; ?>  
+          <div class="header__lang">
+              <?php echo do_shortcode('[language-switcher]') ?>
+         </div>
       </div>
     </div>
 
@@ -359,44 +324,26 @@ $dir = get_bloginfo("template_directory") . "/";
         </div>
 
         <div class="menu__dropdown-container">
-          <?php
-//          $languages = pll_the_languages([
-//            'raw'           => 1,
-//            'hide_if_empty' => 1,
-//          ]);
-          $languages = [];
-          if ($languages):
+            <?php
+            wp_nav_menu( [
+                    'menu'            => 'lang',
+                    'container'       => '',
+                    'container_class' => '',
+                    'container_id'    => '',
+                    'menu_class'      => 'lang-select',
+                    'menu_id'         => '',
+                    'echo'            => true,
+                    'fallback_cb'     => 'wp_page_menu',
+                    'before'          => '',
+                    'after'           => '',
+                    'link_before'     => '',
+                    'link_after'      => '',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'depth'           => 0,
+                    'walker'          => '',
+            ] );
             ?>
-            <div class="menu__lang">
-              <div class="lang-select">
-                <div class="lang-select__select-box">
 
-                  <div class="lang-select__options-container">
-                    <div class="lang-select__options-wrapper">
-                      <?php foreach ($languages as $lang) {
-                        if (!$lang['current_lang']):?>
-                          <a class="lang-select__option" href="<?= $lang['url'] ?>">
-                            <div class="lang-select__item">
-                              <span class="lang-select__item-name"><?= strtoupper($lang['slug']) ?></span>
-                            </div>
-                          </a>
-                        <?php endif;
-                      } ?>
-                    </div>
-                  </div>
-                  <?php foreach ($languages as $lang) {
-                    if ($lang['current_lang']): ?>
-                      <div class="lang-select__selected">
-                        <div class="lang-select__item">
-                          <span class="lang-select__item-name"><?= strtoupper($lang['slug']) ?></span>
-                        </div>
-                      </div>
-                    <?php endif;
-                  } ?>
-                </div>
-              </div>
-            </div>
-          <?php endif; ?>
 
           <?php $el = get_field('h_list1', 'options');
           if ($el) { ?>

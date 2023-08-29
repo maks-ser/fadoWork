@@ -9,7 +9,7 @@ $id               = get_the_ID();
 $post_categories  = get_post_primary_category($id, 'category');
 $primary_category = $post_categories['primary_category'];
 $mainCatId        = $primary_category->term_id;
-$ancestors        = $mainCatId ?: get_term(1);
+$ancestors        = $mainCatId ?: get_term(1)->ID;
 get_header();
 ?>
 
@@ -192,7 +192,7 @@ get_header();
             wp_reset_postdata(); ?>
 
             <div class="news-container__item news-container__item_all" data-reveal="img">
-              <a href="<?= get_category_link(get_term(1)) ?>" class="all-item">
+              <a href="<?= get_category_link(get_term(1)->ID) ?>" class="all-item">
                 <div class="all-item__info">
                   <h3 class="all-item__title h4-title h4-title--bold h4-title--white"><?php _e('Все новости','theme-sp') ?></h3>
                   <div class="all-item__icon">
