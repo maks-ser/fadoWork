@@ -69,8 +69,15 @@ $company_unique = [];
                                       <?php
                                       $list_items = $city['list'];
                                       if($list_items) {
+
                                           foreach ($list_items as $mitem => $mvalue) {
-                                              $company_all[$mvalue['company']][] = ['city' => $city['city'], 'area' => $area['area'], 'address' => $area['address'] ];
+                                              $company_all[$mvalue['company']][] = [
+                                                      'cityName' => $city['city'],
+                                                      'cityInd' => $nCity,
+                                                      'areaName' => $area['area'],
+                                                      'areaInd' => $nArea,
+                                                      'address' => $mvalue['address']
+                                              ];
                                               if(!in_array($mvalue['company'], $company_unique )) {
                                                   $company_unique[] = $mvalue['company'];
                                               }
@@ -184,7 +191,11 @@ $company_unique = [];
 
         <div class="map-container__city-box">
           <h2 class="map-container__city-title" data-reveal="txt"><?= get_field('t1') ?: 'Торговые точки' ?></h2>
-
+<pre>
+    <h5>
+        <?php var_dump($company_all); ?>
+    </h5>
+</pre>
 
           <?php
           if ($areas) {
@@ -194,7 +205,7 @@ $company_unique = [];
               if ($cities) { ?>
                 <div data-cont-area="area<?= $nArea ?>" class="js-area _choose">
                   <?php foreach ($cities as $nCity => $city) { ?>
-                          <h4>data-cont-city="area<?= $nArea ?>city<?= $nCity ?></h4>
+                          <h4>data-cont-city=area: <?= $nArea ?> city: <?= $nCity ?></h4>
                     <div class="map-container__city _choose js-city" data-reveal-container data-cont-city="area<?= $nArea ?>city<?= $nCity ?>">
                       <div class="map-city">
                         <h3 class="map-city__title" data-reveal="txt"><?= $city['city'] ?></h3>
