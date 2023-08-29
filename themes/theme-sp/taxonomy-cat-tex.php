@@ -203,7 +203,7 @@ get_header();
           wp_reset_postdata(); ?>
 
           <div class="news-container__item news-container__item_all" data-reveal="img">
-            <a href="<?= get_category_link(pll_get_term(1)) ?>" class="all-item">
+            <a href="<?= get_category_link(get_term(1)) ?>" class="all-item">
               <div class="all-item__info">
                 <h3 class="all-item__title h4-title h4-title--bold h4-title--white"><?php _e('Все новости','theme-sp') ?></h3>
                 <div class="all-item__icon">
@@ -214,7 +214,7 @@ get_header();
           </div>
         </div>
         <div class="news-container__button" data-reveal="img">
-          <a href="<?= get_category_link(pll_get_term(1)) ?>" class="button">
+          <a href="<?= get_category_link(get_term(1)) ?>" class="button">
             <span class="button__name"><?php _e('Все статьи','theme-sp') ?></span>
             <span class="button__icon">
               <img src="<?= $dir ?>img/svg/icon-button-white.svg" inline-svg alt="">

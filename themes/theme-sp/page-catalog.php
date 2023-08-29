@@ -18,10 +18,10 @@ $terms = $wpdb->get_results("SELECT term_id FROM $wpdb->term_taxonomy WHERE taxo
 $ids   = [];
 if ($terms):
   foreach ($terms as $it) {
-    $itId = pll_get_term($it->term_id);
+    $itId = get_term($it->term_id);
     if (!$itId) continue;
-    if (in_array($itId, $ids, true)) continue;
-    else $ids[ $itId ] = get_term($itId);
+    if (in_array($itId->term_id, $ids, true)) continue;
+    else $ids[ $itId->term_id ] = get_term($itId);
   }
 endif;
 $terms = $ids;

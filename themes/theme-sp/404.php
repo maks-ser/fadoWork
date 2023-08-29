@@ -10,7 +10,7 @@ get_header();
         <p><?php _e('Упс! Такої сторінки на існує.','theme-sp') ?></p>
       </div>
       <div class="head-404__button" data-reveal="img">
-        <a href="<?= pll_home_url() ?>" class="button button--black">
+        <a href="<?= home_url() ?>" class="button button--black">
           <span class="button__name"><?php _e('На головну','theme-sp') ?></span>
           <span class="button__icon">
             <img src="<?= $dir ?>img/svg/icon-button-orange.svg" inline-svg alt="">

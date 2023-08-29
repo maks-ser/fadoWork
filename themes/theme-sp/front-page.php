@@ -5,7 +5,7 @@ Template Name: Главная
 
 $h1     = get_field('t') ?: get_the_title();
 $dir    = get_bloginfo("template_directory") . "/";
-$allCat = get_field('cat_product_page', 'options') ?: pll_get_post(189);
+$allCat = get_field('cat_product_page', 'options') ?: get_post(189);
 
 get_header(); ?>
   <!-- preloader -->
@@ -429,10 +429,13 @@ if ($el) { ?>
     $ids   = [];
     if ($terms):
       foreach ($terms as $it) {
-        $itId = pll_get_term($it->term_id);
+        $itId = get_term($it->term_id);
+//          echo '<h3><pre>';
+//          var_dump($itId);
+//          echo '</h3></pre>';
         if (!$itId) continue;
-        if (in_array($itId, $ids, true)) continue;
-        else $ids[ $itId ] = get_term($itId);
+        if (in_array($itId->term_id, $ids, true)) continue;
+        else $ids[ $itId->term_id ] = get_term($itId);
       }
     endif;
     $terms = $ids;
@@ -557,7 +560,7 @@ if ($el) { ?>
             wp_reset_postdata(); ?>
 
             <div class="news-container__item news-container__item_all" data-reveal="img">
-              <a href="<?= get_category_link(pll_get_term(1)) ?>" class="all-item">
+              <a href="<?= get_category_link(get_term(1)) ?>" class="all-item">
                 <div class="all-item__info">
                   <h3 class="all-item__title h4-title h4-title--bold h4-title--white"><?php _e('Все новости', 'theme-sp') ?></h3>
                   <div class="all-item__icon">
@@ -568,7 +571,7 @@ if ($el) { ?>
             </div>
           </div>
           <div class="news-container__button" data-reveal="img">
-            <a href="<?= get_category_link(pll_get_term(1)) ?>" class="button">
+            <a href="<?= get_category_link(get_term(1)) ?>" class="button">
               <span class="button__name"><?php _e('Все новости', 'theme-sp') ?></span>
               <span class="button__icon">
                 <img src="<?= $dir ?>img/svg/icon-button-white.svg" inline-svg alt="">

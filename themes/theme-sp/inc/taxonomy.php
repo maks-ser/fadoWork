@@ -67,10 +67,10 @@ function _psAcfAddNewType ()
     $term_id     = $_GET['tag_ID'];
     $select_term = $rule['value'];
     if ($rule['operator'] === '==') {
-      $match = ($term_id == pll_get_term($select_term));
+      $match = ($term_id == get_term($select_term));
     }
     else if ($rule['operator'] === '!=') {
-      $match = ($term_id != pll_get_term($select_term));
+      $match = ($term_id != get_term($select_term));
     }
     return $match;
   }

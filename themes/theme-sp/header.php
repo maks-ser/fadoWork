@@ -15,7 +15,7 @@ $dir = get_bloginfo("template_directory") . "/";
     <meta name="robots" content="noindex, follow"/>
   <?php }
   if (is_search()): ?>
-    <link rel="canonical" href="<?= pll_home_url() ?>">
+    <link rel="canonical" href="<?= home_url() ?>">
   <?php else: ?>
     <link rel="canonical" href="<?= get_pagenum_link(1) ?>">
   <?php endif; ?>
@@ -115,10 +115,11 @@ $dir = get_bloginfo("template_directory") . "/";
         </div>
 
          <?php
-        $languages = pll_the_languages([
-          'raw'           => 1,
-          'hide_if_empty' => 1,
-        ]);
+//        $languages = pll_the_languages([
+//          'raw'           => 1,
+//          'hide_if_empty' => 1,
+//        ]);
+         $languages = [];
         if ($languages):
           ?>
           <div class="sub-header__lang">
@@ -157,7 +158,7 @@ $dir = get_bloginfo("template_directory") . "/";
     <nav class="navbar" data-reveal="elem">
       <div class="navbar__wrapper block-wrapper">
         <div class="navbar__logo">
-          <a href="<?= pll_home_url() ?>">
+          <a href="<?= home_url() ?>">
             <?php $img = get_field('h_logo', 'options'); ?>
             <img src="<?= $img['url'] ?: $dir . "img/svg/logo.svg" ?>" alt="<?= $img['alt'] ?: $img['name'] ?: get_the_title() ?>">
           </a>
@@ -193,7 +194,7 @@ $dir = get_bloginfo("template_directory") . "/";
                   </svg>
               </a>
               <div class="menu__search">
-                  <form class="b-search" role="search" method="get" action="<?= pll_home_url() ?>" novalidate>
+                  <form class="b-search" role="search" method="get" action="<?= home_url() ?>" novalidate>
                       <input name="s" type="text" class="b-search__input" required placeholder="<?php _e('Поиск по сайту...', 'theme-sp') ?>" value="">
                       <button type="submit" class="b-search__button">
                           <img src="<?= $dir ?>img/svg/icon-search.svg" inline-svg alt="">
@@ -255,7 +256,7 @@ $dir = get_bloginfo("template_directory") . "/";
       <div class="menu__wrapper block-wrapper">
 
         <div class="menu__search">
-          <form class="b-search" role="search" method="get" action="<?= pll_home_url() ?>" novalidate>
+          <form class="b-search" role="search" method="get" action="<?= home_url() ?>" novalidate>
             <input name="s" type="text" class="b-search__input" required placeholder="<?php _e('Поиск по сайту...', 'theme-sp') ?>" value="">
             <button type="submit" class="b-search__button">
               <img src="<?= $dir ?>img/svg/icon-search.svg" inline-svg alt="">
@@ -359,10 +360,11 @@ $dir = get_bloginfo("template_directory") . "/";
 
         <div class="menu__dropdown-container">
           <?php
-          $languages = pll_the_languages([
-            'raw'           => 1,
-            'hide_if_empty' => 1,
-          ]);
+//          $languages = pll_the_languages([
+//            'raw'           => 1,
+//            'hide_if_empty' => 1,
+//          ]);
+          $languages = [];
           if ($languages):
             ?>
             <div class="menu__lang">

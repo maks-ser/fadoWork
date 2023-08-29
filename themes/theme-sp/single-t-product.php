@@ -9,7 +9,7 @@ $id               = get_the_ID();
 $post_categories  = get_post_primary_category($id, 'cat-product');
 $primary_category = $post_categories['primary_category'];
 $mainCatId        = $primary_category->term_id;
-$catalogId        = get_field('cat_product_page', 'options') ?: pll_get_post(783); // page Catalog
+$catalogId        = get_field('cat_product_page', 'options') ?: get_post(783)->ID; // page Catalog
 get_header();
 ?>
 

@@ -6,7 +6,7 @@ $category = get_queried_object();
 $taxonomy = $category->taxonomy; //'cat-product'
 $term_id  = $category->term_id;
 
-$ancestors = get_field('cat_product_page', 'options') ?: pll_get_post(783); // page Catalog
+$ancestors = get_field('cat_product_page', 'options') ?: get_post(783); // page Catalog
 
 $term      = ($taxonomy . '_' . $term_id);
 $term_name = $category->name;

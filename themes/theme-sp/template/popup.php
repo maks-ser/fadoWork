@@ -78,7 +78,7 @@
         <h2 class="popup__title h3-title"><?php the_field('pp_alert_t', 'options'); ?></h2>
         <div class="popup__description h4-title"><?php the_field('pp_alert_d', 'options'); ?></div>
         <div class="popup__button">
-          <a href="<?= pll_home_url() ?>" class="button button--black">
+          <a href="<?= home_url() ?>" class="button button--black">
             <span class="button__name"><?php _e('На главную', 'theme-sp') ?></span>
             <span class="button__icon">
               <img src="<?= $dir ?>img/svg/icon-button-orange.svg" inline-svg alt="">

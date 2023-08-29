@@ -6,7 +6,7 @@ Template Post Type: post
 $dir       = get_bloginfo("template_directory") . "/";
 $h1        = get_field('t') ?: get_the_title();
 $id        = get_the_ID();
-$ancestors = get_field('cat_pCareer', 'options') ?: pll_get_post(189); // page Career 189
+$ancestors = get_field('cat_pCareer', 'options') ?: get_post(189); // page Career 189
 get_header();
 ?>
 

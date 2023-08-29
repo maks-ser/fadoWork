@@ -32,7 +32,7 @@ function breadcrumb ($title, $parent = '')
       <div class="breadcrumbs-container__breadcrumbs" data-reveal="elem">
         <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li class="breadcrumb__item" itemscope itemtype="http://schema.org/ListItem">
-            <a itemprop="item" href="<?php echo pll_home_url(); ?>" class="breadcrumb__link">
+            <a itemprop="item" href="<?php echo home_url(); ?>" class="breadcrumb__link">
               <span class="breadcrumb__name" itemprop="name">
                 <img src="<?php bloginfo("template_directory") ?>/img/svg/icon-breadcrumb-home.svg" inline-svg alt="">
               </span>
@@ -74,7 +74,7 @@ function breadcrumbSub ($title, $parent = '')
   <div class="sub-head__breadcrumbs" data-reveal="elem">
     <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemscope itemtype="http://schema.org/ListItem">
-        <a itemprop="item" href="<?php echo pll_home_url(); ?>" class="breadcrumb__link">
+        <a itemprop="item" href="<?php echo home_url(); ?>" class="breadcrumb__link">
           <span class="breadcrumb__name" itemprop="name">
             <img src="<?php bloginfo("template_directory") ?>/img/svg/icon-breadcrumb-home.svg" inline-svg alt="">
           </span>
@@ -114,7 +114,7 @@ function breadcrumbСhead ($title, $parent = '')
   <div class="c-head__breadcrumbs" data-reveal="elem">
     <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemscope itemtype="http://schema.org/ListItem">
-        <a itemprop="item" href="<?php echo pll_home_url(); ?>" class="breadcrumb__link">
+        <a itemprop="item" href="<?php echo home_url(); ?>" class="breadcrumb__link">
           <span class="breadcrumb__name" itemprop="name">
             <img src="<?php bloginfo("template_directory") ?>/img/svg/icon-breadcrumb-home.svg" inline-svg alt="">
           </span>
@@ -153,7 +153,7 @@ function breadcrumbTerm ($title, $parent)
   <div class="c-head__breadcrumbs" data-reveal="elem">
     <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
       <li class="breadcrumb__item" itemscope itemtype="http://schema.org/ListItem">
-        <a itemprop="item" href="<?php echo pll_home_url(); ?>" class="breadcrumb__link">
+        <a itemprop="item" href="<?php echo home_url(); ?>" class="breadcrumb__link">
           <span class="breadcrumb__name" itemprop="name">
             <img src="<?php bloginfo("template_directory") ?>/img/svg/icon-breadcrumb-home.svg" inline-svg alt="">
           </span>
@@ -188,7 +188,7 @@ function breadcrumbProduct ($title, $parent, $catalog)
       <div class="breadcrumbs-container__breadcrumbs" data-reveal="elem">
         <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li class="breadcrumb__item" itemscope itemtype="http://schema.org/ListItem">
-            <a itemprop="item" href="<?php echo pll_home_url(); ?>" class="breadcrumb__link">
+            <a itemprop="item" href="<?php echo home_url(); ?>" class="breadcrumb__link">
               <span class="breadcrumb__name" itemprop="name">
                 <img src="<?php bloginfo("template_directory") ?>/img/svg/icon-breadcrumb-home.svg" inline-svg alt="">
               </span>
