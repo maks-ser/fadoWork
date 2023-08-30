@@ -64,7 +64,12 @@ $company_unique = [];
                           if ($cities) { ?>
 
                             <?php foreach ($cities as $nCity => $city) { ?>
-                              <div class="select__option" data-city="area<?= $nArea ?>city<?= $nCity ?>" data-toggle-city="area<?= $nArea ?>">
+                              <div class="select__option"
+                                   data-city="area<?= $nArea ?>city<?= $nCity ?>"
+                                   data-toggle-city="area<?= $nArea ?>"
+                                   data-company-city="<?= $nCity ?>"
+                                   data-company-area="<?= $nArea ?>"
+                              >
                                 <span class="select__name"><?= $city['city'] ?></span>
                                       <?php
                                       $list_items = $city['list'];
@@ -111,7 +116,9 @@ $company_unique = [];
                                   <div class="select__options-wrapper">
                                       <?php
                                       foreach($company_all as $company => $list) { ?>
-                                          <div class="select__option" >
+
+                                          <div class="select__option"
+                                               data-name="<?php echo $company ?>" >
                                               <span class="select__name"><?php echo _e($company, 'theme-sp') ?></span>
                                           </div>
                                     <?php  }   ?>
@@ -126,7 +133,6 @@ $company_unique = [];
               </div>
 
           </div>
-
 
           <div class="map-container__map" data-reveal="img">
             <div class="pc-map">
@@ -191,11 +197,6 @@ $company_unique = [];
 
         <div class="map-container__city-box">
           <h2 class="map-container__city-title" data-reveal="txt"><?= get_field('t1') ?: 'Торговые точки' ?></h2>
-<!--<pre>-->
-<!--    <h5>-->
-<!--        --><?php //var_dump($company_all); ?>
-<!--    </h5>-->
-<!--</pre>-->
 
           <?php
           if ($areas) {
@@ -205,7 +206,6 @@ $company_unique = [];
               if ($cities) { ?>
                 <div data-cont-area="area<?= $nArea ?>" class="js-area _choose">
                   <?php foreach ($cities as $nCity => $city) { ?>
-                          <h4>data-cont-city=area: <?= $nArea ?> city: <?= $nCity ?></h4>
                     <div class="map-container__city _choose js-city" data-reveal-container data-cont-city="area<?= $nArea ?>city<?= $nCity ?>">
                       <div class="map-city">
                         <h3 class="map-city__title" data-reveal="txt"><?= $city['city'] ?></h3>
@@ -224,8 +224,14 @@ $company_unique = [];
                             <?php foreach ($points as $point) {
                               $lat = str_replace(',', '.', $point['map']['lat'] ?: '50.430023993154');
                               $lng = str_replace(',', '.', $point['map']['lng'] ?: '30.661536299999998'); ?>
-                              <div class="map-city__row js-point" data-reveal="txt" data-map-info="<?= $id . ',' . $lat . ',' . $lng ?>">
-                                <div class="map-city__col"><?= $point['company'] ?></div>
+                              <div class="map-city__row js-point _choose js-company" data-reveal="txt"
+                                   data-map-info="<?= $id . ',' . $lat . ',' . $lng ?>"
+                                   data-comp-city1="area<?= $nArea ?>city<?= $nCity ?>"
+                                   data-comp-area="<?php echo $nArea ?>"
+                                   data-comp-city="<?php echo $nCity ?>"
+                                   data-comp-name="<?php echo $point['company'] ?>"
+                              >
+                                <div class="map-city__col" ><?= $point['company'] ?></div>
                                 <div class="map-city__col"><?= $point['address'] ?></div>
                                 <div class="map-city__col">
                                   <?php $tels = $point['tels'];
@@ -277,24 +283,70 @@ $company_unique = [];
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const $companyAll = []
+        let $companyElems = $(".map-container__city-box .js-company")
+        let companiesSelect = $('.address-select .select__options-container .select__option')
+
+
+        // console.log($companyElems)
+        for(let ind = 0; ind < $companyElems.length; ind++) {
+            let companyName = $companyElems[ind].dataset.compName
+            let companyArea = $companyElems[ind].dataset.compArea
+            let companyCity = $companyElems[ind].dataset.compCity
+
+            let dataComp = {
+                'name' : companyName,
+                'city': 'city'+companyCity,
+                'area': 'area'+companyArea,
+            }
+            $companyAll.push(dataComp)
+        }
+
+
       $("[data-toggle-area]").click(function (e) {
         e.preventDefault();
+          companiesSelect.each(function( index ) {
+              $(this).show(0)
+          })
         let _this = $(this);
-          console.log('_this ', _this)
+
         let _thisArea = _this.data('area');
-        console.log('_thisArea ', _thisArea)
         let _citysToggle = $('[data-toggle-city="'+_thisArea+'"]');
-          console.log('_citysToggle ', _citysToggle)
         _citysToggle.show(0);
         $('[data-toggle-city]').not(_citysToggle).hide(0);
+        //mx
+          let acc = []
+          function filterByArea($comp, searchArea, accum) {
+              for(let i = 0; i< $comp.length; i++) {
+
+                  if($comp[i].area == searchArea) {
+                      accum.push( $comp[i].name)
+                  }
+              }
+              return accum
+          }
+        filterByArea($companyAll, _thisArea, acc)
+
+          companiesSelect.hide(0).each(function( index ) {
+              let data = $( this ).data('name')
+              if(acc.includes(data)) {
+                  $(this).show(0)
+              }
+          })
       });
 
-      var map = $('#map');
+
+
+
+        var map = $('#map');
       if (map.length) {
 
         let mainInfo = $("[data-main]");
-        let areaAll = $("[data-cont-area]");
+        let areaAll = $("[data-cont-area]"); //mx !!!!!!!!!!!!! где используется
         let cityAll = $("[data-cont-city]");
+        let compAll = $("[data-comp-city1]");
+        let compElems = $(".js-company");
+        let companiesSelect = $('.address-select .select__options-container .select__option')
         let dir_url = "<?= $dir ?>";
         let chooseLocation = [];
         let $Lat = parseFloat(map.data('lat'));
@@ -315,12 +367,12 @@ $company_unique = [];
               });
               initMap(chooseLocation[0][1], chooseLocation[0][2], chooseLocation);
             } else{
-              //initMap(locations[0][1], locations[0][2], locations);
+
               alert("<?php _e('Пошук не дав результату, спропуйте вибрати інше місто','theme-sp') ?>");
             }
           }
           else{
-            //initMap(locations[0][1], locations[0][2], locations);
+
             alert("<?php _e('Пошук не дав результату, спропуйте вибрати інше місто','theme-sp') ?>");
           }
         }
@@ -330,7 +382,7 @@ $company_unique = [];
           let defSelectCity = $('[data-city-def-title]');
           let defText = defSelectCity.data('city-def-title');
           defSelectCity.text(defText);
-          console.log(defText, ' def TEXT');
+          // console.log(defText, ' def TEXT');
 
 
 
@@ -351,20 +403,66 @@ $company_unique = [];
         $("[data-city]").click(function (e) {
           e.preventDefault();
           mainInfo.addClass('_loading');
+            companiesSelect.each(function( index ) {
+                $(this).show(0)
+            })
           let _this = $(this);
           let citySelect = _this.data('city');
+
           let cityChoose = cityAll.filter("[data-cont-city='" + citySelect + "']");
+
+
           cityAll.not(cityChoose).slideUp().removeClass('_choose');
           cityChoose.slideDown().addClass('_choose');
 
+            let companies = []
+            // console.log('cityChoose => ',cityChoose)
+            cityChoose.find('.js-company').each(function( ) {
+                companies.push($(this).data('compName'))
+                return companies
+            })
+            // console.log('companies => ', companies)
+            companiesSelect.hide(0)
+            companiesSelect.each(function( index ) {
+                let data = $( this ).data('name')
+
+                if(companies.includes(data)) {
+                    // console.log('companies -> ',companies)
+                    $(this).show(0)
+                }
+            })
           choosePoints()
 
           setTimeout(function () {
             mainInfo.removeClass('_loading');
           }, 1000);
         });
+//mx
+          $("[data-name]").click(function (e) {
+              e.preventDefault()
+              let _this = $(this);
+              let _compName = _this.data('name');
+              // console.log('_this - ', _this)
+              // console.log('_compName - ', _compName)
+              let chooseC = []
+              let compTarget = compAll.filter("[data-comp-name='" + _compName + "']");
+              compElems.not(compTarget).hide(0)
+              let parents = []
+              compTarget.each(function(){
+                  let _this = $(this)
+                  _this.show(0)
+                  parents.push( _this.parents("[data-cont-city]"))
+                  return parents
+              })
+              cityAll.not(parents).slideUp().removeClass('_choose');
+              for(let i=0; i < parents.length; i++) {
+                  parents[i].slideDown().addClass('_choose');
+              }
 
-        initMap($Lat, $Lng, locations);
+          })
+
+
+          initMap($Lat, $Lng, locations);
 
         function initMap(lat, lng, locations) {
 
