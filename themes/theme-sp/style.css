@@ -53,6 +53,9 @@ License URI: LICENSE
 .lang-select > li {
     margin: 5px 15px;
 }
+.map-container__select-box {
+    z-index: 5;
+}
 .hero {
     background:#343434;
     max-height: 100vh;
@@ -167,6 +170,19 @@ License URI: LICENSE
     left: 20%;
     right: 10%;
     transform: translateY(-50%) scale(1, 1);
+}
+.menu__search  .b-search__input {
+    padding: 11px 56px 12px 45px;
+}
+.menu__search  .b-search__button {
+    left: 12px;
+    right: auto;
+}
+.search-close {
+    display: flex;
+    position: absolute;
+    right: 5px;
+    top: 4px;
 }
 /*================
 STOP BTN

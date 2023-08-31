@@ -1928,16 +1928,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //mx js
 const mxSearch = document.querySelector('.mx__seach-btn')
+const mxSearchCloseBtn = document.getElementById('m-search-close')
 const stopBtn = document.querySelector('.page-template-page-brend-fado .stop__btn-item')
+const searchBlock = document.querySelector('.menu__search')
 mxSearch.addEventListener("click", function(e) {
   e.preventDefault()
-  const searchBlock = document.querySelector('.menu__search')
+
   if(searchBlock.classList.contains('show')) {
     searchBlock.classList.remove('show')
   }else {
     searchBlock.classList.add('show')
   }
 })
+if(mxSearchCloseBtn) {
+    mxSearchCloseBtn.addEventListener("click" , function(event) {
+        // console.log(event.target)
+        event.preventDefault()
+        searchBlock.classList.remove('show')
+    })
+}
 if(stopBtn) {
   stopBtn.addEventListener('click', function(e) {
     e.preventDefault()

@@ -164,6 +164,12 @@ $dir = get_bloginfo("template_directory") . "/";
                       <button type="submit" class="b-search__button">
                           <img src="<?= $dir ?>img/svg/icon-search.svg" inline-svg alt="">
                       </button>
+                      <a href="#" class="search-close" id="m-search-close">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M27.7604 29.1369L11.6438 13.0203L13.7651 10.899L29.8817 27.0155L27.7604 29.1369Z" fill="#787878"/>
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M29.8817 13.0203L13.7651 29.1369L11.6438 27.0156L27.7603 10.899L29.8817 13.0203Z" fill="#787878"/>
+                          </svg>
+                      </a>
                   </form>
               </div>
           </div>

@@ -283,6 +283,9 @@ $company_unique = [];
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const addressDef = $(".address-select .select__selected .select__name").text().trim();
+        const cityDef = $(".city-select .select__selected .select__name").text().trim();
+
         const $companyAll = []
         let $companyElems = $(".map-container__city-box .js-company")
         let companiesSelect = $('.address-select .select__options-container .select__option')
@@ -354,16 +357,39 @@ $company_unique = [];
 
         function choosePoints(){
           let pointsArea = $('.js-area._choose');
+
           let points = pointsArea.find('.js-city._choose');
+
+            // let i = -1;
+            // while ((i = address.indexOf('-', i+1)) != -1) {
+            //     address = address.substr(0, i+1) + address[i+1].toUpperCase() + address.substr(i+2);
+            // }
 
           $('[data-mark-close]').trigger('click');
           if (points.length) {
             chooseLocation = [];
             let choosePoint = points.find('.js-point');
             if(choosePoint.length){
+
               choosePoint.each(function () {
                 let arrItem = $(this).data('map-info')
-                chooseLocation.push(arrItem.split(','));
+                  let address = $(".address-select .select__selected .select__name").text().trim();
+                  address = address.replace(/['"«»,"]/g, '');
+                  console.log('address => ', address)
+                let compName = String($(this).data('comp-name').trim())
+                  compName = compName.replace(/['"«»,"]/g, '');
+                  console.log('compName => ', compName)
+                  debugger
+                      if( address !== addressDef) {
+                          if(compName === address ) {
+                              chooseLocation.push(arrItem.split(','));
+                          }
+                      }else {
+                          chooseLocation.push(arrItem.split(','));
+                      }
+
+                      console.log('compName => ', compName)
+
               });
               initMap(chooseLocation[0][1], chooseLocation[0][2], chooseLocation);
             } else{
@@ -416,7 +442,7 @@ $company_unique = [];
           cityChoose.slideDown().addClass('_choose');
 
             let companies = []
-            // console.log('cityChoose => ',cityChoose)
+
             cityChoose.find('.js-company').each(function( ) {
                 companies.push($(this).data('compName'))
                 return companies
@@ -442,9 +468,7 @@ $company_unique = [];
               e.preventDefault()
               let _this = $(this);
               let _compName = _this.data('name');
-              // console.log('_this - ', _this)
-              // console.log('_compName - ', _compName)
-              let chooseC = []
+
               let compTarget = compAll.filter("[data-comp-name='" + _compName + "']");
               compElems.not(compTarget).hide(0)
               let parents = []
@@ -458,6 +482,12 @@ $company_unique = [];
               for(let i=0; i < parents.length; i++) {
                   parents[i].slideDown().addClass('_choose');
               }
+
+              choosePoints()
+
+              setTimeout(function () {
+                  mainInfo.removeClass('_loading');
+              }, 1000);
 
           })
 
