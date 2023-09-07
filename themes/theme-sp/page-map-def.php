@@ -45,7 +45,11 @@ get_header();
                             <?php } ?>
 
                         </div>
+                        <?php
+                        $company_all = [];
+                        $company_unique = [];
 
+                        ?>
                         <div class="map-container__select">
                             <div class="map-container__select-name" data-reveal="img"><?= get_field('t3') ?: 'Выберите город' ?></div>
                             <?php
@@ -55,18 +59,36 @@ get_header();
                                         <div class="select__options-container">
                                             <div class="select__options-wrapper">
                                                 <?php foreach ($areas as $nArea => $area) { ?>
-                                                    <!--                            <pre>-->
-                                                    <!--                            --><?php
-//                                print_r($area);
-//                                wp_die();
-//                            ?>
-                                                    <!--                            </pre>-->
+
                                                     <?php $cities = $area['cities'];
                                                     if ($cities) { ?>
 
                                                         <?php foreach ($cities as $nCity => $city) { ?>
-                                                            <div class="select__option" data-city="area<?= $nArea ?>city<?= $nCity ?>" data-toggle-city="area<?= $nArea ?>">
+                                                            <div class="select__option"
+                                                                 data-city="area<?= $nArea ?>city<?= $nCity ?>"
+                                                                 data-toggle-city="area<?= $nArea ?>"
+                                                                 data-company-city="<?= $nCity ?>"
+                                                                 data-company-area="<?= $nArea ?>"
+                                                            >
                                                                 <span class="select__name"><?= $city['city'] ?></span>
+                                                                <?php
+                                                                $list_items = $city['list'];
+                                                                if($list_items) {
+
+                                                                    foreach ($list_items as $mitem => $mvalue) {
+                                                                        $company_all[$mvalue['company']][] = [
+                                                                                'cityName' => $city['city'],
+                                                                                'cityInd' => $nCity,
+                                                                                'areaName' => $area['area'],
+                                                                                'areaInd' => $nArea,
+                                                                                'address' => $mvalue['address']
+                                                                        ];
+                                                                        if(!in_array($mvalue['company'], $company_unique )) {
+                                                                            $company_unique[] = $mvalue['company'];
+                                                                        }
+                                                                    }
+                                                                }
+                                                                ?>
                                                             </div>
                                                         <?php } ?>
 
@@ -76,6 +98,34 @@ get_header();
                                         </div>
                                         <div class="select__selected">
                                             <span class="select__name"><?= get_field('t3') ?: 'Выберите город' ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+
+
+                        <!--              Select company-->
+                        <div class="map-container__select m-company">
+                            <div class="map-container__select-name" data-reveal="img"> <?php echo _e('Выберите компанию','theme-sp' ) ?> </div>
+                            <?php
+                            if ($areas) { ?>
+                                <div class="select address-select" data-reveal="img">
+                                    <div class="select__select-box">
+                                        <div class="select__options-container">
+                                            <div class="select__options-wrapper">
+                                                <?php
+                                                foreach($company_all as $company => $list) { ?>
+
+                                                    <div class="select__option"
+                                                         data-name="<?php echo $company ?>" >
+                                                        <span class="select__name"><?php echo _e($company, 'theme-sp') ?></span>
+                                                    </div>
+                                                <?php  }   ?>
+                                            </div>
+                                        </div>
+                                        <div class="select__selected">
+                                            <span class="select__name"><?php echo _e('Выберите компанию', 'theme-sp') ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +150,8 @@ get_header();
                             if ($cities) { ?>
                                 <?php foreach ($cities  as $nCity => $city) { ?>
                                 <?php $points = $city['list'];
-                            if ($points) {  foreach ($points as $point) {
+                            if ($points) {
+                            foreach ($points as $point) {
                                 $lat         = str_replace(',', '.', $point['map']['lat'] ?: '50.430023993154');
                                 $lng         = str_replace(',', '.', $point['map']['lng'] ?: '30.661536299999998');
                                 $locations[] = [$id, $lat, $lng];
@@ -147,7 +198,6 @@ get_header();
                 <div class="map-container__city-box">
                     <h2 class="map-container__city-title" data-reveal="txt"><?= get_field('t1') ?: 'Торговые точки' ?></h2>
 
-
                     <?php
                     if ($areas) {
                         $id = 1; ?>
@@ -174,8 +224,14 @@ get_header();
                                                         <?php foreach ($points as $point) {
                                                             $lat = str_replace(',', '.', $point['map']['lat'] ?: '50.430023993154');
                                                             $lng = str_replace(',', '.', $point['map']['lng'] ?: '30.661536299999998'); ?>
-                                                            <div class="map-city__row js-point" data-reveal="txt" data-map-info="<?= $id . ',' . $lat . ',' . $lng ?>">
-                                                                <div class="map-city__col"><?= $point['company'] ?></div>
+                                                            <div class="map-city__row js-point _choose js-company" data-reveal="txt"
+                                                                 data-map-info="<?= $id . ',' . $lat . ',' . $lng ?>"
+                                                                 data-comp-city1="area<?= $nArea ?>city<?= $nCity ?>"
+                                                                 data-comp-area="<?php echo $nArea ?>"
+                                                                 data-comp-city="<?php echo $nCity ?>"
+                                                                 data-comp-name="<?php echo $point['company'] ?>"
+                                                            >
+                                                                <div class="map-city__col" ><?= $point['company'] ?></div>
                                                                 <div class="map-city__col"><?= $point['address'] ?></div>
                                                                 <div class="map-city__col">
                                                                     <?php $tels = $point['tels'];
@@ -227,22 +283,73 @@ get_header();
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const addressDef = $(".address-select .select__selected .select__name").text().trim();
+            const cityDef = $(".city-select .select__selected .select__name").text().trim();
+
+            const $companyAll = []
+            let $companyElems = $(".map-container__city-box .js-company")
+            let companiesSelect = $('.address-select .select__options-container .select__option')
+
+
+            // console.log($companyElems)
+            for(let ind = 0; ind < $companyElems.length; ind++) {
+                let companyName = $companyElems[ind].dataset.compName
+                let companyArea = $companyElems[ind].dataset.compArea
+                let companyCity = $companyElems[ind].dataset.compCity
+
+                let dataComp = {
+                    'name' : companyName,
+                    'city': 'city'+companyCity,
+                    'area': 'area'+companyArea,
+                }
+                $companyAll.push(dataComp)
+            }
+
+
             $("[data-toggle-area]").click(function (e) {
                 e.preventDefault();
+                companiesSelect.each(function( index ) {
+                    $(this).show(0)
+                })
                 let _this = $(this);
+
                 let _thisArea = _this.data('area');
                 let _citysToggle = $('[data-toggle-city="'+_thisArea+'"]');
-
                 _citysToggle.show(0);
                 $('[data-toggle-city]').not(_citysToggle).hide(0);
+                //mx
+                let acc = []
+                function filterByArea($comp, searchArea, accum) {
+                    for(let i = 0; i< $comp.length; i++) {
+
+                        if($comp[i].area == searchArea) {
+                            accum.push( $comp[i].name)
+                        }
+                    }
+                    return accum
+                }
+                filterByArea($companyAll, _thisArea, acc)
+
+                companiesSelect.hide(0).each(function( index ) {
+                    let data = $( this ).data('name')
+                    if(acc.includes(data)) {
+                        $(this).show(0)
+                    }
+                })
             });
+
+
+
 
             var map = $('#map');
             if (map.length) {
 
                 let mainInfo = $("[data-main]");
-                let areaAll = $("[data-cont-area]");
+                let areaAll = $("[data-cont-area]"); //mx !!!!!!!!!!!!! где используется
                 let cityAll = $("[data-cont-city]");
+                let compAll = $("[data-comp-city1]");
+                let compElems = $(".js-company");
+                let companiesSelect = $('.address-select .select__options-container .select__option')
                 let dir_url = "<?= $dir ?>";
                 let chooseLocation = [];
                 let $Lat = parseFloat(map.data('lat'));
@@ -250,25 +357,48 @@ get_header();
 
                 function choosePoints(){
                     let pointsArea = $('.js-area._choose');
+
                     let points = pointsArea.find('.js-city._choose');
+
+                    // let i = -1;
+                    // while ((i = address.indexOf('-', i+1)) != -1) {
+                    //     address = address.substr(0, i+1) + address[i+1].toUpperCase() + address.substr(i+2);
+                    // }
 
                     $('[data-mark-close]').trigger('click');
                     if (points.length) {
                         chooseLocation = [];
                         let choosePoint = points.find('.js-point');
                         if(choosePoint.length){
+
                             choosePoint.each(function () {
                                 let arrItem = $(this).data('map-info')
-                                chooseLocation.push(arrItem.split(','));
+                                let address = $(".address-select .select__selected .select__name").text().trim();
+                                address = address.replace(/['"«»,"]/g, '');
+                                console.log('address => ', address)
+                                let compName = String($(this).data('comp-name').trim())
+                                compName = compName.replace(/['"«»,"]/g, '');
+                                console.log('compName => ', compName)
+                                debugger
+                                if( address !== addressDef) {
+                                    if(compName === address ) {
+                                        chooseLocation.push(arrItem.split(','));
+                                    }
+                                }else {
+                                    chooseLocation.push(arrItem.split(','));
+                                }
+
+                                console.log('compName => ', compName)
+
                             });
                             initMap(chooseLocation[0][1], chooseLocation[0][2], chooseLocation);
                         } else{
-                            //initMap(locations[0][1], locations[0][2], locations);
+
                             alert("<?php _e('Пошук не дав результату, спропуйте вибрати інше місто','theme-sp') ?>");
                         }
                     }
                     else{
-                        //initMap(locations[0][1], locations[0][2], locations);
+
                         alert("<?php _e('Пошук не дав результату, спропуйте вибрати інше місто','theme-sp') ?>");
                     }
                 }
@@ -278,7 +408,7 @@ get_header();
                     let defSelectCity = $('[data-city-def-title]');
                     let defText = defSelectCity.data('city-def-title');
                     defSelectCity.text(defText);
-                    console.log(defText, ' def TEXT');
+                    // console.log(defText, ' def TEXT');
 
 
 
@@ -299,18 +429,68 @@ get_header();
                 $("[data-city]").click(function (e) {
                     e.preventDefault();
                     mainInfo.addClass('_loading');
+                    companiesSelect.each(function( index ) {
+                        $(this).show(0)
+                    })
                     let _this = $(this);
                     let citySelect = _this.data('city');
+
                     let cityChoose = cityAll.filter("[data-cont-city='" + citySelect + "']");
+
+
                     cityAll.not(cityChoose).slideUp().removeClass('_choose');
                     cityChoose.slideDown().addClass('_choose');
 
+                    let companies = []
+
+                    cityChoose.find('.js-company').each(function( ) {
+                        companies.push($(this).data('compName'))
+                        return companies
+                    })
+                    // console.log('companies => ', companies)
+                    companiesSelect.hide(0)
+                    companiesSelect.each(function( index ) {
+                        let data = $( this ).data('name')
+
+                        if(companies.includes(data)) {
+                            // console.log('companies -> ',companies)
+                            $(this).show(0)
+                        }
+                    })
                     choosePoints()
 
                     setTimeout(function () {
                         mainInfo.removeClass('_loading');
                     }, 1000);
                 });
+//mx
+                $("[data-name]").click(function (e) {
+                    e.preventDefault()
+                    let _this = $(this);
+                    let _compName = _this.data('name');
+
+                    let compTarget = compAll.filter("[data-comp-name='" + _compName + "']");
+                    compElems.not(compTarget).hide(0)
+                    let parents = []
+                    compTarget.each(function(){
+                        let _this = $(this)
+                        _this.show(0)
+                        parents.push( _this.parents("[data-cont-city]"))
+                        return parents
+                    })
+                    cityAll.not(parents).slideUp().removeClass('_choose');
+                    for(let i=0; i < parents.length; i++) {
+                        parents[i].slideDown().addClass('_choose');
+                    }
+
+                    choosePoints()
+
+                    setTimeout(function () {
+                        mainInfo.removeClass('_loading');
+                    }, 1000);
+
+                })
+
 
                 initMap($Lat, $Lng, locations);
 
@@ -439,8 +619,8 @@ get_header();
                     for (var i = 0; i < locations.length; i++) {
 
                         var title = locations[i][0],
-                            lat = locations[i][1],
-                            lng = locations[i][2];
+                                lat = locations[i][1],
+                                lng = locations[i][2];
 
                         var marker = new google.maps.Marker({
                             position  : new google.maps.LatLng(lat, lng),
@@ -545,4 +725,3 @@ get_header();
     </script>
 <?php
 get_footer();
-

@@ -242,11 +242,75 @@ function ajaxurl_data ()
 {
   wp_localize_script('main', 'ajaxurl',
     array (
-      'url' => admin_url('admin-ajax.php'),
+        'url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('ajax-nonce'),
+        'dataId' => esc_html__('', 'theme-sp'),
+        'dataTmp' => esc_html__('', 'theme-sp'),
+        'target_Url' => esc_html__('', 'theme-sp'),
     )
   );
 }
+/*
+ * mg Function for Ajax
+ */
+function mg_catalog_posts() {
+    if(!wp_verify_nonce($_REQUEST['nonce'], 'ajax-nonce')) {
+        die;
+    }
+$dir = $_REQUEST['target_Url'];
+    $term_id_m  = intval($_REQUEST['dataId']);
 
+    $query = new WP_Query(array (
+            'tax_query'      => array (
+                    array (
+                            'taxonomy' => 'cat-product',
+                            'field'    => 'id',
+                            'terms'    => [$term_id_m] // id tax
+                    )
+            ),
+            'post_type'      => 't-product',
+            'post_status'    => 'publish',
+            'paged'          => 1,
+            'orderby'        => 'data',
+            'order'          => 'DESC',
+    ));
+
+    if ($query->have_posts()):?>
+        <div class="item-container__set" data-reveal-container>
+            <?php
+            while ($query->have_posts()): $query->the_post();
+              $countView++; ?>
+              <div class="item-container__item" data-reveal="img">
+                <a href="<?php the_permalink() ?>" class="p-item">
+                  <div class="p-item__content">
+                    <div class="p-item__bg">
+                      <div class="ar-image">
+                        <?php $img = get_field('img'); ?>
+                        <img data-src="<?= $img['url'] ?: $dir . "img/photos/category-item-image-16.jpeg" ?>" alt="<?= $img['alt'] ?: $img['name'] ?: get_the_title() ?>" class="lazy-img">
+                        <div class="ar-image__overlay"></div>
+                      </div>
+                    </div>
+                    <div class="p-item__info">
+                      <?php if ($el = get_field('sku')): ?>
+                        <div class="p-item__article"><?= $el ?></div>
+                      <?php endif; ?>
+                      <div class="p-item__icon">
+                        <img src="<?= $dir ?>img/svg/icon-c-item.svg" inline-svg alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="p-item__title"><?= get_field('t')?: get_the_title() ?></h3>
+                </a>
+              </div>
+            <?php endwhile;
+            wp_reset_postdata(); ?>
+        </div>
+        <?php
+    endif;
+    die;
+}
+add_action('wp_ajax_mg_catalog_posts', 'mg_catalog_posts');
+add_action('wp_ajax_nopriv_mg_catalog_posts', 'mg_catalog_posts');
 /**
  * option for admin email
  */

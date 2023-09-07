@@ -784,6 +784,7 @@ function toggleStorage(btns, targets) {
 
       // 2) then add "show" animation to new active
       setTimeout(() => {
+        if(activeTarget)
         activeTarget.classList.add('show-block');
       }, delayTime);
 
@@ -1958,37 +1959,5 @@ if(stopBtn) {
     mxCont.style.overflow = 'hidden'
   })
 }
-//AJAX
-jQuery(function($) {
-  $("#mg-tabs button").on( "click", function(e) {
-    e.preventDefault()
-    let _this = $(this);
-    let dataId = _this.data("catalog-category-mbutton")
-    let tdir = _this.data("dir")
-
-    $.ajax({
-      type: 'POST',
-      url: ajaxurl.url,
-      data : {
-        action: 'mg_catalog_posts',
-        nonce : ajaxurl.nonce,
-        dataId: dataId,
-        dataTmp: dataId,
-        target_Url: tdir,
-      },
-      beforeSend: function( xhr ) {
-        $("[data-catalog-category-mtarget]").removeClass('show-block').addClass('hide-block')
-      },
-      success: function (data) {
-        $("[data-catalog-category-mtarget]").empty().append(data).removeClass('hide-block').addClass('show-block');
-        // console.log('success data => ', data);
-      },
-      error: function (errorThrow) {
-        console.log('error => ', errorThrow);
-      }
-    })
-
-  });
-});
 
 

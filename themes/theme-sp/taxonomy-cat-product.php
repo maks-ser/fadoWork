@@ -3,6 +3,7 @@ $dir = get_bloginfo("template_directory") . "/";
 
 // data for category
 $category = get_queried_object();
+
 $taxonomy = $category->taxonomy; //'cat-product'
 $term_id  = $category->term_id;
 
@@ -42,6 +43,7 @@ get_header();
         <div class="sub-head__info">
           <?php breadcrumbSub($h1, $ancestors); ?>
           <h1 class="sub-head__title h2-title h2-title--white" data-reveal="txt"><?= $h1 ?></h1>
+
             <div class="c-head__search" data-reveal="txt">
                 <form action="<?= get_pagenum_link(1) ?>" class="b-search">
                     <input name="search" class="b-search__input" type="search"
@@ -56,29 +58,29 @@ get_header();
         </div>
       </div>
 
-        <div class="block-wrapper" data-reveal-container>
-            <div class="tabs-box__item mx__tab">
-                <div class="tabs-box">
-                    <?php if ($term_childs): ?>
-                        <?php foreach ($term_childs as $n => $it) {
-                            $term_item = get_term_by( 'id', $it, $taxonomy ); ?>
-                            <a href="<?php echo get_term_link($term_item->term_id, 'cat-product'); ?>"
-                               class="tabs-box__item tab"
-                               data-reveal="txt">
+      <div class="c-head__tabs-box mx__tab" id="mg-tabs">
+        <div class="tabs-box__item ">
+            <div class="tabs-box">
+                <?php if ($term_childs): ?>
+                    <?php foreach ($term_childs as $n => $it) { ?>
+                        <?php if( 0 !== $it->count) {?>
+                            <?php $term_item = get_term_by( 'id', $it, $taxonomy ); ?>
+                            <button class="tabs-box__item tab" data-catalog-category-mbutton="<?= $term_item->term_id ?>" data-reveal="txt" data-dir="<?php echo $dir; ?>">
                                 <span class="tab__name"><?= $term_item->name ?></span>
-                            </a>
+                            </button>
                         <?php } ?>
-                    <?php endif; ?>
-                </div>
+                    <?php } ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
+
 
   </section>
 
   <main class="main main--sub">
     <section class="item-container">
-        <div class="item-container__wrapper block-wrapper">
+        <div class="item-container__wrapper block-wrapper show-block" data-catalog-category-mtarget="<?php echo $term_id ?>" >
     <?php
     if ($search) { ?>
         <h3><?php _e( 'Поиск по запросу: ', 'theme-sp' ); ?> &laquo;<?php echo $search; ?>&raquo;</h3>

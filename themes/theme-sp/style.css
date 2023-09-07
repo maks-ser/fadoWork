@@ -273,7 +273,11 @@ Contacts page
     position: relative;
     z-index: 10;
 }
-
+.mx__tab {
+    max-width: 1280px;
+    margin: -35px auto 20px;
+    padding: 0 80px;
+}
 @media (max-width: 1300px) {
     .stop__btn {
         top: 10%;
@@ -282,6 +286,9 @@ Contacts page
 @media (max-width: 1280px) {
     .mx-slider .hero__list-item{
         margin-right: 54px;
+    }
+    .mx__tab {
+        padding: 0 30px;
     }
 }
 @media (max-width: 1024px) {
@@ -375,6 +382,9 @@ Contacts page
         margin-left: auto;
         margin-right: 20px;
     }
+    .c-head__tabs-box {
+        display: block;
+    }
 }
 @media (max-width: 768px) {
 
@@ -400,6 +410,9 @@ Contacts page
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .mx__tab {
+        padding: 0 16px;
     }
 
 }

@@ -48,9 +48,6 @@ function sort_nested_arrays ($array, $args = array ('votes' => 'desc'))
 }
 
 $terms  = sort_nested_arrays($terms, array ('term_order' => 'asc'));
-$terms  = array_filter($terms, function($term) {
-    return  0 !== $term->count;
-});
 $search = get_query_var('search');
 ?>
 
@@ -67,27 +64,25 @@ $search = get_query_var('search');
           </button>
         </form>
       </div>
-        <div class="" data-reveal-container>
-            <div class="tabs-box__item ">
-                <div class="tabs-box">
-                    <?php if ($terms): ?>
-                        <?php foreach ($terms as $n => $it) { ?>
 
-                            <a href="<?php echo get_term_link($it->term_id, 'cat-product'); ?>"
-                               class="tabs-box__item tab"
-                               data-reveal="txt">
-                                <span class="tab__name"><?= $it->name ?></span>
-                            </a>
-
-                        <?php } ?>
-                    <?php endif; ?>
-                </div>
-            </div>
+      <div class="c-head__tabs-box">
+        <div class="tabs-box">
+          <button class="tabs-box__item tab active" data-catalog-category-button="all" data-reveal="txt">
+            <span class="tab__name"><?php _e('Все категории', 'theme-sp') ?></span>
+          </button>
+          <?php if ($terms): ?>
+            <?php foreach ($terms as $n => $it) { ?>
+                      <?php  var_dump($it );?>
+              <button class="tabs-box__item tab" data-catalog-category-button="<?= $it->term_id ?>" data-reveal="txt">
+                <span class="tab__name"><?= $it->name ?></span>
+              </button>
+            <?php } ?>
+          <?php endif; ?>
         </div>
-
+      </div>
 
       <div class="c-head__sorting" data-reveal="txt">
-        <div class="sorting ">
+        <div class="sorting category-sorting">
           <div class="sorting__select-box">
             <div class="sorting__options-container">
               <div class="sorting__options-wrapper">
