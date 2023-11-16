@@ -39,7 +39,10 @@ get_header();
                     <div class="swiper-slide">
                       <div class="ar-image ar-image--square">
                         <?php $img = $it['img']; ?>
+
+                          <a href="<?= $img['url'];  ?>" data-fancybox="gallery">
                         <img data-src="<?= $img['url'] ?: $dir . "img/photos/category-item-image-3.jpeg" ?>" alt="<?= $img['alt'] ?: $img['name'] ?: get_the_title() ?>" class="lazy-img">
+                          </a>
                       </div>
                     </div>
                   <?php } ?>

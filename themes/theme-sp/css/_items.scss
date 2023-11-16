@@ -59,9 +59,9 @@
             padding-top: 72%;
 
             img {
-                -webkit-filter: grayscale(100%);
-                -moz-filter: grayscale(100%);
-                filter: grayscale(100%);
+                //-webkit-filter: grayscale(100%);
+                //-moz-filter: grayscale(100%);
+                //filter: grayscale(100%);
                 transition: all 0.5s $easeIn-1;
             }
             &__overlay {
@@ -109,9 +109,9 @@
             .c-item__bg {
                 .ar-image {
                     img {
-                        -webkit-filter: grayscale(0%);
-                        -moz-filter: grayscale(0%);
-                        filter: grayscale(0%);
+                        -webkit-filter: grayscale(100%);
+                        -moz-filter: grayscale(100%);
+                        filter: grayscale(100%);
                         transition: all 0.5s $easeOut-1;
                     }
                     &__overlay {

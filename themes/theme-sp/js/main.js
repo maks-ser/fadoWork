@@ -5,6 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 500);
 
   gsap.registerPlugin(ScrollTrigger);
+
+  //m_admin fancy for single-t-product
+  if(body.classList.contains('single-t-product')) {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      Thumbs : {
+        type: "modern"
+      }
+    });
+  }
+
+  //m_admin accordion
+    $catDesc = document.querySelector('.accordion__desc')
+  console.log('$catDesc => ', $catDesc)
+  if($catDesc) {
+    $catDesc.addEventListener('click', (e) => {
+      $catDesc.classList.toggle('active')
+    })
+  }
+
 })
 
 // <====================================================== NATIVE SMOOTH SCROLLING
@@ -1961,8 +1980,10 @@ if(stopBtn) {
 //AJAX
 jQuery(function($) {
   $("#mg-tabs button").on( "click", function(e) {
+    $("#mg-tabs button").removeClass('active')
     e.preventDefault()
     let _this = $(this);
+    _this.addClass('active')
     let dataId = _this.data("catalog-category-mbutton")
     let tdir = _this.data("dir")
 
@@ -1990,5 +2011,14 @@ jQuery(function($) {
 
   });
 });
-
+//page with map filter reset
+$("#reset-filter").on("click", function(ev) {
+  console.log($(this))
+  $("[data-city]").show(0)
+  $(".address-select [data-name]").show(0)
+  $('[data-toggle-city]').show(0)
+  $(".map-container__city-box .js-company").slideDown().addClass('_choose');
+  $('[data-cont-area]').slideDown().addClass('_choose');
+  $('[data-cont-city]').slideDown().addClass('_choose');
+})
 

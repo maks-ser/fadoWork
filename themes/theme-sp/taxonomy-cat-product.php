@@ -43,7 +43,11 @@ get_header();
         <div class="sub-head__info">
           <?php breadcrumbSub($h1, $ancestors); ?>
           <h1 class="sub-head__title h2-title h2-title--white" data-reveal="txt"><?= $h1 ?></h1>
-
+            <div class="accordion__desc" data-reveal="txt">
+               <?php
+                    _e(term_description(), 'theme-sp' );
+               ?>
+            </div>
             <div class="c-head__search" data-reveal="txt">
                 <form action="<?= get_pagenum_link(1) ?>" class="b-search">
                     <input name="search" class="b-search__input" type="search"

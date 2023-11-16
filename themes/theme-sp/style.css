@@ -278,6 +278,87 @@ Contacts page
     margin: -35px auto 20px;
     padding: 0 80px;
 }
+.wrap__button-reset {
+    position: relative;
+    z-index: -1;
+}
+.product-container__pagination {
+   pointer-events: none;
+}
+.arrow-box__arrow {
+    pointer-events: auto;
+}
+.c-item__bg .ar-image img,
+.p-item__bg .ar-image img {
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+.c-item:not(.c-item--all):hover .c-item__bg .ar-image img,
+.p-item:hover .p-item__bg .ar-image img{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+/******************
+Accordion item style
+*****************/
+.accordion__desc {
+    margin-bottom: 30px;
+    /*height: 45px;*/
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    cursor: pointer;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* количество строк*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.accordion__desc.active {
+    height: auto;
+    display: block;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+}
+
+/*************************************
+Edit images in passport, scheme, tex
+ *************************************/
+.tax-cat-passport .sub-head__image img,
+.tax-cat-scheme .sub-head__image,
+.tax-cat-tex .sub-head__image {
+    filter: grayscale(10%);
+    -webkit-filter: grayscale(10%);
+    -moz-filter: grayscale(10%);
+    -o-filter: grayscale(10%);
+}
+/*.c-item:not(.c-item--all):hover .c-item__title {*/
+/*    color: #fff;*/
+/*}*/
+/*.c-item__title {*/
+/*    color: #ec6a2d;*/
+/*}*/
+/*.p-item:hover .p-item__bg .ar-image__overlay {*/
+/*    background-color: rgba(0,0,0,.15);*/
+/*}*/
+/*.p-item__bg .ar-image__overlay {*/
+/*    background-color: rgba(0,0,0,.1);*/
+/*}*/
+/*.c-item__bg .ar-image__overlay {*/
+/*    background-color: rgba(0,0,0,.15);*/
+/*}*/
+/*.c-item:not(.c-item--all):hover .c-item__bg .ar-image__overlay {*/
+/*    background-color: rgba(0,0,0,.4);*/
+/*}*/
+@media (min-width: 1920px) {
+    .mx__tab {
+        padding-left: 120px;
+    }
+}
+
 @media (max-width: 1300px) {
     .stop__btn {
         top: 10%;

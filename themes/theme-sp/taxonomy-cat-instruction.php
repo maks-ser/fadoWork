@@ -128,7 +128,8 @@ get_header();
                   <div class="video-item__video" data-video-source>
                     <div class="video">
                       <?php if ($youtubeLink = get_field('youtube')):
-                        $youtube = strstr($youtubeLink, '=');
+                        $youtube = strrchr($youtubeLink, '/');
+                        $youtube = substr($youtube,1,);
                         if ($youtube !== false) {
                           $posAmpersand = strpos($youtube, '&');
                           if ($posAmpersand !== false) {
